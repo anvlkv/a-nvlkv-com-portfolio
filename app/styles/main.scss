@@ -5,6 +5,9 @@ $icon-font-path: '../fonts/';
 @import "bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+@import "partials";
+
+// debuggers
 
 $debug: false;
 
@@ -67,153 +70,15 @@ body{
   }
 }
 
+// end debuggers
+
+// semantic styling
 .browserupgrade {
   margin: 0.2em 0;
   background: #ccc;
   color: #000;
   padding: 0.2em 0;
 }
-
-.no-wrap{
-  white-space: nowrap;
-  display: inline;
-}
-
-.led-group-container{
-  h5, h5 + p {
-    display: inline;
-  }
-  &.has-subcaption{
-    h5{
-      display: block;
-      width: 100%;
-      margin-top: 12px;
-      margin-bottom: 4px;
-    }
-  }
-}
-
-.text-list{
-  list-style: none;
-  padding-left: 0;
-  li{
-    position: relative;
-    &::before{
-      position: absolute;
-      left: -$padding-base-horizontal;
-      content: '⋅';
-      letter-spacing: -1em;
-    }
-  }
-}
-
-.has-decorative-content{
-  &::after, &::before{
-    font-size: 2em;
-    line-height: 50%;
-    color: rgba($text-color, .5);
-  }
-}
-
-.item-list{
-  list-style: none;
-  padding-left: 0;
-  @extend div;
-}
-.tag-list{
-  li{
-    display: inline-block;
-    position: relative;
-    &:not(:last-child){
-      margin-right: .3em;
-      &::after{
-        @extend .has-decorative-content;
-        content: ',';
-        position: absolute;
-        height: 100%;
-        width: auto;
-        bottom: 0;
-        right: -.3em;
-      }
-    }
-  }
-}
-
-
-// draft
-.progress-tag{
-  &::before{
-    content: '';
-    display: block;
-    position: absolute;
-    width: 3px;
-    // background-color: red;
-    left: 0;
-    bottom: 0;
-    border-bottom-left-radius: inherit;
-    border-top-left-radius: inherit;
-    height: 100%;
-    background-image: linear-gradient(to top, $brand-info, $brand-info 90%, rgba(white, 0) 100%);
-    background-size: 100% 0%;
-    background-position: bottom;
-    background-repeat: no-repeat; 
-  }
-  @for $i from 1 through 100 {
-    &[data-progress='#{$i}']::before{
-      background-size: 100% #{$i * 1%};
-    }
-  }
-}
-
-// draft
-.object-summary-view{
-  .summary{
-    dl{
-      span{
-        &:not(:last-child){
-          dd::after{
-            content: ';';
-          }
-        }
-        &:last-child{
-          dd::after{
-            content: '.'
-          }
-        }
-      }
-      dt, dd{
-        display: inline;
-      }
-      dt{
-        &::after{
-          content: ':';
-        }
-      }
-      & > dd{
-        &:not(:last-child)::after{
-          content: ';';
-        }
-        &:last-child::after{
-          content: '.'
-        }
-      }
-
-    }
-  }
-}
-
-// draft
-
-.item-description{
-  padding-top: 11px;
-  & + .related-list-groud{
-    margin-top: 5px;
-    h6{
-      margin-bottom: 3px;
-    }
-  }
-}
-
 
 .experience{
   .employment{
@@ -262,6 +127,14 @@ body{
             &::before{
               content: 'till';
             }
+          }
+        }
+      }
+      .portfolio{
+        ul{
+          @extend .item-list;
+          li{
+
           }
         }
       }
