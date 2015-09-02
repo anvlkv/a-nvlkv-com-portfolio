@@ -1,0 +1,149 @@
+.no-wrap{
+  white-space: nowrap;
+  display: inline;
+}
+
+.led-group-container{
+  h5, h5 + p {
+    display: inline;
+  }
+  &.has-subcaption{
+    h5{
+      display: block;
+      width: 100%;
+      margin-top: 12px;
+      margin-bottom: 4px;
+    }
+  }
+}
+
+.text-list{
+  list-style: none;
+  padding-left: 0;
+  li{
+    position: relative;
+    &::before{
+      position: absolute;
+      left: -$padding-base-horizontal;
+      content: '⋅';
+      letter-spacing: -1em;
+    }
+  }
+}
+
+.has-decorative-content{
+  &::after, &::before{
+    font-size: 2em;
+    line-height: 50%;
+    color: rgba($text-color, .5);
+  }
+}
+
+.item-list{
+  list-style: none;
+  padding-left: 0;
+  @extend div;
+}
+.tag-list{
+  li{
+    display: inline-block;
+    position: relative;
+    &:not(:last-child){
+      margin-right: .3em;
+      &::after{
+        @extend .has-decorative-content;
+        content: ',';
+        position: absolute;
+        height: 100%;
+        width: auto;
+        bottom: 0;
+        right: -.3em;
+      }
+    }
+  }
+}
+
+
+// draft
+.progress-tag{
+  $top-color: $brand-info;
+  $bottom-color: $brand-danger;
+  $process-color: $bottom-color;
+  &::before{
+    content: '';
+    display: block;
+    position: absolute;
+    width: 3px;
+    // background-color: red;
+    left: 0;
+    bottom: 0;
+    border-bottom-left-radius: inherit;
+    border-top-left-radius: inherit;
+    height: 100%;
+    background-size: 100% 0%;
+    background-position: bottom;
+    background-repeat: no-repeat; 
+  }
+  @for $i from 0 through 100 {
+    @if hue($bottom-color) < hue($top-color) {
+      $process-hue: hue($bottom-color) + (hue($top-color) - hue($bottom-color))/100 * $i;
+      $process-color: hsl($process-hue , saturation($top-color), lightness($top-color));
+    } @else {
+      $process-hue: hue($top-color) + (hue($bottom-color) - hue($top-color))/100 * $i;
+      $process-color: hsl($process-hue , saturation($bottom-color), lightness($bottom-color));
+    } 
+    &[data-progress='#{$i}']::before{
+      background-size: 100% #{$i * 1%};
+      background-image: linear-gradient(to top, $process-color 0%, $process-color 90%, rgba(white, 0) 100%);
+    }
+  }
+}
+
+// draft
+.object-summary-view{
+  .summary{
+    dl{
+      span{
+        &:not(:last-child){
+          dd::after{
+            content: ';';
+          }
+        }
+        &:last-child{
+          dd::after{
+            content: '.'
+          }
+        }
+      }
+      dt, dd{
+        display: inline;
+      }
+      dt{
+        &::after{
+          content: ':';
+        }
+      }
+      & > dd{
+        &:not(:last-child)::after{
+          content: ';';
+        }
+        &:last-child::after{
+          content: '.'
+        }
+      }
+
+    }
+  }
+}
+
+// draft
+
+.item-description{
+  padding-top: 11px;
+  & + .related-list-groud{
+    margin-top: 5px;
+    h6{
+      margin-bottom: 3px;
+    }
+  }
+}
