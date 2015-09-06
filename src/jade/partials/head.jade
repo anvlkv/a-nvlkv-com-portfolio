@@ -1,0 +1,56 @@
+- metasitename = 'a.nvlkv'
+- metatitle = 'a.nvlkv'
+- metadescription = ''
+head
+    //- TODO: Check if it's the good charset
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    title= metasitename
+    meta(name='viewport', content='width=device-width,initial-scale=1.0')
+
+    meta(property="og:site_name" content="#{metasitename}")
+    meta(property="og:title" content="#{metatitle}")
+    meta(property="og:type" content="movie")
+    meta(property="og:description" content=" ")
+    meta(property="og:image" content="#{baseurl}")
+    meta(property="og:url" content="#{baseurl}/")
+    meta(property="twitter:card" content="summary")
+    meta(property="twitter:url" content="#{baseurl}/")
+    meta(property="twitter:title" content="#{metatitle}")
+    meta(property="twitter:image" content="#{baseurl}")  
+
+    //- TODO : Place favicon.ico and apple-touch-icon.png in the root directory
+    //- link(rel="stylesheet", href="css/libs/libs.css")
+    script(src="js/modernizr.custom.js")
+    link(rel="stylesheet", href="css/style.css")
+    // HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
+    <!--[if lt IE 9]>
+    script(src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.0/html5shiv.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js")
+    <![endif]-->
+    script.
+        if (typeof navigator.plugins !== "undefined" && typeof navigator.plugins["Shockwave Flash"] === "object") {
+            var el = document.children[0];
+                if (el.classList) {
+                  el.classList.add("flash");
+                } else {
+                  el.className += 'flash';
+                }
+        } else {
+            var el = document.children[0];
+                if (el.classList) {
+                  el.classList.add("no-flash");
+                } else {
+                  el.className += 'no-flash';
+                }
+        }
+
+        Modernizr.addTest('firefox', function() {
+            !!navigator.userAgent.match(/firefox/i);
+        });
+        Modernizr.addTest('chrome', function() {
+            !!navigator.userAgent.match(/chrome/i);
+        });
+        Modernizr.addTest('ie', function() {
+            !!navigator.userAgent.match(/MSIE/i);
+        });

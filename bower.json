@@ -1,0 +1,17 @@
+{
+  "name": "a.nvlkv.com",
+  "version": "0.0.1",
+  "authors": [
+    "Aleksandr Novolokov <a.nvlkv@gmail.com>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "homepage": "a.nvlkv.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
