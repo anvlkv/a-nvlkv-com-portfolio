@@ -1,0 +1,30 @@
+@keyframes	dummy-background-aniamtion{
+	0%{
+		background-image: radial-gradient(circle farthest-side at 100% 50%, $background-gradient-color 0%, transparent 100%),
+			radial-gradient(circle closest-corner at 0% 0%, $background-gradient-color 0%, transparent 100%),
+			radial-gradient(circle farthest-corner at 0% 100%, $background-gradient-color 0%, transparent 100%);
+	}
+	50%{
+		background-image: radial-gradient(circle farthest-side at 50% 0%, $background-gradient-color 0%, transparent 100%),
+			radial-gradient(circle closest-corner at 0% 100%, $background-gradient-color 0%, transparent 100%),
+			radial-gradient(circle farthest-corner at 100% 100%, $background-gradient-color 0%, transparent 100%);
+	}
+	100%{
+		background-image: radial-gradient(circle farthest-side at 0% 50%, $background-gradient-color 0%, transparent 100%),
+			radial-gradient(circle closest-corner at 100% 100%, $background-gradient-color 0%, transparent 100%),
+			radial-gradient(circle farthest-corner at 100% 0%, $background-gradient-color 0%, transparent 100%);
+	}
+}
+
+@keyframes smile{
+	0%{
+	}
+	100%{
+		transform: rotate(90deg) translate(-50%,0);
+		left:50%;
+		bottom: -30%;
+		font-size: 2em;
+	}
+}
+
+				
