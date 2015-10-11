@@ -28,13 +28,14 @@ var basePaths = {
     		dist: basePaths.dist + 'css/'
     	},
     	js: {
-    		src: basePaths.src + 'coffee/',
-    		dist: basePaths.dist + 'js/'
+    		src: basePaths.src + 'js/',
+    		dist: basePaths.dist + 'js/',
+    		libs: basePaths.src + 'jslibs/'
     	}
     };
 
     var bowerVars = {
-        folder: basePaths.src + 'vendors/',
+        folder: paths.js.libs,
         outputJs: 'libs.js',
         outputCss: 'libs.css'
     };
@@ -54,7 +55,7 @@ var gulp = require('gulp'),
     imagemin = require('gulp-imagemin'),
     watch = require('gulp-watch'),
     spritesmith = require('gulp.spritesmith'),
-    coffee = require('gulp-coffee'),
+    // coffee = require('gulp-coffee'),
     gulpif = require('gulp-if'),
     gulpFilter = require('gulp-filter'),
     fs = require('fs'),
@@ -65,6 +66,7 @@ var gulp = require('gulp'),
     rimraf = require('gulp-rimraf'),
     data = require('gulp-data'),
     database    = require('./src/data/data.json'),
+    autoprefixer = require('gulp-autoprefixer'),
     reload = browserSync.reload;
 //======================================================================
 
@@ -77,14 +79,15 @@ var gulp = require('gulp'),
 //======================================================================
 gulp.task('sass', function () {
     gulp.src(paths.css.src + '**/*.scss')
-    	// .pipe(sourcemaps.init())
+    	.pipe(sourcemaps.init())
         .pipe(sass({
         	errLogToConsole: true
-        }))   
+        }))
+        .pipe(autoprefixer())
         .pipe(pleeease({
             minifier: true
         }))
-        // .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(paths.css.dist));
 });
 
@@ -210,7 +213,7 @@ gulp.task('moveFonts', ['cleanFonts'], function () {
 });
 
 
-gulp.task('moveJsLibs', ['coffee'], function () {
+gulp.task('moveJsLibs', ['js'], function () {
     gulp.src('src/jslibs/*.js')
         .pipe(plumber({
             errorHandler: function (error) {
@@ -229,25 +232,32 @@ gulp.task('moveJsLibs', ['coffee'], function () {
 
 // Coffescript to *.js
 //======================================================================
-gulp.task('coffee', function() {
-  gulp.src(paths.js.src + '*.coffee')
-    .pipe(plumber({
-        errorHandler: function (error) {
-            console.log(error.message);
-            this.emit('end');
-        }
-    }))
-    .pipe(sourcemaps.init())   
-    .pipe(coffee({
-        bare: true
-    }))
-    .pipe(sourcemaps.write())
-    .on('error', function(err) {
-        console.log(err);
-    })      
-    .pipe(gulp.dest(paths.js.dist));
-});
+// gulp.task('coffee', function() {
+//   gulp.src(paths.js.src + '*.coffee')
+//     .pipe(plumber({
+//         errorHandler: function (error) {
+//             console.log(error.message);
+//             this.emit('end');
+//         }
+//     }))
+//     .pipe(sourcemaps.init())   
+//     .pipe(coffee({
+//         bare: true
+//     }))
+//     .pipe(sourcemaps.write())
+//     .on('error', function(err) {
+//         console.log(err);
+//     })      
+//     .pipe(gulp.dest(paths.js.dist));
+// });
 
+
+
+// pass js
+//======================================================================
+gulp.task('js', function(){
+    gulp.src(paths.js.src + '*.js').pipe(gulp.dest(paths.js.dist));
+});
 
 
 
@@ -276,7 +286,8 @@ gulp.task('bs-reload', function () {
  
 
 gulp.task('loadBower', function() {
-    bower();
+    bower()
+    	.pipe(gulp.dest(paths.js.libs));
 });
 
 
@@ -291,56 +302,54 @@ gulp.task('prepareBowerComponents', ['loadBower'],function() {
 
     
 
-    if (fs.existsSync(bowerVars.folder)) { 
-        return  gulp.src(bowerFiles())
-                    .pipe(plumber({
-                        errorHandler: function (error) {
-                            console.log(error.message);
-                            this.emit('end');
-                        }
-                    }))        
-                    .pipe(jsFilter)
-                    .pipe(concat(bowerVars.outputJs))
-                    .on('error', function(err) {
-                        console.log(err);
-                    })                    
-                    .pipe(gulp.dest(paths.js.dist+ 'libs/'))
-                    .pipe(jsFilter.restore)    
-                    .pipe(cssFilter)
-                    .pipe(concat(bowerVars.outputCss))
-                    .pipe(pleeease({
-                        minifier: false
-                    }))                    
-                    .on('error', function(err) {
-                        console.log(err);
-                    })                      
-                    .pipe(gulp.dest(paths.css.dist + 'libs/'))
-                    .pipe(cssFilter.restore)                    
-                    .pipe(scssFilter)                    
-                    .on('error', function(err) {
-                        console.log(err);
-                    })                      
-                    .pipe(gulp.dest(paths.css.src + 'libs/'))
-                    .pipe(scssFilter.restore);
+    return  gulp.src(bowerFiles())
+                .pipe(plumber({
+                    errorHandler: function (error) {
+                        console.log(error.message);
+                        this.emit('end');
+                    }
+                }))        
+                .pipe(jsFilter)
+                .pipe(concat(bowerVars.outputJs))
+                .on('error', function(err) {
+                    console.log(err);
+                })                    
+                .pipe(gulp.dest(paths.js.dist+ 'libs/'))
+                .pipe(jsFilter.restore)    
+                .pipe(cssFilter)
+                .pipe(concat(bowerVars.outputCss))
+                .pipe(pleeease({
+                    minifier: false
+                }))                    
+                .on('error', function(err) {
+                    console.log(err);
+                })                      
+                .pipe(gulp.dest(paths.css.dist + 'libs/'))
+                .pipe(cssFilter.restore)                    
+                .pipe(scssFilter)                    
+                .on('error', function(err) {
+                    console.log(err);
+                })                      
+                .pipe(gulp.dest(paths.css.src + 'libs/'))
+                .pipe(scssFilter.restore);
 
-    } 
 
 });
 
 
 
 
-gulp.task('build', gulpsync.sync(['cleanBuild', 'jade', 'sprite', 'sass', 'coffee', 'moveJsLibs', 'moveImages', 'moveAssets',  'moveFonts', 'prepareBowerComponents']));
+gulp.task('build', gulpsync.sync(['cleanBuild', 'jade', 'sprite', 'sass', 'js', 'moveJsLibs', 'moveImages', 'moveAssets',  'moveFonts', 'prepareBowerComponents']));
  
 gulp.task('default', gulpsync.sync(['build', 'browser-sync']), function(){
-    gulp.watch(paths.css.src + '**/*.scss', ['sass']);
-    gulp.watch(paths.html.src + '**/*.jade', ['jade']);
+    gulp.watch(paths.css.src + '**/*.scss', ['sass', 'bs-reload']);
+    gulp.watch(paths.html.src + '**/*.jade', ['jade', 'bs-reload']);
     gulp.watch(paths.images.sprite + '*.*',['sprite']);
     gulp.watch(paths.images.src + '*.*',['moveImages']);
     gulp.watch(paths.assets.src + '**/*.*',['moveAssets']);
     gulp.watch(paths.fonts.src + '*.*',['moveFonts']);
     gulp.watch('./src/jslibs/*.js',['moveJsLibs']);
-    gulp.watch(paths.js.src + '*.coffee',['coffee']);
+    gulp.watch(paths.js.src + '*.js',['js', 'bs-reload']);
     gulp.watch(['./bower.json', './.bower.json'], ['prepareBowerComponents']);
-    gulp.watch([basePaths.dist + "*.html"], ['bs-reload']);
+    gulp.watch([basePaths.dist + "*.*"], ['bs-reload']);
 });
