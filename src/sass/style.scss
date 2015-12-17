@@ -85,6 +85,16 @@ h2{
 	}
 }
 
+@media (max-height: 450px) and (orientation: landscape) {
+	#container{
+		top:65%;
+	}
+	h1{
+		margin-bottom: .5em;
+		width: 80%;
+	}
+}
+
 .type-animation-random-bounce{
 	$duration: 1800ms;
 	&:nth-child(2n+1){
