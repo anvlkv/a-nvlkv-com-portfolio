@@ -1,0 +1,66 @@
+<template name="portfolio">
+	<div class="row page">
+		{{>portfolioCover}}
+	</div>
+
+	{{#each projects}}
+	<div class="row page">
+		{{>projectPage}}
+	</div>
+	<div class="row page">
+		{{>projectSubPage}}
+	</div>
+	{{/each}}
+
+	{{#each categories}}
+	<div class="row page">
+		{{>categoryPage}}
+	</div>
+	{{/each}}
+</template>
+
+
+<!-- portfolio cover page -->
+<template name="portfolioCover">
+	<h1>coverPage</h1>
+</template>
+
+<!-- page of single projec -->
+<template name="projectPage">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="project_{{ref}}">
+
+		<div class="row background-container">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<img src="/cfs/files/images/{{img}}" class="img-responsive" alt="Image">
+			</div>
+		</div>
+
+		<div class="row date-container">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<span class="dates">{{dateRef}}</span>
+			</div>
+		</div>
+		
+		<div class="row">
+			
+		</div>
+		<p>{{description}}</p>
+		<nav>
+			<ul>
+				<li><a href="{{next.url}}" title="{{next.title}}">Next</a></li>
+				<li><a href="{{prev.url}}" title="{{prev.title}}">Previous</a></li>
+			</ul>
+		</nav>
+	</div>
+	
+</template>
+
+<!-- single project subpage -->
+<template name="projectSubPage">
+	<h2>projectSubPage</h2>
+</template>
+
+<!-- single category page -->
+<template name="categoryPage">
+	<h2>{{name}}</h2>
+</template>

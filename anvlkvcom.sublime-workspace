@@ -1,0 +1,1485 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"fin",
+				"find	Meteor: collection.find(selector, [options])"
+			],
+			[
+				"co",
+				"context"
+			],
+			[
+				"gen",
+				"generate_edit_url"
+			],
+			[
+				"ea",
+				"each	.each()"
+			],
+			[
+				"each",
+				"each	$.each()"
+			],
+			[
+				"bspa",
+				"bs3-panel:heading	bs3-panel-heading"
+			],
+			[
+				"ur",
+				"urls_list"
+			],
+			[
+				"Se",
+				"Session.get	Meteor: Session.get(key)"
+			],
+			[
+				"cat",
+				"category"
+			],
+			[
+				"editingP",
+				"editingProject"
+			],
+			[
+				"on",
+				"onCreated"
+			],
+			[
+				"Cat",
+				"Categories"
+			],
+			[
+				"ins",
+				"instance"
+			],
+			[
+				"get",
+				"get	.get()"
+			],
+			[
+				"Ed",
+				"editingCategory"
+			],
+			[
+				"Mec",
+				"Meteor.call	Meteor.call(name, param1, param2, ... [, asyncCallback])"
+			],
+			[
+				"ed",
+				"editingCategory"
+			],
+			[
+				"ad",
+				"add_result"
+			],
+			[
+				"redi",
+				"redirect"
+			],
+			[
+				"cate",
+				"category"
+			],
+			[
+				"Mem",
+				"Meteor.methods	Meteor.methods(methods)"
+			],
+			[
+				"for",
+				"form"
+			],
+			[
+				"ge",
+				"get	.get()"
+			],
+			[
+				"save",
+				"saveIntent"
+			],
+			[
+				"lo",
+				"log"
+			],
+			[
+				"has",
+				"hasClass	.hasClass()"
+			],
+			[
+				"ca",
+				"category"
+			],
+			[
+				"if",
+				"if	if"
+			],
+			[
+				"sel",
+				"self"
+			],
+			[
+				"di",
+				"disabled	Attr"
+			],
+			[
+				"va",
+				"value	Attr"
+			],
+			[
+				"categ",
+				"category_name"
+			],
+			[
+				"Ca",
+				"Categories"
+			],
+			[
+				"file",
+				"fileObj"
+			],
+			[
+				"rut",
+				"return"
+			],
+			[
+				"proj",
+				"projectPages"
+			],
+			[
+				"fa",
+				"false"
+			],
+			[
+				"data",
+				"data	.data()"
+			],
+			[
+				"pro",
+				"projectPages"
+			],
+			[
+				"inl",
+				"inline-block"
+			],
+			[
+				"tm",
+				"template	Tag"
+			],
+			[
+				"togg",
+				"toggleClass	.toggleClass()"
+			],
+			[
+				"he",
+				"helpers	Meteor: Template.myTemplate.helpers(helpers)"
+			],
+			[
+				"bsl",
+				"bs3-list-group	bs3-list-group"
+			],
+			[
+				"bran",
+				"brand-success"
+			],
+			[
+				"tex",
+				"text-align"
+			],
+			[
+				"a",
+				"a	<a>"
+			],
+			[
+				"rgab",
+				"rgba()"
+			],
+			[
+				"ma",
+				"margin"
+			],
+			[
+				"te",
+				"text-align"
+			],
+			[
+				"back",
+				"background-image"
+			],
+			[
+				"cl",
+				"click	.click()"
+			],
+			[
+				"f",
+				"for	for (…) {…}"
+			],
+			[
+				"tr",
+				"trigger	.trigger()"
+			],
+			[
+				"val",
+				"value"
+			],
+			[
+				"par",
+				"parent	.parent()"
+			],
+			[
+				"optio",
+				"optional"
+			],
+			[
+				"opt",
+				"options"
+			],
+			[
+				"summ",
+				"summernote"
+			],
+			[
+				"edit",
+				"editor"
+			],
+			[
+				"prot",
+				"protocolStepEdit"
+			],
+			[
+				"See",
+				"Session.set	Meteor: Session.set(key, value)"
+			],
+			[
+				"ev",
+				"events	Meteor: Template.myTemplate.events(eventMap)"
+			],
+			[
+				"col",
+				"collection_id"
+			],
+			[
+				"si",
+				"siblings	.siblings()"
+			],
+			[
+				"to",
+				"toggleClass	.toggleClass()"
+			],
+			[
+				"Mongo",
+				"Mongo.Collection	new Mongo.Collection(name, [options])"
+			],
+			[
+				"bspahe",
+				"bs3-panel:heading	bs3-panel-heading"
+			],
+			[
+				"collec",
+				"collection"
+			],
+			[
+				"coll",
+				"collection"
+			],
+			[
+				"sec",
+				"sectionName"
+			],
+			[
+				"projec",
+				"projectId"
+			],
+			[
+				"proje",
+				"projectId"
+			],
+			[
+				"colle",
+				"collection"
+			],
+			[
+				"Mo",
+				"Mongo.Collection	new Mongo.Collection.ObjectID(hexString)"
+			],
+			[
+				"M",
+				"Meteor.call	Meteor.call(name, param1, param2, ... [, asyncCallback])"
+			],
+			[
+				"project",
+				"projectId"
+			],
+			[
+				"met",
+				"methods"
+			],
+			[
+				"path",
+				"pathForProject"
+			],
+			[
+				"tit",
+				"title	Attr"
+			],
+			[
+				"auth",
+				"author"
+			],
+			[
+				"event",
+				"events	Meteor: Template.myTemplate.events(eventMap)"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"bsf",
+				"bs3-form:inline	bs3-form-inline"
+			],
+			[
+				"pad",
+				"padding"
+			],
+			[
+				"bstb",
+				"bs3-tabs	bs3-tabs"
+			],
+			[
+				"d",
+				"dl	<dl>"
+			],
+			[
+				"bsgl",
+				"bs3-icon:glyphicon	bs3-icon-glyphicon"
+			],
+			[
+				"su",
+				"summary	<summary>"
+			],
+			[
+				"bsicon",
+				"bs3-icon:glyphicon	bs3-icon-glyphicon"
+			],
+			[
+				"bs",
+				"bs3-pagination	bs3-pagination"
+			],
+			[
+				"bsp",
+				"bs3-panel:heading	bs3-panel-heading"
+			],
+			[
+				"pl",
+				"padding-left"
+			],
+			[
+				"ce",
+				"center"
+			],
+			[
+				"tx",
+				"text-align"
+			],
+			[
+				"bsbt",
+				"bs3-button	bs3-button"
+			],
+			[
+				"bscol",
+				"bs3-col:9	bs3-col-9"
+			],
+			[
+				"bsim",
+				"bs3-image	bs3-image"
+			],
+			[
+				"lab",
+				"label	<label>"
+			],
+			[
+				"bsco",
+				"bs3-col:12	bs3-col-12"
+			],
+			[
+				"nav",
+				"navbar-height"
+			],
+			[
+				"fo",
+				"footer	<footer>"
+			],
+			[
+				"max",
+				"max-height"
+			],
+			[
+				"mar",
+				"margin"
+			],
+			[
+				"in",
+				"inherit"
+			],
+			[
+				"bsib",
+				"bs3-input-group:text:btn	bs3-input-group-text-btn"
+			],
+			[
+				"fa-l",
+				"fa-landing-js"
+			],
+			[
+				"ab",
+				"absolute"
+			],
+			[
+				"imp",
+				"important"
+			],
+			[
+				"comp",
+				"comp-1-delay"
+			],
+			[
+				"comp-1",
+				"comp-1-delay"
+			],
+			[
+				"fon",
+				"font-size"
+			],
+			[
+				"im",
+				"important"
+			],
+			[
+				"nth",
+				"nth-child"
+			],
+			[
+				"s",
+				"stylesheet"
+			],
+			[
+				"r",
+				"rel"
+			],
+			[
+				"op",
+				"opacity"
+			],
+			[
+				"inc",
+				"include	@include"
+			],
+			[
+				"backg",
+				"background-image"
+			],
+			[
+				"wi",
+				"width"
+			],
+			[
+				"wrpb",
+				"wrapByWord"
+			],
+			[
+				"th",
+				"this	$(this)"
+			],
+			[
+				"wrapB",
+				"wrapBySymbol"
+			],
+			[
+				"wr",
+				"wrapper"
+			],
+			[
+				"wra",
+				"wrapper"
+			],
+			[
+				"ani",
+				"animated-1"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"ente",
+				"enterAction"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "client/dashboard.js",
+			"settings":
+			{
+				"buffer_size": 11264,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/collections.js",
+			"settings":
+			{
+				"buffer_size": 1323,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/partials/option-list.js",
+			"settings":
+			{
+				"buffer_size": 248,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/methods.js",
+			"settings":
+			{
+				"buffer_size": 1773,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/router.js",
+			"settings":
+			{
+				"buffer_size": 1696,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/portfolio.js",
+			"settings":
+			{
+				"buffer_size": 262,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/main.js",
+			"settings":
+			{
+				"buffer_size": 640,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/styles/main.scss",
+			"settings":
+			{
+				"buffer_size": 133,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/main.html",
+			"settings":
+			{
+				"buffer_size": 2212,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/dummy.html",
+			"settings":
+			{
+				"buffer_size": 137,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/navigation.html",
+			"settings":
+			{
+				"buffer_size": 79,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/dashboard.html",
+			"settings":
+			{
+				"buffer_size": 9821,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/portfolio.html",
+			"settings":
+			{
+				"buffer_size": 1354,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 152,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "pa",
+		"selected_items":
+		[
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"p",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"com",
+				"Run CSScomb"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"ls",
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/a.nvlkv/Projects/a.nvlkv.com",
+		"/Users/a.nvlkv/Projects/a.nvlkv.com/client"
+	],
+	"file_history":
+	[
+		"/Users/a.nvlkv/Projects/a.nvlkv.com/client/partials/crud-panel.js",
+		"/Users/a.nvlkv/Projects/a.nvlkv.com/client/partials/options-list.html",
+		"/Users/a.nvlkv/Projects/a.nvlkv.com/client/partials/loading-state.html",
+		"/Users/a.nvlkv/Projects/a.nvlkv.com/client/partials/crud-panel.html",
+		"/Users/a.nvlkv/Projects/a.nvlkv.com/client/dashboard.html",
+		"/Users/a.nvlkv/Projects/a.nvlkv.com/client/partials/side-bar.html",
+		"/Users/a.nvlkv/Projects/a.nvlkv.com/client/partials/side-bar.js",
+		"/Users/a.nvlkv/Projects/a.nvlkv.com/client/main.scss",
+		"/Users/a.nvlkv/Projects/a.nvlkv.com/client/side-bar.html",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/textcircle_end_module_1/textcircle.html",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/textcircle_end_module_1/textcircle.css",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/textcircle_end_module_1/textcircle.js",
+		"/Users/a.nvlkv/Documents/Aspyr/Sid Meier's Civilization 5/config.ini",
+		"/Users/a.nvlkv/Projects/fallinlove-dummy/app/index.html",
+		"/Users/a.nvlkv/Projects/fallinlove-dummy/app/styles/main.scss",
+		"/Users/a.nvlkv/Projects/fallinlove-dummy/app/scripts/main.js",
+		"/Users/a.nvlkv/Projects/fallinlove/js/index.js",
+		"/Users/a.nvlkv/Projects/fallinlove/index.html",
+		"/Users/a.nvlkv/Projects/fallinlove-dummy/gulpfile.js",
+		"/Users/a.nvlkv/Projects/fallinlove-dummy/jade/templates/index.jade",
+		"/Users/a.nvlkv/Desktop/disposable moments.txt",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/image_share/client/image_share.html",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/image_share/client/main.js",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/siteace/siteace.sublime-project",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/siteace/client/siteace.js",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/3_meteor/my_first_app/my_first_app.js",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/3_meteor/my_first_app/my_first_app.html",
+		"/Applications/Utilities/Boot Camp Assistant.app/Contents/Info.plist",
+		"/Users/a.nvlkv/Projects/urbic-io/client/editors.js",
+		"/Users/a.nvlkv/Projects/urbic-io/client/helpers.js",
+		"/Users/a.nvlkv/Projects/urbic-io/client/lib.js",
+		"/Users/a.nvlkv/Projects/urbic-io/client/styles/urbic-io.scss",
+		"/Users/a.nvlkv/Projects/urbic-io/client/styles/theme.css",
+		"/Users/a.nvlkv/Projects/urbic-io/client/styles/_fonts.scss",
+		"/Users/a.nvlkv/Projects/urbic-io/client/styles/_bootstrap_config.scss",
+		"/Users/a.nvlkv/Projects/urbic-io/client/client.js",
+		"/Users/a.nvlkv/Projects/urbic-io/lib/methods.js",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/collection_tumbnail.js",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/project.js",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/helpers/helpers.js",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/project_list.js",
+		"/Users/a.nvlkv/Projects/urbic-io/lib/collections.js",
+		"/Users/a.nvlkv/Projects/urbic-io/server/publications.js",
+		"/Users/a.nvlkv/Projects/urbic-io/client/compatibility/compatibility.js",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/home.js",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/map_view.js",
+		"/Users/a.nvlkv/Projects/urbic-io/client/routes.js",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/app_nav.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/app_footer.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/layout.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/project_abstract.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/helpers/helpers.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/collection_step_editor.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/collection_views.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/project_team_view.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/collection_thumbnail.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/persons_list_view.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/home.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/auth_form.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/project_nav.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/projects_list.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/project.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/editors.js",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/editors.html",
+		"/Users/a.nvlkv/Projects/urbic-io/server/server.js",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/project.js",
+		"/Users/a.nvlkv/Projects/urbic-io/client/lib/common.js",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/map_view.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/collection_entries.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/collection_code_sheet.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/collectionStepEditor.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/collectionStep.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/collection_description.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/partials/new_project.html",
+		"/Users/a.nvlkv/Library/Application Support/Sublime Text 3/Packages/User/HTML.sublime-settings",
+		"/Users/a.nvlkv/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/a.nvlkv/Projects/urbic-io/mup.json",
+		"/Users/a.nvlkv/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/app_nav.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/project_nav.html",
+		"/Users/a.nvlkv/Projects/urbic-io/client/views/app_footer.html",
+		"/Users/a.nvlkv/Projects/urbic-io/urbic-io.js",
+		"/Users/a.nvlkv/Projects/urbic-io/bower_components/bootstrap-sass/bower.json",
+		"/Users/a.nvlkv/Downloads/2015-11-16_to_2015-11-22_SERI__MST.CSV",
+		"/Users/a.nvlkv/Downloads/1-new-viewport.hmtl",
+		"/Users/a.nvlkv/Projects/yofis/Yofis/css/fonts/ofis_gui-OfisGUI.svg",
+		"/Users/a.nvlkv/Downloads/new.js",
+		"/Users/a.nvlkv/Projects/ohMickySpunkMeHard/starwars-ru/README",
+		"/Users/a.nvlkv/Projects/ohMickySpunkMeHard/starwars-ru/templates/base.html",
+		"/Users/a.nvlkv/Projects/ohMickySpunkMeHard/starwars-ru/apps/landing/templates/promo.html",
+		"/private/var/folders/90/_mqccsxd1jgf6dx2qr_f8cq00000gp/T/178e4b74-3f1a-49f6-a0e8-7c9474fa602d/home/dummy-page/robots.txt",
+		"/Users/a.nvlkv/Projects/ohMickySpunkMeHard/fashion/app/config/env/test.php",
+		"/Users/a.nvlkv/Desktop/2015-10-26 to 2015-11-01_SERI__MST-3.CSV",
+		"/Users/a.nvlkv/Desktop/2015-10-26 to 2015-10-31_SERI__MST-3.CSV",
+		"/Users/a.nvlkv/Desktop/2015-10-12 to 2015-10-18_SERI__MST-fake.CSV",
+		"/Users/a.nvlkv/Projects/ohMickySpunkMeHard/kanal-disney-ru/channel/settings_local.py",
+		"/Users/a.nvlkv/.ssh/id_rsa.pub",
+		"/Users/a.nvlkv/.ssh/id_rsa.pub_backup",
+		"/Users/a.nvlkv/Projects/a.nvlkv.com/src/jade/partials/scripts.jade",
+		"/Users/a.nvlkv/Projects/a.nvlkv.com/src/sass/style.scss",
+		"/Users/a.nvlkv/Projects/a.nvlkv.com/package.json",
+		"/Users/a.nvlkv/Desktop/Видео Звёздные Войны.html",
+		"/Users/a.nvlkv/Downloads/2015-10-05_to_2015-10-11_SERI__MST.CSV",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/1_basics/perr_review/guess_app/app.js",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/1_basics/perr_review/Full_Project/res.js",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/1_basics/perr_review/guess_app/guess.html",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/1_basics/perr_review/guess_app/styles.css",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/1_basics/assignment_2/css/fonts.css",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/1_basics/assignment_2/css/style.css",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/1_basics/assignment_2/js/main.js",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/1_basics/assignment_2/index.html",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/1_basics/assignment_2/style.css",
+		"/Users/a.nvlkv/Projects/ohMickySpunkMeHard/kanal-disney-ru/fabfile.py",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/1_basics/assignment_1/styles.css",
+		"/Users/a.nvlkv/Education/Coursera/responsive_website_developments_and_design/1_basics/assignment_1/index.html"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"/Users/a.nvlkv/Projects/ohMickySpunkMeHard/kanal-disney-ru",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"start",
+			"				console.log(result);\n",
+			"category",
+			"{{img",
+			"{{image",
+			"if (img) {\n			project.img = Images.insert(img, function (err, fileObj) {\n				// Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP\n				if (err) {\n					return\n				} else {\n					console.log('inserted image: ' + fileObj._id);\n					// generate image url\n					return \"/cfs/files/images/\" + fileObj._id;\n				}\n			});\n\n\n		}",
+			"next",
+			"date",
+			"return",
+			"categories",
+			"this",
+			"type",
+			"category",
+			"dashboardPannel",
+			"this",
+			"Categories",
+			"catObjId",
+			"category",
+			"Category",
+			"category",
+			"Category",
+			"category",
+			"editingCategory",
+			"category",
+			"Category",
+			"category",
+			"catId",
+			"cat",
+			"//...",
+			"catId",
+			"categoriesOptionList",
+			"err",
+			"..",
+			"../",
+			"..",
+			"Category",
+			"{{name}}",
+			"Categories",
+			"node_name",
+			"redirect",
+			"catObjId",
+			"Template.instance()",
+			"Template.instance.saveIntent",
+			"$(e.target)",
+			"disabled=\"true\"",
+			"categoryObj",
+			"html",
+			"“",
+			"name",
+			"project_name",
+			"lenght",
+			"Template",
+			"h3",
+			"page1",
+			"\"category",
+			"Category",
+			"category",
+			"category_description",
+			"Cat",
+			"Categories",
+			"Category",
+			"item",
+			"Item",
+			"meta",
+			"images",
+			"link",
+			"enablegamecoreTh",
+			"\n*",
+			"_x000D_",
+			"Top of Page",
+			"map",
+			"!default",
+			"default",
+			"\"name\"",
+			"this",
+			"ul",
+			"p>",
+			"introduction",
+			"/group_",
+			"isChecked",
+			"group_name",
+			"collectionStep",
+			"teamplate",
+			"option{{",
+			"option",
+			"options",
+			"textarea",
+			"step_",
+			"Step_",
+			"step_",
+			"/projects",
+			"projecId",
+			"projec",
+			"projects",
+			"pathFor",
+			"name",
+			"post",
+			"fullEditor",
+			"Project Name",
+			"full-toolbar",
+			"radiogroup=\"person_team_rel\"",
+			"radiogroup",
+			"div",
+			"//img",
+			"img/",
+			"home",
+			"<span class=\"text\"",
+			"<input",
+			"name:'",
+			"',",
+			"summary_item",
+			" summary_item",
+			"9",
+			"4",
+			"px",
+			"row",
+			"padding",
+			"h4",
+			"pic",
+			"label",
+			"html",
+			"home",
+			"MovieAtMyPlace",
+			"<iframe src=\"http://cloud.tvigle.ru/video/",
+			"1 <iframe src=\"http://cloud.tvigle.ru/video/",
+			"grass,",
+			"                                 ,",
+			"59.963860, 30.311763, "
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"Онлайн-игры"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "client/dashboard.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11264,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1945,
+								1945
+							]
+						],
+						"settings":
+						{
+							"_anf_new": "",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "lib/collections.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1323,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1193,
+								1193
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "client/partials/option-list.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 248,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								242,
+								242
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "lib/methods.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1773,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1082,
+								1082
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 286.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "client/router.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1696,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1594,
+								1594
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 378.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "client/portfolio.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 262,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								111,
+								111
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "client/main.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 640,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								179,
+								179
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "client/styles/main.scss",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 133,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								133,
+								133
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SCSS/SCSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 8,
+					"file": "client/main.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2212,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								158,
+								32
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "client/dummy.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 137,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								137,
+								137
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "client/navigation.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 79,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								58,
+								58
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "client/dashboard.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9821,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5756,
+								5756
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1354.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "client/portfolio.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1354,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								928,
+								928
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 184.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "package.json",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 152,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			0.5,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "anvlkvcom.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 1,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 323.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

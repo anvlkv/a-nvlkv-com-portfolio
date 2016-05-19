@@ -1,0 +1,299 @@
+<!-- dashboard main view -->
+<template name="dashboard">
+  <div class="row">
+    <!-- list of categories and projects -->
+    <!-- side bar -->
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 side-bar">
+      <ul class="list-group">
+
+        <!-- portfolio covers -->
+        <!-- no related functionality yet -->
+        <li class="list-group-item">
+          <a href="#dashboard_categories" class="collapse_toggle" title="Categories">Covers</a>
+            <ul class="list-group collapse">
+              {{#each covers}}
+                <li class="list-group-item">
+                  <a href="{{edit_cover_url _id}}" title="{{dateOfIssue}}">{{dateOfIssue}}</a>
+                </li>
+              {{/each}}
+              <li class="list-group-item">
+                <a href="{{new_cover_url}}" title="New Cover"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Cover</a>
+              </li>
+            </ul>
+        </li>
+        <!-- end covers -->
+
+        <!-- categories list -->
+        <li class="list-group-item">
+          <a href="#dashboard_categories" class="collapse_toggle" title="Categories">Categories</a>
+            <ul class="list-group collapse">
+              {{#each categories}}
+                <li class="list-group-item">
+                  <a href="{{edit_category_url _id}}" title="{{name}}">{{name}}</a>
+                </li>
+              {{/each}}
+              <li class="list-group-item">
+                <a href="{{new_category_url}}" title="New Category"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Category</a>
+              </li>
+            </ul>
+        </li>
+        <!-- projects list -->
+        <li class="list-group-item">
+          <a href="#dashboard_categories" class="collapse_toggle" title="Projects">Projects</a>
+            <ul class="list-group collapse">
+              {{#each projects}}
+                <li class="list-group-item">
+                  <a href="{{edit_project_url _id}}" title="{{name}}">{{name}}</a>
+                </li>
+              {{/each}}
+              <li class="list-group-item">
+                <a href="{{new_project_url}}" title="New Project"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Project</a>
+              </li>
+            </ul>
+        </li>
+      </ul>
+    </div>
+    <!-- end side bar -->
+
+    <!-- content -->
+    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+      {{>Template.dynamic template=dashboard_content}}
+    </div>
+  </div>
+</template>
+
+<!-- dashboard home page content -->
+<template name="dashboardPannel">
+  {{> pagesList_thumbnails categories}}
+  {{> pagesList_thumbnails projects}}
+</template>
+
+<!-- list all pages with preview of text and image -->
+<template name="pagesList_thumbnails">
+    <h3>{{name}}</h3>
+    <p>Pages: {{pages.count}}</p>
+    <hr>
+
+    {{#each pages}}
+      {{> pageThumbnail}}
+    {{/each}}
+</template>
+
+<template name="pageThumbnail">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+
+      <h4 class="panel-title">{{name}}</h4>
+    
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+          <img class="img-responsive" src="/cfs/files/images/{{img}}" alt="{{img}}">
+
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+          <p>{{description}}</p>
+          {{#if summary}}
+          <p>{{summary}}</p>
+          {{/if}}
+          {{#if color}}
+          <p>{{color}}</p>
+          {{/if}}
+        
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <a type="button" href="{{edit_url .. _id}}" class="btn btn-default">Edit</a>
+    </div>
+  </div>
+  
+  
+  <!-- {{#each texts}} -->
+    
+  <!-- {{/each}} -->
+</template>
+
+<!-- Project editor -->
+<template name="projectEditor">
+  <form role="form">
+  {{#if Template.subscriptionsReady}}
+  {{#with project}}
+    <legend>
+      <a type="button" class="btn btn-icn" href="/admin"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+      <div class="text">
+        {{#if name}}
+          Edit {{name}} project
+        {{else}}
+          New project
+        {{/if}}
+      </div>
+    </legend>  
+    
+    <!-- name -->
+    <div class="form-group">
+      <label for="project_name">Name:</label>
+      <input type="text" class="form-control" id="project_name" placeholder="Project name" required="true" value="{{name}}">
+    </div>
+
+    <!-- description -->
+    <div class="form-group">
+      <label for="project_description">Description:</label>
+      <textarea class="form-control" id="project_description" placeholder="Project description">{{description}}</textarea>
+    </div>
+
+    <!-- dates -->
+    <div class="form-group">
+      <label>Period:</label>
+      <div class="form-inline">
+        <div class="form-group">
+          <label for="project_start_date">Start:</label>
+          <input type="date" class="form-control" id="project_start_date" placeholder="Project start date" value="{{dates.start}}">
+        </div>
+        <div class="form-group">
+          <label for="project_end_date">End:</label>
+          <input type="date" class="form-control" id="project_end_date" placeholder="Project end date" value="{{dates.end}}">
+        </div>
+      </div>
+    </div>
+
+    <!-- image -->
+    <div class="form-group">
+      <label for="project_image">Main image:</label>
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <img src="/cfs/files/images/{{img}}" class="img-responsive" alt="Image">
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <input type="file" class="form-control" id="project_image" placeholder="Project main image">
+          <hr>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- category -->
+    <div class="form-group">
+      <label for="project_category">Category:</label>
+      <select id="project_category" class="form-control">
+        {{>optionsList options=categories selected=category}}
+      </select>
+    </div>
+
+    <!-- subCategory -->
+    <div class="form-group">
+      <label for="project_secondary_category">Seccondary categories:</label>
+      <select id="project_secondary_category" multiple class="form-control">
+        {{>optionsList options=categories selected=secondaryCategory}}
+      </select>
+    </div>
+
+
+    <!-- project subpages form -->
+    <div class="form-group">
+      <label>Pages:</label>
+      <div role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li>
+            <a href="#newPage" class="add_tab"> <span class="glyphicon glyphicon-plus"></span>New page</a>
+          </li>
+          {{#each pages}}
+          <li role="presentation">
+            <a href="#{{id}}" aria-controls="{{id}}" role="tab" data-toggle="tab">Page {{number}}</a>
+          </li>
+          {{/each}}
+        </ul>
+      
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane empty-state active">
+            <h5>This project doesn't have any secondary pages yet</h5>
+          </div>
+          {{#each pages}}
+          <div role="tabpanel" class="tab-pane" id="{{id}}">
+            <div class="form-group">
+              <label for="page_image">Page image:</label>
+              <input type="file" class="form-control" id="page_image" placeholder="Project secondary image">
+            </div>
+
+            <div class="form-group">
+              <label for="page_text">Text:</label>
+              <textarea class="form-control" name="page_text" placeholder="Page text"></textarea>
+            </div>
+            <button class="btn btn-danger delete_tab" data-id="{{id}}">Delete page</button>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        {{>CRUDpanel this}}
+      </div>
+    </div>
+    {{/with}}
+    {{else}}
+    {{> loadingState}}
+    {{/if}}
+  </form>
+</template>
+
+
+<!-- Category editor -->
+<template name="categoryEditor">
+  <form role="form">
+    {{#if Template.subscriptionsReady}}
+      {{#with category}}
+      <legend>
+        <a type="button" class="btn btn-icn" href="/admin"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+        <div class="text">
+          {{#if name}}
+            Edit {{name}}
+          {{else}}
+            New category
+          {{/if}}
+        </div>
+      </legend>
+    
+      <div class="form-group">
+        <label for="category_name">Name:</label>
+        <input type="text" class="form-control" id="category_name" value="{{name}}" required="true" placeholder="Category name">
+      </div>
+
+      <div class="form-group">
+        <label for="category_description">Description:</label>
+        <textarea class="form-control" id="category_description" placeholder="Category description">{{description}}</textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="category_summary">Summary:</label>
+        <textarea class="form-control" id="category_summary" placeholder="Category summary">{{summary}}</textarea>
+      </div>
+    
+      <div class="form-group">
+        <label for="category_color">Color:</label>
+        <input type="color" class="form-control" id="category_color" placeholder="Category color" value="{{color}}">
+      </div>
+
+      <div class="form-group">
+        <label for="category_color">Background image:</label>
+        <input type="file" class="form-control" id="category_image" placeholder="Category background image">
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          {{>CRUDpanel this}}
+        </div>
+      </div>
+      
+      {{/with}}
+    {{else}}
+    {{> loadingState}}
+    {{/if}}
+  </form>
+</template>
+
