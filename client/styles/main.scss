@@ -1,13 +1,5 @@
+@import "fonts";
+
 @import '{reywood:bootstrap3-sass}/bootstrap';
-
-form{
-	legend{
-		>*{
-			display: inline-block;
-		}
-	}
-}
-
-.row.page{
-	height: 768px;
-}
+@import "admin";
+@import "portfolio";

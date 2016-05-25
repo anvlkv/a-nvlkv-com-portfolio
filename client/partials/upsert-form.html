@@ -1,0 +1,15 @@
+<template name="upsertForm">
+    {{#if doc}}
+    <!-- update -->
+        {{#autoForm collection=collection id=id type="update" doc=doc}}
+            {{> Template.contentBlock}}
+        {{/autoForm}}
+
+    {{else}}
+	<!-- insert -->
+        {{#autoForm collection=collection id=id type="insert"}}
+            {{> Template.contentBlock}}
+        {{/autoForm}}
+
+    {{/if}}
+</template>

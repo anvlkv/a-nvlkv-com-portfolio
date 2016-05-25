@@ -26,15 +26,18 @@
 
 <body>
   
-  {{> navigation}}
+  
 
 </body>
 
-
-
-<template name="mainLayout">
+<template name="adminLayout">
+  {{>Template.dynamic template=navigation}}
   <main class="container-fluid">
     {{>Template.dynamic template=content}}
   </main>
 </template>
 
+
+<template name="mainLayout">
+    {{>Template.dynamic template=content}}
+</template>

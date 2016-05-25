@@ -1,10 +1,15 @@
 <template name="CRUDpanel">
-	<button type="submit" class="btn btn-success">Save</button>
+	<button type="submit" class="btn btn-success js_save">Save</button>
 
+	<button type="submit" class="btn btn-default js_save_add">Save and add new</button>
 
-	<button type="submit" class="btn btn-default save_add">Save and add new</button>
+	<button type="submit" class="btn btn-default js_save_edit">Save and continue editing</button>
 
-	<button type="submit" class="btn btn-default save_edit">Save and continue editing</button>
+	<button type="reset" class="btn btn-default js_reset">Reset</button>
 
-	<button type="delete" {{isDisabled _id}} class="btn btn-danger">Delete</button>
+	{{#if _id}}
+		{{> quickRemoveButton _id=_id collection=collection beforeRemove=beforeRemove class="btn btn-danger"}}
+	{{else}}
+		<button type="delete" disabled="disabled" class="btn btn-danger">Delete</button>
+	{{/if}}
 </template>

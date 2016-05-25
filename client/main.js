@@ -23,3 +23,9 @@ import './main.html';
 //     instance.counter.set(instance.counter.get() + 1);
 //   },
 // });
+
+
+Template.registerHelper('log',(item)=>{
+	console.log(item);
+	// return item
+})

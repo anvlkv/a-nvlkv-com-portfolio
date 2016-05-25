@@ -1,0 +1,318 @@
+<!-- dashboard main view -->
+<template name="dashboard">
+{{#if Template.subscriptionsReady}}
+
+<div class="row">
+
+  <!-- sidebar -->
+  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+    <ul class="list-group">
+      <li class="list-group-item"><h4>Manage portfolio:</h4></li>
+
+
+      <!-- iterate over covers -->
+      <li class="list-group-item"><h5>Covers:</h5>
+        <ul class="list-group">
+          {{#each cover in covers}}
+            <li class="list-group-item">
+              <a href="#preview_{{cover._id}}" title="{{cover.dateOfIssue}}">{{cover.dateOfIssue}}</a>
+            </li>
+          {{/each}}
+          <li class="list-group-item">
+            <a href="/admin/new-cover#coverForm" title="New cover"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New cover</a>
+          </li>
+        </ul>
+      </li>
+      <!-- /covers -->
+
+
+      <!-- iterate over categories of project -->
+      <li class="list-group-item"><h5>Categories:</h5>
+        <ul class="list-group">
+          {{#each category in categories}}
+            <li class="list-group-item">
+              <a href="#preview_{{category._id}}" title="{{category.title}}">{{category.title}}</a>
+            </li>
+          {{/each}}
+          <li class="list-group-item">
+              <a href="/admin/new-category#caetgoryForm" title="New category"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New category</a>
+          </li>
+        </ul>
+      </li>
+      <!-- /categories -->
+
+      <!-- iterate over projects-->
+      <li class="list-group-item"><h5>Projects:</h5>
+        <ul class="list-group">
+          {{#each project in projects}}
+            <li class="list-group-item">
+              <a href="#preview_{{project._id}}" title="{{project.title}}">{{project.title}}</a>
+            </li>
+          {{/each}}
+          <li class="list-group-item">
+              <a href="/admin/new-project#projectForm" title="New project"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New project</a>
+          </li>
+        </ul>
+      </li>
+      <!-- /projects -->
+
+    </ul>
+  </div>
+
+
+  <!-- actual content -->
+  <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+    <!-- iterate over covers -->
+    {{#each cover in covers}}
+      {{#if currentCoverEditor cover}}
+        {{> coverEditor doc=cover}}
+      {{else}}
+        {{>preView page=cover typeOf="cover"}}
+      {{/if}}
+    {{/each}}
+    <hr>
+    <!-- /covers -->
+    <!-- iterate over categories of project -->
+    {{#each category in categories}}
+      <!-- show editor if editing current category or show preview -->
+      {{#if currentCategoryEditor category}}
+        {{> categoryEditor doc=category}}
+      {{else}}
+        {{>preView page=category typeOf="category"}}
+      {{/if}}
+      <!-- iterate over projects within category -->
+      {{#each project in projects category}}
+        <!-- show editor if editing current project or show preview -->
+        {{#if currentProjectEditor project}}
+          {{> projectEditor doc=project}}
+        {{else}}
+          {{>preView page=project typeOf="project"}}
+        {{/if}}
+      {{/each}}
+      <!-- /project within category -->
+      <hr>
+    {{/each}}
+    <!-- /categories -->
+    
+    {{> Template.dynamic template=editor}}
+  </div>
+</div>
+
+{{else}}
+  {{> loadingState}}
+{{/if}}
+</template>
+
+<template name="preView">
+  <div class="row" id="preview_{{page._id}}">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{page.title}} {{page.dateOfIssue}} <span class="label label-default all-caps">{{typeOf}}</span></h3>
+        </div>
+        <div class="panel-body">
+          <iframe src="{{page.url}}" class="page-preview"></iframe>
+        </div>
+        <div class="panel-footer">
+          <button type="button" data-id="{{page._id}}" data-type="{{typeOf}}" class="btn btn-default js_edit_page">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+
+<template name="newObjectPanel">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <button type="button" class="btn btn-default js_add_category"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New Category</button>
+      <button type="button" class="btn btn-default js_add_project"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New Project</button>
+      <button type="button" class="btn btn-default js_add_cover"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New Cover</button>
+    </div>
+  </div>
+</template>
+
+
+<!-- Category editor -->
+<template name="categoryEditor">
+  {{#if Template.subscriptionsReady}}
+
+    {{#upsertForm doc=doc collection="Categories" id="caetgoryForm"}}
+      <legend>
+        <button type="button" class="btn btn-icn js_cancel_add"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <div class="text">
+          {{#if doc.title}}
+            Edit {{doc.title}} <span class="label label-info all-caps">Category</span>
+          {{else}}
+            New category
+          {{/if}}
+        </div>
+      </legend>
+
+      <div class="form-group">
+        {{> afQuickField name='title'}}
+      </div>
+
+      <div class="form-group">
+        {{> afQuickField name='order'}}
+        <div class="alert alert-warning" role="alert">
+          Primary order used when sorting projects for navigation
+        </div>
+      </div>
+
+      <div class="form-group">
+        {{> afQuickField name='slug' value=genUrlFromTitle}}
+      </div>
+
+      <div class="form-group">
+        {{> afQuickField name='shortCut'}}
+      </div>
+
+      <div class="form-group">
+        {{> afQuickField name='description'}}
+      </div>
+
+      <div class="form-group">
+        {{> afQuickField name='summary'}}
+      </div>
+
+      <div class="form-group">
+        {{> afQuickField name="color"}}
+      </div>
+
+      <div class="form-group">
+        {{> afQuickField name="image"}}
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          {{>CRUDpanel _id=doc._id collection="Categories"}}
+
+        </div>
+      </div>
+    {{/upsertForm}}
+  {{else}}
+    {{> loadingState}}
+  {{/if}}
+</template>
+
+
+<!-- Project editor -->
+<template name="projectEditor">
+  {{#if Template.subscriptionsReady}}
+
+    {{#upsertForm doc=doc collection="Projects" id="projectForm"}}
+      <legend>
+        <button type="button" class="btn btn-icn js_cancel_add"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <div class="text">
+          {{#if doc.title}}
+            Edit {{doc.title}} <span class="label label-info all-caps">Project</span>
+          {{else}}
+            New project
+          {{/if}}
+        </div>
+      </legend>
+
+      <div class="form-group">
+        {{> afQuickField name='title'}}
+      </div>
+
+      <div class="form-group">
+        {{> afQuickField name='order'}}
+        <div class="alert alert-warning" role="alert">
+          Secondary order used when sorting projects for navigation
+        </div>
+      </div>
+
+      <div class="form-group">
+        {{> afQuickField name='slug' value=genUrlFromTitle}}
+      </div>
+
+      <div class="form-inline">
+        <div class="form-group">
+          {{> afQuickField name='startDate'}}
+        </div>
+        <div class="form-group">
+          {{> afQuickField name='endDate'}}
+        </div>
+      </div>
+      
+
+      <div class="form-group">
+        {{> afQuickField name='description'}}
+      </div>
+
+      <div class="form-group">
+        {{> afQuickField name='image'}}
+      </div>
+
+      <div class="form-group">
+        {{> afQuickField name="primaryCategory"}}
+      </div>
+
+      <div class="form-group">
+        {{> afQuickField name="secondaryCategories"}}
+      </div>
+
+      <div class="form-group">
+        {{> afQuickField name="pages"}}
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          {{>CRUDpanel _id=doc._id collection="Projects"}}
+
+        </div>
+      </div>
+    {{/upsertForm}}
+  {{else}}
+    {{> loadingState}}
+  {{/if}}
+</template>
+
+<!-- Cover editor -->
+<template name="coverEditor">
+  {{#if Template.subscriptionsReady}}
+
+    {{#upsertForm doc=doc collection="Covers" id="coverForm"}}
+      <legend>
+        <button type="button" class="btn btn-icn js_cancel_add"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <div class="text">
+          {{#if doc.dateOfIssue}}
+            Edit {{doc.dateOfIssue}} <span class="label label-info all-caps">Cover</span>
+          {{else}}
+            New cover
+          {{/if}}
+        </div>
+      </legend>
+
+      <div class="form-group">
+        {{> afQuickField name='image'}}
+      </div>
+
+      <div class="form-group">
+        {{> afQuickField name='dateOfIssue'}}
+      </div>
+
+      <div class="form-group">
+        {{> afQuickField name='slug' value=genUrlFromDate}}
+        <div class="alert alert-warning" role="alert">
+          This slug is only used to access particular cover, active cover is displayed at <code>/portfolio</code> and <code>/portfolio/cover</code>
+        </div>
+      </div>
+
+      <div class="form-group">
+        {{> afQuickField name='isActive'}}
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          {{>CRUDpanel _id=doc._id collection="Projects"}}
+
+        </div>
+      </div>
+    {{/upsertForm}}
+  {{else}}
+    {{> loadingState}}
+  {{/if}}
+</template>
