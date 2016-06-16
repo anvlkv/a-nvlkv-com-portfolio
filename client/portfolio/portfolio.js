@@ -37,7 +37,9 @@ function navigationURL (axis, direction){
 							params.category = slugify(params.category);
 						}
 					} else if (current_category){
-
+						params.project = Projects.findOne({primaryCategory: current_category._id},{sort:{endDate:-1}});
+						params.project = slugify(params.project);
+						params.category = slugify(current_category);
 					} else {
 						params.project = Projects.findOne({},{sort:{endDate:-1}});
 						if (params.project) {
@@ -56,7 +58,9 @@ function navigationURL (axis, direction){
 							params.category = slugify(params.category);
 						}
 					} else if (current_category){
-
+						params.project = Projects.findOne({primaryCategory: current_category._id},{sort:{endDate:1}});
+						params.project = slugify(params.project);
+						params.category = slugify(current_category);
 					} else {
 						params.project = Projects.findOne({},{sort:{endDate:1}});
 						if (params.project) {
@@ -84,8 +88,13 @@ function navigationURL (axis, direction){
 					}
 					// navigate to next category
 					if (!params.project && !params.category) {
-						params.category = Categories.findOne({order: {$gt: current_category.order}},{sort:{order:1}});
+						if (current_category) {
+							params.category = Categories.findOne({order: {$gt: current_category.order}},{sort:{order:1}});
+						} else {
+							params.category = Categories.findOne({},{sort:{order:1}});
+						}
 						params.category = slugify(params.category);
+						
 					}
 					break
 				case 'prev':
@@ -103,15 +112,20 @@ function navigationURL (axis, direction){
 					}
 					// navigate to prev category
 					if (!params.project && !params.category) {
-						params.category = Categories.findOne({order: {$lt: current_category.order}},{sort:{order:1}});
+						if (current_category) {
+							params.category = Categories.findOne({order: {$lt: current_category.order}},{sort:{order:1}});
+						} else {
+							params.category = Categories.findOne({},{sort:{order:-1}});
+						}
 						params.category = slugify(params.category);
+						
 					}
 					break
 			}
 			break
 	}
 
-
+	console.log(params);
 	if (params.project && params.category) {
 		return FlowRouter.path('portfolio.project', params)
 	} else if (params.category){
