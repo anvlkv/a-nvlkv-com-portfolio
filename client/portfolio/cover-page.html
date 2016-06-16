@@ -1,0 +1,51 @@
+<template name="coverPage">
+	<div class="background-container">
+		{{>Template.dynamic template=imagery data=cover.image}}	
+	</div>
+	<div class="portfolio-cover">
+		<div class="content" >
+			{{>Template.dynamic template=textContent}}
+		</div>
+		<div class="nav-container">
+			{{>Template.dynamic template=navContent}}
+		</div>
+	</div>
+		
+</template>
+
+
+
+
+
+<template name="aboutPortfolio">
+	<div class="cover-title">
+		<h1>Portfolio</h1>
+		<hr>
+		<h2>Aleksandr<br/>
+		Novolokov</h2>
+	</div>
+
+	<div class="issue-plate dynamic_color" data-color="{{globalPallet.history}}">
+		<div class="date-containter">
+			<div class="date">
+				{{dateMY cover.dateOfIssue}}
+			</div>
+		</div>
+		<div class="nav-hint">
+			<p>Swipe down or use down arrow key to navigate the timeline</p>
+		</div>
+	</div>
+
+</template>
+
+<template name="coverNav">
+	<!-- <div class="spacer">&nbsp;</div> -->
+	<div class="navigation-plate dynamic_color" data-color="{{globalPallet.interactive}}">
+		<nav class="relative-nav">
+			<a href="{{coverPageButtonUrl}}" class="nav-plate dynamic_color" data-color="{{globalPallet.cta}}" title="Hi! Start here">Hi!</a>
+		</nav>
+		<div class="nav-hint">
+			<p>Swipe right, click or use right arrow key to follow page order</p>
+		</div>
+	</div>
+</template>

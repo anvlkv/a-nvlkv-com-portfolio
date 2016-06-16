@@ -10,37 +10,67 @@ FlowRouter.route('/', {
 
 
 // portfolio
+
+const portfolio = FlowRouter.group({
+    prefix: "/portfolio",
+});
+
 // cover page
-FlowRouter.route('/portfolio', {
+portfolio.route('/', {
     name: 'portfolio',
     action: function() {
-        BlazeLayout.render("mainLayout", {content: "portfolio", pageType: "coverView"});
+        BlazeLayout.render("mainLayout", {
+        	content: "portfolio",
+        	pageType: "coverPage",
+        	imagery: "background",
+        	textContent: "aboutPortfolio",
+			navContent: "coverNav",
+        });
     }
 });
 
 // category cover page
-FlowRouter.route('/portfolio/:category', {
+portfolio.route('/:category', {
     name: 'portfolio.category',
     action: function() {
-        BlazeLayout.render("mainLayout", {content: "portfolio", pageType: "categoryView"});
+        BlazeLayout.render("mainLayout", {
+        	content: "portfolio",
+        	pageType: "categoryPage",
+        	imagery: "background",
+        	textContent: "categoryCoverText",
+			navContent: "categoryCoverMenu",
+			galleryContent: "galleryGrid",
+        });
     }
 });
 
 // project page
-FlowRouter.route('/portfolio/:category/:project', {
+portfolio.route('/:category/:project', {
     name: 'portfolio.project',
     action: function() {
-        BlazeLayout.render("mainLayout", {content: "portfolio", pageType: "projectView"});
+        BlazeLayout.render("mainLayout", {
+        	content: "portfolio",
+        	pageType: "projectPage",
+        	imagery: "background",
+			textContent: "projectCoverText",
+			navContent: "projectNav",
+        });
     }
 });
 
 
 // project page
-FlowRouter.route('/portfolio/:category/:project/:page', {
+portfolio.route('/:category/:project/:page', {
     name: 'portfolio.project.page',
-    action: function() {
-        BlazeLayout.render("mainLayout", {content: "portfolio", pageType: "projectPageView"});
-    }
+        action: function() {
+            BlazeLayout.render("mainLayout", {
+            	content: "portfolio",
+            	pageType: "projectPage",
+            	imagery: "background",
+    			textContent: "projectText",
+    			navContent: "projectNav",
+            });
+        }
 });
 
 // back-cover page

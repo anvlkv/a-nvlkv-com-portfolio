@@ -1,0 +1,88 @@
+<template name="projectPage">
+	<!-- {{../category}} -->
+	<div class="{{#if session 'current-page'}}project-page{{else}}project-cover{{/if}}">
+		<!-- <div class="content"> -->
+			{{#momentum plugin='animate-css' sKlass='content' timeout=120}}
+				{{>Template.dynamic template=textContent data=project}}
+			{{/momentum}}
+		<!-- </div> -->
+
+		<div class="nav-container">
+			{{>Template.dynamic template=navContent data=project}}
+		</div>
+	</div>
+
+	<div class="background-container">
+		{{>Template.dynamic template=imagery data=image}}
+	</div>
+	
+	<!-- {{/if}} -->
+</template>
+
+<template name="projectCoverText">
+	<!-- dates container -->
+	<div class="date-container">
+		<div class="date">
+			{{dateMY startDate}} - {{dateMY endDate}}
+		</div>
+	</div>
+	<!-- content container -->
+	<div class="content-plate dynamic_color">
+		<div class="text">
+			{{description}}
+		</div>
+		{{>projectPagination}}
+	</div>
+</template>
+
+<template name="projectText">
+	<div class="content-plate dynamic_color full-height">
+		<div class="text">
+			{{description}}
+		</div>
+		{{>projectPagination}}
+	</div>
+</template>
+
+<template name="projectNav">
+	{{>navMenu}}
+
+	<nav class="relative-nav">
+		<a href="{{prevPortfolioPageURL}}" class="nav-plate dynamic_color" title="Previous">
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+		</a>
+		<a href="{{nextPortfolioPageURL}}" class="nav-plate dynamic_color" title="Next">
+			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		</a>
+	</nav>
+
+	<div class="title-container">
+		<div class="title-plate dynamic_color">
+			{{title}}
+		</div>
+	</div>
+	
+</template>
+
+<template name="projectPagination">
+	<div class="more">
+		<ul class="item-list pgn-list">
+			{{#if pages}}
+				<li class="pgn-item {{#if isCurrentProjectPage}} active {{/if}}">
+					<a href="{{projectCoverUrl}}" title="Cover">0</a>
+				</li>
+				{{#each page in pages}}
+					<li class="pgn-item {{#if isCurrentProjectPage page.slug}} active {{/if}}">
+						<a href="{{projectPageUrl page.slug}}" title="Page {{page.order}}">{{page.order}}</a>
+					</li>
+				{{/each}}
+			{{/if}}
+<!-- 			<li class="pgn-action">
+				<a href="#" title="Lear more">
+					<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+				</a>
+			</li>
+ -->
+		</ul>
+	</div>
+</template>

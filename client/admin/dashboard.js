@@ -20,8 +20,15 @@ function crudRedirect (intent, type, formId, id){
 
 // prerequisits
 
-Template.dashboard.onCreated(()=>{
+Template.dashboard.onCreated(function(){
 	Session.set('saveIntent');
+	// console.log(this);
+	this.autorun(()=>{
+		this.subscribe('Categories', /* [, arg1, arg2, ... ] [, callbacks] */);
+		this.subscribe('Projects', /* [, arg1, arg2, ... ] [, callbacks] */);
+		this.subscribe('Images', /* [, arg1, arg2, ... ] [, callbacks] */);
+		this.subscribe('Covers', /* [, arg1, arg2, ... ] [, callbacks] */);
+	})
 });
 
 

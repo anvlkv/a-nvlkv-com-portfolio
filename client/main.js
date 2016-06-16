@@ -29,3 +29,16 @@ Template.registerHelper('log',(item)=>{
 	console.log(item);
 	// return item
 })
+
+Template.registerHelper('globalPallet',()=>{
+	return {
+		utility: '#B367F7',
+		cta: '#677CF7',
+		history: '#d555ac',
+		interactive:'#c4e059',
+	}
+})
+
+Template.registerHelper('session',(input)=>{
+	return Session.get(input);
+})

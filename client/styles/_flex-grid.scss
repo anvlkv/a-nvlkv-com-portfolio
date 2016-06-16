@@ -133,14 +133,14 @@ $fg-breakpoints: (
 @mixin grid-sizes( $namespace ) {
 
   // Run the loop for as many columns as speficied
-  @for $i from 1 through $fg-columns {
+  @for $i from 0 through $fg-columns {
     .#{ $fg-class-col }-#{$namespace}-#{$i} {
       flex-basis: get-col-percent($i);
       max-width:  get-col-percent($i);
     }
   }
 
-  @for $i from 1 through $fg-columns {
+  @for $i from 0 through $fg-columns {
 
     // Don't include the .off class for the last column
     @if ( $i != $fg-columns ) {

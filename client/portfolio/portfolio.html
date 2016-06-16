@@ -1,126 +1,21 @@
 <template name="portfolio">
 	<!-- page wrapper -->
-	<main class="page">
-		{{>Template.dynamic template=pageType}}
-	</main>
-</template>
+	{{#momentum plugin='animate-css' sKlass='page'}}
 
-
-<template name="coverView">
-	cover view
-</template>
-
-<template name="categoryView">
-	category view
-</template>
-
-
-<template name="projectView">
-{{#if Template.subscriptionsReady}}
-
-	{{#with project category}}
-
-
-	<!-- {{>Template.dynamic template=pageType}} -->
-
-	<!-- dates container -->
-	<div class="date-container">
-		<div class="date">
-			{{dateMY startDate}} - {{dateMY endDate}}
-		</div>
-	</div>
-
-
-	<!-- keep absolutely positioned items between flex items -->
-	
-	<!-- navigation overlay -->
-	<div class="overlay">
-		{{>navMenu letters=letters color=color}}
-	</div>
-	<!-- background container -->
-	<div class="background-container">
-		{{#each image in images}}
-			{{>background image=image}}
-		{{/each}}
-	</div>
-
-	<!-- end absolutely positioned items -->
-
-
-	<!-- bottom -->
-	<div class="content">
-
-		<div class="nav-container">
-			<nav>
-				<a href="{{nextProjectUrl}}" class="nav-plate dynamic_color" style="{{color}}" title="Next">Next</a>
-				<a href="{{prevProjectUrl}}" class="nav-plate dynamic_color" style="{{color}}" title="Previous">Previous</a>
-			</nav>
-
-			<div class="title-plate dynamic_color" style="{{color}}">
-				<!-- {{order}} | --> {{title}}
-			</div>
-		</div>
-
- 		<!-- description plate -->
-		<div class="content-plate dynamic_color" style="{{color}}">
-			<div class="text">
-				{{description}}
-			</div>
-		</div>
-	</div>
-
-	{{/with}}
-{{/if}}
-</template>
-
-<template name="projectPageView">
 	{{#if Template.subscriptionsReady}}
 
-		{{#with page project}}
+		{{#momentum plugin='animate-css' sKlass='menu-content' timeout=2000}}
+			{{#if session 'menu-open'}}
+				{{> menuContent}}
+			{{/if}}
+		{{/momentum}}
 
-		<!-- keep absolutely positioned items between flex items -->
-		
-		<!-- navigation overlay -->
-		<div class="overlay">
-			{{>navMenu letters=letters color=color}}
-		</div>
-		<!-- background container -->
-		<div class="background-container">
-			{{#each image in images}}
-				{{>background image=image}}
-			{{/each}}
-		</div>
+		{{>Template.dynamic template=pageType}}
 
-		<!-- end absolutely positioned items -->
-
-
-		<!-- bottom -->
-		<div class="content">
-
-			<div class="nav-container">
-				<nav>
-					<a href="{{nextProjectUrl}}" class="nav-plate dynamic_color" style="{{color}}" title="Next">Next</a>
-					<a href="{{prevProjectUrl}}" class="nav-plate dynamic_color" style="{{color}}" title="Previous">Previous</a>
-				</nav>
-
-				<div class="title-plate dynamic_color" style="{{color}}">
-					<!-- {{order}} | --> {{title}}
-				</div>
-			</div>
-
-	 		<!-- description plate -->
-			<div class="content-plate dynamic_color full-height" style="{{color}}">
-				<div class="text">
-					{{text}}
-				</div>
-			</div>
-		</div>
-
-		{{/with}}
+	{{else}}
+		{{>loadingState}}
 	{{/if}}
-</template>
 
-
-<template name="background"> 
-	<div class="background"></div>
+	{{/momentum}}
+	
 </template>

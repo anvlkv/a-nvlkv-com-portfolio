@@ -1,0 +1,90 @@
+.pgn-list{
+	@extend .fg-row;
+	justify-content: flex-end;
+	text-align: center;	
+	.pgn-item, .pgn-action{
+		@extend .fg-col-xs-1;
+		position: relative;
+		&::after{
+			// @extend .fg-row;
+			width: 100%;
+			left:0;
+			top:100%;
+			// margin-left: -1 * $fg-gutter;
+			position: absolute;
+			content: "\2022";
+			color: white;
+		}
+		&.active{
+			&::after{
+				content: "\2014";
+			}
+			a{
+				opacity: .5;
+			}
+		}
+		&:not(.active){
+			&, &::after, & a{
+				cursor: pointer;
+			}
+			&:hover{
+				&::after{
+					content: "\25b2";
+				}
+			}
+		}
+	}
+}
+
+.loading{
+	$cube-side: 50px;
+	$cube-gutter: $cube-side/10;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	display: block;
+	.loader-container{
+		$size: $cube-side*3 + $cube-gutter*6;
+		width: $size;
+		height: $size;
+		margin: 0 auto;
+		margin-top: 30%;
+		margin-top: calc(50% - #{$size*1.5});
+		.cube{
+			background-color: gray;
+
+			width: $cube-side;
+			height: $cube-side;
+			margin: $cube-gutter;
+			float: left;
+			@include animation-name (loading);
+			@include count(infinite);
+			@include duration(1s);
+			@include function(linear);
+			animation-direction: reverse;
+		}
+	}
+	&.animate-in, &{
+		@include fadeIn(.4s);
+	}
+	&.animate-out{
+		@include slideOutUp(.4s);
+	}
+}
+
+// loading state animation
+
+@include keyframes(loading) {
+	0%{
+		transform: rotate(360deg) scale(1);
+		opacity: .25
+	}
+	50%{
+		transform: rotate(180deg) scale(.25);
+		opacity: 1;
+	}
+	100%{
+		transform: rotate(0deg) scale(1);
+		opacity: .25
+	}
+}

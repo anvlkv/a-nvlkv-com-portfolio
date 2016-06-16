@@ -1,0 +1,99 @@
+// configure overlay layout
+.menu-overlay{
+	@extend .page;
+	position: absolute;
+	top:0;
+	left:0;
+	background-color: white;
+	z-index: 10;
+}
+
+//top level menu layout
+.top-level-navigation{
+	@extend .fg-row;
+	justify-content:space-between;
+	.item-list{
+		@extend .fg-row;
+		.item{
+
+		}
+	}
+	.close-button{
+
+	}
+}
+
+//internal navigation layout
+.current-level-navigation{
+	.item-list{
+		@extend .fg-row;
+		.item{
+			@extend .fg-col-xs-12;
+			@extend .fg-col-sm-2;
+			.item-list{
+				flex-direction: column;
+				.item{
+					@extend .fg-col-xs-12;
+					@extend .fg-col-sm-12;
+				}
+			}
+		}
+	}
+}
+
+//internal navigation spacing
+.current-level-navigation{
+	padding: $space;
+	>.item-list{
+		.item{
+			padding-left: $space;
+			padding-right: $space;
+		}
+	}
+}
+
+//top level menu spacing
+.top-level-navigation{
+	padding: $space;
+	padding-top: $space*2;
+	.item-list{
+		.item{
+			padding-right: $space;
+			padding-left: $space;
+		}
+	}
+	.close-button{
+		padding-right: $space;
+	}
+}
+
+// styles and satates
+.current-level-navigation{
+	a{
+		color: $black-copy;
+
+	}
+}
+
+// animations
+.menu-content{
+	.menu-overlay{
+		&.animate-in{
+			@include fadeInRight($duration:$duration);
+		}
+		&.animate-out{
+			@include fadeOutLeft($duration:$duration);
+		}
+	}
+	.top-level-navigation{
+		&.animate-in{
+			@include slideInDown($duration:$duration);
+		}
+		&.animate-out{
+			@include slideOutUp($duration:$duration);
+		}
+	}
+	.current-level-navigation{
+
+	}
+}

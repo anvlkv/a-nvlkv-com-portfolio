@@ -1,0 +1,43 @@
+<template name="navMenu">
+	<!-- make animated class -->
+	<div class="menu-container">
+		<a href="#" class="menu-button js_toggle_menu dynamic_color" data-color="{{color}}" title="Menu">
+			{{#if icon}}
+				<span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+			{{else}}
+				{{letters}}
+			{{/if}}
+		</a>
+	</div>
+</template>
+
+<template name="menuContent">
+	<div class="menu-overlay">
+		<nav class="top-level-navigation dynamic_color">
+			<ul class="item-list">
+				<li class="item"><a class="js_main_nav_link" href="/portfolio" title="Portfolio">Portfolio</a></li>
+				<li class="item"><a class="js_main_nav_link" href="/" title="Home">Home</a></li>
+				<!-- <li><a href="/about" title="About">About</a></li> -->
+				<!-- <li><a href="/blog" title="Blog">Blog</a></li> -->
+			</ul>
+			<a href="#" class="close-button js_close_menu" title="Menu">
+				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+			</a>
+		</nav>
+		<div class="current-level-navigation">
+			<ul class="item-list">
+				{{#each category in categories}}
+				<li class="item"><h6><a class="js_category_link" href="{{url category}}" title="{{category.title}}">{{category.title}}</a></h6>
+					<ul class="item-list">
+						{{#each project in projects category}}
+						<li class="item">
+							<a class="js_project_link" href="{{url project category}}" title="{{project.title}}">{{project.title}}</a>
+						</li>
+						{{/each}}
+					</ul>
+				</li>
+				{{/each}}
+			</ul>
+		</div>
+	</div>
+</template>

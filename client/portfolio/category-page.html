@@ -1,0 +1,62 @@
+<template name="categoryPage">
+	<div class="category-cover">
+		<div class="content">
+			{{>Template.dynamic template=textContent data=category}}
+		</div>
+		<div class="nav-container">
+			{{>Template.dynamic template=navContent data=category}}
+		</div>
+	</div>
+	<div class="background-container dynamic_color">
+		{{>Template.dynamic template=imagery data=category.image}}
+	</div>
+
+	<div class="gallery">
+		{{>Template.dynamic template=galleryContent data=projects}}
+	</div>
+</template>
+
+
+<template name="categoryCoverText">
+	<div class="category-title">
+		<h2>{{title}}</h2>
+	</div>
+	<div class="content-plate">
+		<div class="text">
+			{{description}}
+		</div>
+	</div>
+	<div class="content-plate summary">
+		<div class="text">
+			{{summary}}
+		</div>
+	</div>
+	
+</template>
+
+<template name="categoryCoverMenu">
+	<nav class="category-level-navigation">
+		<ul class="item-list">
+			{{#each category in categories}}
+				<li class="item {{#if isCurrentCategory category._id}} active {{/if}}">
+					<a class="dynamic_color" href="{{url category}}" title="{{category.title}}" data-color="{{category.color}}">{{category.title}}</a>
+				</li>
+			{{/each}}
+		</ul>
+		{{>navMenu icon="true" color=globalPallet.utility}}
+	</nav>
+
+</template>
+
+<template name="galleryGrid">
+	<div class="grid">
+		{{#each item in this}}
+		<div class="item">
+			<a href="{{url item}}" title="{{item.title}}">
+				<h4>{{item.title}}</h4>
+				<img src="/cfs/files/images/{{item.image}}" class="img-responsive" alt="">
+			</a>
+		</div>
+		{{/each}}
+	</div>
+</template>

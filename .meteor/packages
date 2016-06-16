@@ -38,4 +38,8 @@ aldeed:delete-button
 accounts-password
 useraccounts:bootstrap
 momentjs:moment
+percolate:momentum
+aldeed:template-extension
+iamkevingreen:imagesloaded
+flowkey:hotkeys
 oles:autoprefixer-beta
