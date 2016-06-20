@@ -42,12 +42,14 @@ $fg-breakpoints: (
 	.nav-container{
 		@extend .fg-col-xs-12;
 		@extend .fg-col-sm-6;
-		.menu-container{
-			.menu-button{
+		.mini-nav{
+			@extend .fg-row;
+			justify-content:flex-end;
+			.mini-nav-btn{
 				@extend .fg-col-xs-3;
-				@extend .fg-off-xs-9;
+				// @extend .fg-off-xs-9;
 				@extend .fg-col-sm-2;
-				@extend .fg-off-sm-10;
+				// @extend .fg-off-sm-10;
 			}
 		}
 	}
@@ -88,6 +90,9 @@ $fg-breakpoints: (
 			.category-title{
 				@extend .fg-col-xs-9;
 				@extend .fg-col-sm-12;
+			}
+			.category-title, .content-plate{
+				flex-basis:33.3333%;
 			}
 
 		}
@@ -223,11 +228,16 @@ $fg-breakpoints: (
 				min-width: 100%;
 				align-self: flex-start;
 				&.full-height{
-					// min-height: 100%;
 					@extend .fg-col-xs;
-					justify-content: space-between;
 					@media screen and (max-width: $fg-sm - 1) {
 						overflow-y: scroll;
+					}
+				}
+				.more{
+					@extend .fg-col-xs;
+					justify-content: flex-end;
+					.learn-more-btn{
+						align-self:flex-end;
 					}
 				}
 			}
@@ -343,7 +353,7 @@ $space: $fg-gutter*4;
 		}
 		// }
 	}
-	.menu-button, .category-level-navigation .item-list .item a{
+	.mini-nav-btn, .category-level-navigation .item-list .item a{
 		text-indent: $space;
 		// @media only screen and (max-width: $fg-sm - 1){
 		padding-top: $space;
@@ -355,7 +365,7 @@ $space: $fg-gutter*4;
 			@media only screen and (min-width: $fg-sm){
 				margin-bottom: $space;
 			}
-			.menu-button{
+			.mini-nav-btn{
 				@media only screen and (min-width: $fg-sm - 1){
 					&:first-child{
 						margin-top: 0;
@@ -407,13 +417,24 @@ $space: $fg-gutter*4;
 		}
 	}
 	.project-cover, .project-page{
-		.menu-container{
+		.mini-nav{
 			@media only screen and (min-width: $fg-sm - 1){
 				margin-top: $space;			
 			}
 		}
 		.date-container{
 			margin-top: $space;
+		}
+		.learn-more-btn{
+			padding: $space;
+			margin-bottom: $space/2;
+			margin-right: -$space/4;
+		}
+		.content-plate.full-height{
+			.more{
+				margin-left: -.5rem;
+				margin-right: -.5rem;
+			}
 		}
 	}
 }
@@ -424,6 +445,10 @@ $space: $fg-gutter*4;
 .page{
 	.cover-title{
 		color: white;
+	}
+	.learn-more-btn{
+		background-color: $black-copy;
+		letter-spacing: .1em;
 	}
 	a{
 		color: white;
@@ -465,7 +490,7 @@ $space: $fg-gutter*4;
 			}
 		}
 	}
-	.relative-nav .nav-plate, .menu-container .menu-button{
+	.relative-nav .nav-plate, .mini-nav .mini-nav-btn{
 		&:hover{
 			box-shadow: -1px 1px 15px rgba(#000, .25);
 			transform: scale(1.05);
@@ -495,7 +520,7 @@ $delay: .2s;
 	transition-timing-function: ease-out;
 }
 
-.menu-content{
+.page-overlay{
 	transition-property: width, height;
 	transition-duration: $duration/2;
 	transition-timing-function: ease-out;
@@ -553,7 +578,7 @@ a{
 			}
 		}
 		.nav-container{
-			.menu-button{
+			.mini-nav-btn{
 				@include slideInRight($delay:$delay/2, $duration:$duration);
 			}
 			.nav-plate{
@@ -580,7 +605,7 @@ a{
 				}
 			}
 		}
-		.menu-button{
+		.mini-nav-btn{
 			@include slideInRight($delay:$delay, $duration:$duration);
 		}
 	}

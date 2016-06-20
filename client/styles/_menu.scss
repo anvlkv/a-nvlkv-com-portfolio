@@ -76,7 +76,7 @@
 }
 
 // animations
-.menu-content{
+.page-overlay{
 	.menu-overlay{
 		&.animate-in{
 			@include fadeInRight($duration:$duration);

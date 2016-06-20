@@ -5,6 +5,7 @@ FlowRouter.route('/', {
     name: 'root',
     action: function() {
         BlazeLayout.render("mainLayout", {content: "dummy"});
+        GAnalytics.pageview();
     }
 });
 
@@ -26,6 +27,7 @@ portfolio.route('/', {
         	textContent: "aboutPortfolio",
 			navContent: "coverNav",
         });
+        GAnalytics.pageview();
     }
 });
 
@@ -41,6 +43,7 @@ portfolio.route('/:category', {
 			navContent: "categoryCoverMenu",
 			galleryContent: "galleryGrid",
         });
+        GAnalytics.pageview();
     }
 });
 
@@ -55,6 +58,7 @@ portfolio.route('/:category/:project', {
 			textContent: "projectCoverText",
 			navContent: "projectNav",
         });
+        GAnalytics.pageview();
     }
 });
 
@@ -70,6 +74,7 @@ portfolio.route('/:category/:project/:page', {
     			textContent: "projectText",
     			navContent: "projectNav",
             });
+            GAnalytics.pageview();
         }
 });
 
@@ -78,6 +83,7 @@ FlowRouter.route('/portfolio/back-cover', {
     name: 'portfolio.back-cover',
     action: function() {
         BlazeLayout.render("mainLayout", {content: "portfolio", pageType: "coverView"});
+        GAnalytics.pageview();
     }
 });
 
@@ -89,5 +95,6 @@ FlowRouter.notFound = {
     },
     action: function() {
     	BlazeLayout.render("mainLayout", {content: "dummy"});
+    	GAnalytics.pageview();
     }
 };

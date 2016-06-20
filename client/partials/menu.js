@@ -40,6 +40,9 @@ Template.navMenu.events({
 			Session.set('menu-open', false);
 		}
 	},
+	'click .js_email_me': function(e,t) {
+		Session.set('email-dialog-open', true);
+	}
 });
 
 Template.menuContent.events({

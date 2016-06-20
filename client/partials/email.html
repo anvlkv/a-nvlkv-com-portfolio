@@ -1,0 +1,52 @@
+<template name="emailOverlay">
+	<div class="email-overlay">
+		{{> Template.dynamic template=dialog}}
+	</div>
+</template>
+
+<template name="composeEmail">
+	<div class="email-dialog dialog dynamic_color" data-color="{{globalPallet.utility}}">
+		<div class="dialog-heading">
+			<h4>Email me</h4>
+			<a href="#" class="close-button js_close_dialog" title="Menu">
+				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+			</a>
+		</div>
+		<div class="dialog-form">
+			<form accept-charset="utf-8">
+				<div class="sender-info">
+					<label>
+						<span class="label-text">
+							Enter a name
+						</span>
+						<input required="required" type="text" name="name" placeholder="Please enter your name">
+					</label>
+					<label>
+						<span class="label-text">
+							Enter an email address
+						</span>
+						<input required="required" type="email" name="email" placeholder="Please enter your email address">
+					</label>
+				</div>
+				<div class="message">
+					<label>
+						<span class="label-text">
+							Enter a subject
+						</span>
+						<input required="required" type="text" name="subject" placeholder="Please enter subject" value="{{subject}}">
+					</label>
+					<label>
+						<span class="label-text">
+							Enter your message
+						</span>
+						<textarea required="required" name="message" placeholder="Please type in your message" rows="10">{{session 'email-dialog-message'}}</textarea>
+					</label>
+				</div>
+			</form>
+		</div>
+		<div class="dialog-controls">
+			<a type="button" class="dialog-secondary-btn js_clear_email" href="#" title="Clear">Clear</a>
+			<a type="button" class="dialog-cta-btn dynamic_color js_send_email" data-color="{{globalPalet.cta}}" href="#" title="Send">Send</a>
+		</div>
+	</div>
+</template>

@@ -77,6 +77,17 @@ Template.projectPagination.helpers({
 			}
 			return FlowRouter.path('portfolio.project.page', params)
 		}
+	},
+	buttonText: function(){
+		if (this.pages){
+			if (Session.get('current-page')) {
+				return 'Next'
+			} else {
+				return 'Learn more'
+			}
+		} else {
+			return false
+		}
 	}
 });
 

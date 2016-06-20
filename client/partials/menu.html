@@ -1,13 +1,17 @@
 <template name="navMenu">
 	<!-- make animated class -->
-	<div class="menu-container">
-		<a href="#" class="menu-button js_toggle_menu dynamic_color" data-color="{{color}}" title="Menu">
+	<div class="mini-nav">
+		<a href="#" title="email me" class="mini-nav-btn js_email_me dynamic_color" data-color="{{globalPallet.cta}}">
+			<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+		</a>
+		<a href="#" class="mini-nav-btn js_toggle_menu dynamic_color" data-color="{{color}}" title="Menu">
 			{{#if icon}}
 				<span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
 			{{else}}
 				{{letters}}
 			{{/if}}
 		</a>
+		
 	</div>
 </template>
 

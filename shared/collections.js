@@ -284,6 +284,10 @@ Covers = new Mongo.Collection('covers');
 Covers.attachSchema(Schemas.Covers);
 
 
+// save email messages
+EmailMessages = new Mongo.Collection('emailMessages');
+
+
 
 Images.allow({
 	insert: function(userId){
@@ -394,6 +398,12 @@ Covers.allow({
 			// FlowRouter.go('/sign-in');
 			return false
 		}
+	}
+});
+
+EmailMessages.allow({
+	insert: function (userId, doc) {
+		return true
 	}
 });
 

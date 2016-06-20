@@ -4,10 +4,8 @@
 
 	{{#if Template.subscriptionsReady}}
 
-		{{#momentum plugin='animate-css' sKlass='menu-content' timeout=2000}}
-			{{#if session 'menu-open'}}
-				{{> menuContent}}
-			{{/if}}
+		{{#momentum plugin='animate-css' sKlass='page-overlay' timeout=2000}}
+			{{> Template.dynamic template=overlay}}
 		{{/momentum}}
 
 		{{>Template.dynamic template=pageType}}

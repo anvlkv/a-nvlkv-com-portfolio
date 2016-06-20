@@ -1,0 +1,28 @@
+.email-overlay{
+	@extend .page;
+	@extend .fg-row;
+	position: absolute;
+	top:0;
+	left:0;
+	background-color: rgba($black-copy, .5);
+	z-index: 10;
+}
+
+
+// animations
+.email-overlay{
+	&.animate-in{
+		@include fadeIn($duration:$duration);
+		.email-dialog{
+			@include slideInDown($duration:$duration, $delay:$duration);
+		}
+	}
+	&.animate-out{
+		@include fadeOut($duration:$duration);	
+		.email-dialog{
+			@include slideOutUp($duration:$duration, $delay:$duration);
+		}
+	}
+
+}
+

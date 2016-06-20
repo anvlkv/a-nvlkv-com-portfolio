@@ -21,7 +21,7 @@ function slugify (object){
 }
 
 function navigationURL (axis, direction){
-	console.log(direction + ' in ' + axis);
+	// console.log(direction + ' in ' + axis);
 	let current_project = Projects.findOne(Session.get('current-project')),
 	current_category = Categories.findOne(Session.get('current-category')),
 	params={};
@@ -103,7 +103,7 @@ function navigationURL (axis, direction){
 						params.project = slugify(params.project);
 						params.category = current_category.slug;
 					} else if (current_category){
-						let prev_category_by_order = Categories.findOne({order: {$lt: current_category.order}},{sort:{order:1}});
+						let prev_category_by_order = Categories.findOne({order: {$lt: current_category.order}},{sort:{order:-1}});
 						if (prev_category_by_order) {
 							params.project = Projects.findOne({primaryCategory: prev_category_by_order._id},{sort:{order:-1}});
 							params.project = slugify(params.project);
@@ -113,7 +113,7 @@ function navigationURL (axis, direction){
 					// navigate to prev category
 					if (!params.project && !params.category) {
 						if (current_category) {
-							params.category = Categories.findOne({order: {$lt: current_category.order}},{sort:{order:1}});
+							params.category = Categories.findOne({order: {$lt: current_category.order}},{sort:{order:-1}});
 						} else {
 							params.category = Categories.findOne({},{sort:{order:-1}});
 						}
@@ -121,12 +121,39 @@ function navigationURL (axis, direction){
 						
 					}
 					break
+				case 'current':
+					if (current_project) {
+						if (current_project.pages && Session.get('current-page')) {
+							for (var i = 0; i < current_project.pages.length; i++) {
+								if (current_project.pages[i].slug == Session.get('current-page') && current_project.pages.length - 1 > i){
+									params.page = current_project.pages[i+1].slug;
+									params.project = current_project.slug;
+									params.category = current_category.slug;
+								} else if (current_project.pages.length - 1 == i && !params.page) {
+									// add contact form here
+									return navigationURL('order', 'next');
+								}
+							}
+						} else if (current_project.pages) {
+							params.page = current_project.pages[0].slug;
+							params.project = current_project.slug;
+							params.category = current_category.slug;
+						} else {
+							// add contact form here
+							return navigationURL('order', 'next');
+						}
+					} else {
+						return navigationURL('order', 'next');
+					}
+					break
 			}
 			break
 	}
 
-	console.log(params);
-	if (params.project && params.category) {
+	// console.log(params);
+	if (params.project && params.category && params.page) {
+		return FlowRouter.path('portfolio.project.page', params)
+	} else if (params.project && params.category) {
 		return FlowRouter.path('portfolio.project', params)
 	} else if (params.category){
 		return FlowRouter.path('portfolio.category', params)
@@ -161,8 +188,8 @@ Template.registerHelper('prevPortfolioPageURL', function(){
 	return navigationURL('order', 'prev');
 });
 
-Template.registerHelper('portfolioTimeline',function(){
-
+Template.registerHelper('detailsURL',function(){
+	return navigationURL('order', 'current');
 });
 
 Template.registerHelper('coverPageButtonUrl', function(){
@@ -183,25 +210,41 @@ portfolioHotKeys = new Hotkeys({
 portfolioHotKeys.add({
 	combo:'right',
 	callback : function(){
-        FlowRouter.go(navigationURL('order','next'));
+		if (!Session.get('menu-open') && !Session.get('email-dialog-open')){
+	        FlowRouter.go(navigationURL('order','next'));
+	    } 
     }
 });
 portfolioHotKeys.add({
 	combo:'left',
 	callback : function(){
-        FlowRouter.go(navigationURL('order','prev'));
+		if (!Session.get('menu-open') && !Session.get('email-dialog-open')){
+	        FlowRouter.go(navigationURL('order','prev'));
+	    } 
     }
 });
 portfolioHotKeys.add({
 	combo:'down',
 	callback : function(){
-        FlowRouter.go(navigationURL('time','next'));
+		if (!Session.get('menu-open') && !Session.get('email-dialog-open')){
+	        FlowRouter.go(navigationURL('time','next'));
+	    } 
     }
 });
 portfolioHotKeys.add({
 	combo:'up',
 	callback : function(){
-        FlowRouter.go(navigationURL('time','prev'));
+		if (!Session.get('menu-open') && !Session.get('email-dialog-open')){
+	        FlowRouter.go(navigationURL('time','prev'));
+	    } 
+    }
+});
+portfolioHotKeys.add({
+	combo:'enter',
+	callback : function(){
+		if (!Session.get('menu-open') && !Session.get('email-dialog-open')){
+	        FlowRouter.go(navigationURL('order','current'));
+	    } 
     }
 });
 
@@ -221,9 +264,45 @@ Template.portfolio.onCreated(function(){
 	self.autorun(function() {
 	//    	if(! self.subscriptionsReady())
 	//     	return;
+		Session.set('menu-open', false);
+		Session.set('email-dialog-open', false);
 		portfolioHotKeys.load();
 	    
 	});
+});
+
+Template.portfolio.onRendered(function(){
+	// $(function() {      
+	//   //Enable swiping...
+	//   $("#test").swipe( {
+	//     //Generic swipe handler for all directions
+	//     swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+	//       $(this).text("You swiped " + direction );  
+	//     },
+	//     //Default is 75px, set to 0 for demo so any distance triggers swipe
+	//      threshold:0
+	//   });
+	// });
+	this.$('.page').swipe({
+		swipe: function(event, direction, distance, duration, fingerCount, fingerData){
+			if (!Session.get('menu-open') && !Session.get('email-dialog-open')) {
+				switch (direction){
+					case 'left':
+						FlowRouter.go(navigationURL('order','next'));
+						break
+					case 'right':
+						FlowRouter.go(navigationURL('order','prev'));
+						break
+					case 'up':
+						FlowRouter.go(navigationURL('time','next'));
+						break
+					case 'down':
+						FlowRouter.go(navigationURL('time','prev'));
+						break
+				}
+			}
+		}
+	})
 });
 
 Template.portfolio.onDestroyed(function(){
@@ -233,6 +312,16 @@ Template.portfolio.onDestroyed(function(){
 	portfolioHotKeys.unload();
 });
 
+
+Template.portfolio.helpers({
+	overlay: function () {
+		if (Session.get('menu-open')) {
+			return 'menuContent'
+		} else if (Session.get('email-dialog-open')){
+			return 'emailOverlay'
+		}
+	}
+});
 
 
 

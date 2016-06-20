@@ -66,6 +66,11 @@
 
 <template name="projectPagination">
 	<div class="more">
+
+		{{#if buttonText}}
+		<a class="learn-more-btn" type="button" href="{{detailsURL}}" title="{{buttonText}}">{{buttonText}}</a>
+		{{/if}}
+
 		<ul class="item-list pgn-list">
 			{{#if pages}}
 				<li class="pgn-item {{#if isCurrentProjectPage}} active {{/if}}">

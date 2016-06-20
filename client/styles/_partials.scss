@@ -88,3 +88,49 @@
 		opacity: .25
 	}
 }
+
+
+// dialog box
+
+.dialog{
+	@extend .fg-col-xs-12;
+	@extend .fg-col-sm-6;
+	@extend .fg-off-sm-3;
+	align-self: center;
+	.dialog-heading{
+		@extend .fg-row;
+		align-items: center;
+		justify-content:space-between;
+		h4{
+			@extend .fg-col-xs-10;
+		}
+		a{
+			@extend .fg-col-xs-1;
+			@extend .fg-off-xs-1;
+		}
+	}
+	.dialog-form{
+		form{
+			>div{
+				width: 100%;
+				label{
+					width: 100%;
+					.label-text{
+						width: 100%;
+					}
+					input, textarea{
+						width: 100%;	
+					}
+				}
+			}
+		}
+	}
+	.dialog-controls{
+		@extend .fg-row;
+		justify-content: flex-end;
+		a{
+			@extend .fg-col-xs-6;
+			@extend .fg-col-sm-3;
+		}
+	}
+}
