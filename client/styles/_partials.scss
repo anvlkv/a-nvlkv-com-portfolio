@@ -21,6 +21,7 @@
 			}
 			a{
 				opacity: .5;
+				text-decoration: none;
 			}
 		}
 		&:not(.active){
@@ -50,6 +51,10 @@
 		margin: 0 auto;
 		margin-top: 30%;
 		margin-top: calc(50% - #{$size*1.5});
+		@include animation-name (loading);
+		@include count(infinite);
+		@include duration(1.1s);
+		@include function(linear);
 		.cube{
 			background-color: gray;
 
@@ -61,7 +66,7 @@
 			@include count(infinite);
 			@include duration(1s);
 			@include function(linear);
-			animation-direction: reverse;
+			@include animation-direction(reverse);
 		}
 	}
 	&.animate-in, &{
@@ -77,7 +82,7 @@
 @include keyframes(loading) {
 	0%{
 		transform: rotate(360deg) scale(1);
-		opacity: .25
+		opacity: .5
 	}
 	50%{
 		transform: rotate(180deg) scale(.25);
@@ -85,12 +90,12 @@
 	}
 	100%{
 		transform: rotate(0deg) scale(1);
-		opacity: .25
+		opacity: .5
 	}
 }
 
 
-// dialog box
+// dialog box layout
 
 .dialog{
 	@extend .fg-col-xs-12;
@@ -132,5 +137,44 @@
 			@extend .fg-col-xs-6;
 			@extend .fg-col-sm-3;
 		}
+	}
+}
+
+.dialog-form{
+	label{
+		.label-text{
+			font-size: 1.5em;
+		}
+		.error-text{
+			color: red;
+			font-weight: 100;
+		}
+		input, textarea{
+			font-size: 1.5em;
+			font-weight: normal;
+			&.invalid-field{
+				border: 1px solid red;
+			}
+		}
+		input{
+
+		}
+		textarea{
+
+		}
+		&.in-use{
+			.label-text{
+				font-size: 1em;
+			}
+		}
+	}
+}
+
+.dialog{
+	.dialog-heading{
+
+	}
+	.dialog-controls{
+
 	}
 }

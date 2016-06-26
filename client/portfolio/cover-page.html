@@ -1,4 +1,6 @@
 <template name="coverPage">
+{{#if readiness}}
+	{{#if cover}}
 	<div class="background-container">
 		{{>Template.dynamic template=imagery data=cover.image}}	
 	</div>
@@ -10,7 +12,12 @@
 			{{>Template.dynamic template=navContent}}
 		</div>
 	</div>
-		
+	{{else}}
+		{{>errPage}}
+	{{/if}}
+{{else}}
+	{{>loadingState}}
+{{/if}}
 </template>
 
 
@@ -28,11 +35,13 @@
 	<div class="issue-plate dynamic_color" data-color="{{globalPallet.history}}">
 		<div class="date-containter">
 			<div class="date">
-				{{dateMY cover.dateOfIssue}}
+				<h4>{{dateMY cover.dateOfIssue}}</h4>
 			</div>
 		</div>
 		<div class="nav-hint">
 			<p>Swipe down or use down arrow key to navigate the timeline</p>
+			<p>{{> SVGicon name="swipeUp"}}
+			{{> SVGicon name="arrowKeyDown"}}</p>
 		</div>
 	</div>
 
@@ -42,10 +51,16 @@
 	<!-- <div class="spacer">&nbsp;</div> -->
 	<div class="navigation-plate dynamic_color" data-color="{{globalPallet.interactive}}">
 		<nav class="relative-nav">
-			<a href="{{coverPageButtonUrl}}" class="nav-plate dynamic_color" data-color="{{globalPallet.cta}}" title="Hi! Start here">Hi!</a>
+			<a href="{{coverPageButtonUrl}}" class="nav-plate dynamic_color" data-color="{{globalPallet.cta}}" title="Hi! Start here">
+				<h3>Hi!</h3>
+			</a>
 		</nav>
 		<div class="nav-hint">
 			<p>Swipe right, click or use right arrow key to follow page order</p>
+			<p>{{> SVGicon name="swipeLeft"}}
+			{{> SVGicon name="arrowKeyRight"}}
+			{{> SVGicon name="click"}}
+			{{> SVGicon name="keyEnter"}}</p>
 		</div>
 	</div>
 </template>

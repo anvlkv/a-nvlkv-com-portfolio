@@ -1,4 +1,5 @@
 @import "colors";
+@import "fonts";
 @import '{reywood:bootstrap3-sass}/bootstrap';
 @import "admin";
 @import "animate-scss/properties";
@@ -6,6 +7,11 @@
 @import "animate-scss/sliding-exits/sliding-exits";
 @import "animate-scss/fading-entrances/fading-entrances";
 @import "animate-scss/fading-exits/fading-exits";
+@import "animate-scss/lightspeed/lightspeed";
+@import "animate-scss/bouncing-entrances/bouncing-entrances";
+@import "animate-scss/attention-seekers/attention-seekers";
 @import "portfolio";
 @import "menu";
 @import "email";
+@import "error";
+@import "icons";

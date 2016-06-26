@@ -1,0 +1,54 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 3237326, 2016-06-23T12:38:26-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: SkyhookMono by FontomType
+ * URL: http://www.myfonts.com/fonts/fontom-type/skyhook-mono/regular/
+ * Copyright: Copyright (c) 2010 by David Waschbuesch. All rights reserved.
+ * Licensed pageviews: Unlimited
+ * 
+ * 
+ * License: http://www.myfonts.com/viewlicense?type=web&buildid=3237326
+ * 
+ * © 2016 MyFonts Inc
+*/
+
+
+
+
+  
+@font-face {font-family: 'SkyhookMono';
+	src: url('fonts/3165CE_0_0.eot');
+	src: url('fonts/3165CE_0_0.eot?#iefix') format('embedded-opentype'),
+		url('fonts/3165CE_0_0.woff2') format('woff2'),
+		url('fonts/3165CE_0_0.woff') format('woff'),
+		url('fonts/3165CE_0_0.ttf') format('truetype'),
+		url('fonts/3165CE_0_0.svg#wf') format('svg');
+	}
+
+@font-face {
+    font-family: 'permianseriftypefaceregular';
+    src: url('fonts/permianserif_regular_macroman/PermianSerifTypeface-webfont.eot');
+    src: url('fonts/permianserif_regular_macroman/PermianSerifTypeface-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/permianserif_regular_macroman/PermianSerifTypeface-webfont.woff') format('woff'),
+         url('fonts/permianserif_regular_macroman/PermianSerifTypeface-webfont.ttf') format('truetype'),
+         url('fonts/permianserif_regular_macroman/PermianSerifTypeface-webfont.svg#permianseriftypefaceregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+// $font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
+$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-serif:       'permianseriftypefaceregular', Georgia, "Times New Roman", Times, serif;
+$font-family-base:        $font-family-serif;
+
+
+$headings-font-family: 'SkyhookMono', $font-family-sans-serif;
+
+$font-size-base: 18px;

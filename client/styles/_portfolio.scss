@@ -24,7 +24,6 @@ $fg-breakpoints: (
 
 
 // configure layout
-
 .page{
 	background-color:black;
 	// set height to screen height
@@ -34,7 +33,6 @@ $fg-breakpoints: (
 	overflow: hidden;	
 	z-index: 0;
 	box-sizing:border-box;
-
 	.content{
 		@extend .fg-col-xs-12;
 		@extend .fg-col-sm-6;
@@ -71,8 +69,8 @@ $fg-breakpoints: (
 			width: 100%;
 			height: 100%;
 			background-repeat: no-repeat;
-			background-size: 100% auto;
-			background-position: center top;
+			background-size: cover;
+			background-position: center;
 		}
 	}
 
@@ -182,8 +180,8 @@ $fg-breakpoints: (
 				.nav-hint{
 					@extend .fg-col-xs-10;
 					@extend .fg-off-xs-1;
-					@extend .fg-col-sm-6;
-					@extend .fg-off-sm-6;
+					@extend .fg-col-sm-12;
+					// @extend .fg-off-sm-6;
 					flex-basis:0;
 				}
 			}
@@ -227,6 +225,7 @@ $fg-breakpoints: (
 				// @extend .fg-col-xs-12;
 				min-width: 100%;
 				align-self: flex-start;
+				justify-content:space-between;
 				&.full-height{
 					@extend .fg-col-xs;
 					@media screen and (max-width: $fg-sm - 1) {
@@ -234,8 +233,14 @@ $fg-breakpoints: (
 					}
 				}
 				.more{
-					@extend .fg-col-xs;
+					// @extend .fg-row;
+					@extend .fg-col-xs-12;
+					flex-direction:row;
 					justify-content: flex-end;
+					.pgn-list{
+						flex-grow:1;
+						align-items:center;
+					}
 					.learn-more-btn{
 						align-self:flex-end;
 					}
@@ -310,16 +315,48 @@ $fg-breakpoints: (
 				position: absolute;
 				width: 100%;
 			}
+			.hint{
+				position: absolute;
+				text-align: center;
+				top: 50px;
+			}
+			.icon{
+				position: absolute;
+				bottom: 0;
+				right: $fg-gutter;
+				width: 2em;
+				height: 2em;
+				background-color: $utility;
+				font-size: 2em;
+				text-align: center;
+				line-height: 200%;
+			}
 		}
 	}
 }
 
+
+// font size
+.page{
+	@for $i from 1 through 6 {
+		h#{$i}{
+			font-size: 300% - $i * 30%;
+		}
+	}
+	.nav-hint{
+		font-size: 150%;
+	}
+}
 
 
 // innternal spacing
 $space: $fg-gutter*4;
 
 .page{
+	h1,h2,h3,h4,h5,h6{
+		margin: 0;
+		padding: 0;
+	}
 	.category-title{
 		h2{
 			margin-left: $space;
@@ -333,7 +370,7 @@ $space: $fg-gutter*4;
 		margin-left: $space;
 		padding-top: $space;
 	}
-	.more{
+	a[type=button]{
 		padding: $space;
 	}
 	.nav-container{
@@ -356,11 +393,12 @@ $space: $fg-gutter*4;
 	.mini-nav-btn, .category-level-navigation .item-list .item a{
 		text-indent: $space;
 		// @media only screen and (max-width: $fg-sm - 1){
-		padding-top: $space;
-		padding-bottom: $space;
 		// }
 	}
 	.category-cover{
+		.content{
+			margin-top: $space;
+		}
 		.nav-container{
 			@media only screen and (min-width: $fg-sm){
 				margin-bottom: $space;
@@ -426,15 +464,23 @@ $space: $fg-gutter*4;
 			margin-top: $space;
 		}
 		.learn-more-btn{
-			padding: $space;
 			margin-bottom: $space/2;
 			margin-right: -$space/4;
+		}
+		.more{
+			@media screen and(max-width: $fg-sm - 1) {
+			    margin-bottom: 2rem;
+			}
 		}
 		.content-plate.full-height{
 			.more{
 				margin-left: -.5rem;
 				margin-right: -.5rem;
 			}
+		}
+		.pgn-list{
+			padding-bottom: $space;
+			padding-right: $space;
 		}
 	}
 }
@@ -463,6 +509,11 @@ $space: $fg-gutter*4;
 			// color: gray;
 			// color: transparent;
 			opacity: .5;
+		}
+		&[type=button]{
+			&,&:hover{
+				text-decoration: none;			
+			}
 		}
 	}
 	.category-level-navigation .item-list .item {
@@ -508,7 +559,7 @@ $duration: .4s;
 $delay: .2s;
 
 
-.dynamic_color{
+.dynamic_color, .background-container{
 	transition-property: background-color;
 	transition-duration: $duration*2;
 	transition-timing-function: ease-out;
@@ -543,7 +594,7 @@ a{
 	// .content-plate, .category-title{
 	// 	@include slideInLeft($duration:$duration);
 	// }
-	.animate-off-screen{
+	.animate-off-screen:not(.animate-in-progress){
 		display: none;
 	}
 	.gallery{
@@ -618,3 +669,4 @@ a{
 		}
 	}
 }
+

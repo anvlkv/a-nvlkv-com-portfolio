@@ -1,41 +1,39 @@
 <template name="navMenu">
 	<!-- make animated class -->
 	<div class="mini-nav">
-		<a href="#" title="email me" class="mini-nav-btn js_email_me dynamic_color" data-color="{{globalPallet.cta}}">
-			<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+		<a type="button" href="#" title="email me" class="mini-nav-btn js_email_me dynamic_color" data-color="{{globalPallet.cta}}">
+			{{>SVGicon name="email"}}
 		</a>
-		<a href="#" class="mini-nav-btn js_toggle_menu dynamic_color" data-color="{{color}}" title="Menu">
+		<a type="button" href="#" class="mini-nav-btn js_toggle_menu dynamic_color" data-color="{{color}}" title="Menu">
 			{{#if icon}}
-				<span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+				{{>SVGicon name="menu"}}
 			{{else}}
-				{{letters}}
+				<h3>{{letters}}</h3>
 			{{/if}}
 		</a>
 		
 	</div>
 </template>
 
-<template name="menuContent">
+<template name="menuOverlay">
 	<div class="menu-overlay">
-		<nav class="top-level-navigation dynamic_color">
-			<ul class="item-list">
-				<li class="item"><a class="js_main_nav_link" href="/portfolio" title="Portfolio">Portfolio</a></li>
-				<li class="item"><a class="js_main_nav_link" href="/" title="Home">Home</a></li>
-				<!-- <li><a href="/about" title="About">About</a></li> -->
-				<!-- <li><a href="/blog" title="Blog">Blog</a></li> -->
-			</ul>
-			<a href="#" class="close-button js_close_menu" title="Menu">
-				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-			</a>
-		</nav>
+		{{>topLevelMenu}}
 		<div class="current-level-navigation">
 			<ul class="item-list">
 				{{#each category in categories}}
-				<li class="item"><h6><a class="js_category_link" href="{{url category}}" title="{{category.title}}">{{category.title}}</a></h6>
+				<li class="item">
+					<h5>
+						<a class="category-link js_close_menu" href="{{url category}}" title="{{category.title}}">
+							<span class="category-initial dynamic_color" data-color="{{category.color}}">{{category.shortCut}}</span>
+							<span class="category-name">{{category.titleShort}}</span>
+						</a>
+					</h5>
 					<ul class="item-list">
 						{{#each project in projects category}}
 						<li class="item">
-							<a class="js_project_link" href="{{url project category}}" title="{{project.title}}">{{project.title}}</a>
+							<a class="js_close_menu" href="{{url project category}}" title="{{project.title}}">
+								<h6>{{project.title}}</h6>
+							</a>
 						</li>
 						{{/each}}
 					</ul>
@@ -44,4 +42,26 @@
 			</ul>
 		</div>
 	</div>
+</template>
+
+<template name="topLevelMenu">
+	<nav class="top-level-navigation dynamic_color">
+		<ul class="item-list">
+			<li class="item {{#if isCurrentPage 'home'}} active {{/if}}">
+				<a class="js_main_nav_link" href="/" title="Home">
+					<h5>Home</h5>
+				</a>
+			</li>
+			<li class="item {{#if isCurrentPage 'portfolio'}} active {{/if}}">
+				<a class="js_main_nav_link" href="/portfolio" title="Portfolio">
+					<h5>Portfolio</h5>
+				</a>
+			</li>
+			<!-- <li><a href="/about" title="About">About</a></li> -->
+			<!-- <li><a href="/blog" title="Blog">Blog</a></li> -->
+		</ul>
+		<a href="#" class="close-button js_close_menu" title="Menu">
+			{{> SVGicon name="cross"}}
+		</a>
+	</nav>
 </template>

@@ -22,7 +22,7 @@ Schemas.Categories = new SimpleSchema({
 			afFieldInput: {
 				type: 'number',
 				defaultValue: ()=>{
-					return Categories.find().count() + 1
+					return Categories.find().count() + 1;
 				}
 			}
 		}
@@ -73,11 +73,7 @@ Schemas.Categories = new SimpleSchema({
 	    },
 	    optional: true,
 	},
-	projects: {
-		type: [String],
-		optional: true
-	}
-})
+});
 
 Schemas.Projects = new SimpleSchema({
 	title:{
@@ -134,9 +130,9 @@ Schemas.Projects = new SimpleSchema({
 					options.push({
 						label: category.title,
 						value: category._id
-					})
+					});
 				});
-				return options
+				return options;
 			},
 		}
 
@@ -154,9 +150,9 @@ Schemas.Projects = new SimpleSchema({
 					options.push({
 						label: category.title,
 						value: category._id
-					})
+					});
 				});
-				return options
+				return options;
 			},
 			afFieldInput:{
 				multiple:true
@@ -218,7 +214,7 @@ Schemas.Projects = new SimpleSchema({
 		optional: true,
 	},
 
-})
+});
 
 Schemas.Covers = new SimpleSchema({
 	image:{
@@ -236,7 +232,7 @@ Schemas.Covers = new SimpleSchema({
 		autoform:{
 			afFieldInput:{
 				defaultValue:()=>{
-					return new Date()
+					return new Date();
 				}
 			}
 		}
@@ -249,9 +245,104 @@ Schemas.Covers = new SimpleSchema({
 	isActive:{
 		type: Boolean,
 		label: "Is current cover"
+	},
+	isBack:{
+		type: Boolean,
+		label: "Is back cover"
 	}
+});
 
-})
+Schemas.Attachements = new SimpleSchema({
+	title:{
+		type: String,
+		label: "Title"
+	},
+	order:{
+		type: Number,
+		label: "Order",
+		optional: true,
+		autoform: {
+			afFieldInput: {
+				type: 'number'
+			}
+		}
+	},
+	image:{
+		type: String,
+		label: "Thumbnail image",
+		autoform:{
+			afFieldInput:{
+				type: "fileUpload",
+				collection: "Images"
+			},
+		}
+	},
+	type:{
+		type: String,
+		label: "Type of attachement",
+		autoform:{
+			type: "select2"
+		}
+	},
+	file:{
+		type: String,
+		label: "File",
+		optional: true,
+		autoform:{
+			afFieldInput:{
+				type: "fileUpload",
+				collection: "Files"
+			},
+		}
+	},
+	url:{
+		type: String,
+		label: "Link",
+		optional: true,
+	},
+	primaryCategory:{
+		type: String,
+		label: "Primary category",
+		autoform:{
+			type: "select2",
+			options: ()=>{
+				let categories = Categories.find();
+				let options = [];
+				categories.forEach((category)=>{
+					options.push({
+						label: category.title,
+						value: category._id
+					});
+				});
+				return options;
+			},
+		}
+
+	},
+	secondaryCategories:{
+		type: [String],
+		optional: true,
+		label: "Secondary categories",
+		autoform:{
+			type: "select2",
+			options: ()=>{
+				let categories = Categories.find();
+				let options = [];
+				categories.forEach((category)=>{
+					options.push({
+						label: category.title,
+						value: category._id
+					});
+				});
+				return options;
+			},
+			afFieldInput:{
+				multiple:true
+			}
+		}
+
+	},
+});
 
 // collections
 
@@ -261,6 +352,13 @@ const imageStore = new FS.Store.GridFS("images");
 
 Images = new FS.Collection("images", {
  stores: [imageStore]
+});
+
+// collection to store files
+const fileStore = new FS.Store.GridFS("files");
+
+Files = new FS.Collection("files", {
+ stores: [fileStore]
 });
 
 
@@ -275,8 +373,13 @@ Projects = new Mongo.Collection('projects');
 
 Projects.attachSchema(Schemas.Projects);
 
+// ProjectsTimeline = new Mongo.Collection('projects');
 
 
+// collection of attachements
+Attachements = new Mongo.Collection('attachements');
+
+Attachements.attachSchema(Schemas.Attachements);
 
 // collection of portfolio covers
 Covers = new Mongo.Collection('covers');
@@ -292,26 +395,56 @@ EmailMessages = new Mongo.Collection('emailMessages');
 Images.allow({
 	insert: function(userId){
 		if (userId) {
-			return true
+			return true;
 		} else {
 			// FlowRouter.go('/sign-in');
-			return false
+			return false;
 		}
 	},
 	update: function(userId){
 		if (userId) {
-			return true
+			return true;
 		} else {
 			// FlowRouter.go('/sign-in');
-			return false
+			return false;
 		}
 	},
 	remove: function(userId){
 		if (userId) {
-			return true
+			return true;
 		} else {
 			// FlowRouter.go('/sign-in');
-			return false
+			return false;
+		}
+	},
+	download: function(){
+		return true;
+	}
+});
+
+Files.allow({
+	insert: function(userId){
+		if (userId) {
+			return true;
+		} else {
+			// FlowRouter.go('/sign-in');
+			return false;
+		}
+	},
+	update: function(userId){
+		if (userId) {
+			return true;
+		} else {
+			// FlowRouter.go('/sign-in');
+			return false;
+		}
+	},
+	remove: function(userId){
+		if (userId) {
+			return true;
+		} else {
+			// FlowRouter.go('/sign-in');
+			return false;
 		}
 	},
 	download: function(){
@@ -322,26 +455,26 @@ Images.allow({
 Categories.allow({
 	insert: function(userId){
 		if (userId) {
-			return true
+			return true;
 		} else {
 			// FlowRouter.go('/sign-in');
-			return false
+			return false;
 		}
 	},
 	update: function(userId){
 		if (userId) {
-			return true
+			return true;
 		} else {
 			// FlowRouter.go('/sign-in');
-			return false
+			return false;
 		}
 	},
 	remove: function(userId){
 		if (userId) {
-			return true
+			return true;
 		} else {
 			// FlowRouter.go('/sign-in');
-			return false
+			return false;
 		}
 	}
 });
@@ -349,26 +482,53 @@ Categories.allow({
 Projects.allow({
 	insert: function (userId, doc) {
 		if (userId) {
-			return true
+			return true;
 		} else {
 			// FlowRouter.go('/sign-in');
-			return false
+			return false;
 		}
 	},
 	update: function (userId, doc, fields, modifier) {
 		if (userId) {
-			return true
+			return true;
 		} else {
 			// FlowRouter.go('/sign-in');
-			return false
+			return false;
 		}
 	},
 	remove: function (userId, doc) {
 		if (userId) {
-			return true
+			return true;
 		} else {
 			// FlowRouter.go('/sign-in');
-			return false
+			return false;
+		}
+	}
+});
+
+Attachements.allow({
+	insert: function(userId){
+		if (userId) {
+			return true;
+		} else {
+			// FlowRouter.go('/sign-in');
+			return false;
+		}
+	},
+	update: function(userId){
+		if (userId) {
+			return true;
+		} else {
+			// FlowRouter.go('/sign-in');
+			return false;
+		}
+	},
+	remove: function(userId){
+		if (userId) {
+			return true;
+		} else {
+			// FlowRouter.go('/sign-in');
+			return false;
 		}
 	}
 });
@@ -376,34 +536,34 @@ Projects.allow({
 Covers.allow({
 	insert: function (userId, doc) {
 		if (userId) {
-			return true
+			return true;
 		} else {
 			// FlowRouter.go('/sign-in');
-			return false
+			return false;
 		}
 
 	},
 	update: function (userId, doc, fields, modifier) {
 		if (userId) {
-			return true
+			return true;
 		} else {
 			// FlowRouter.go('/sign-in');
-			return false
+			return false;
 		}
 	},
 	remove: function (userId, doc) {
 		if (userId) {
-			return true
+			return true;
 		} else {
 			// FlowRouter.go('/sign-in');
-			return false
+			return false;
 		}
 	}
 });
 
 EmailMessages.allow({
 	insert: function (userId, doc) {
-		return true
+		return true;
 	}
 });
 
@@ -411,9 +571,9 @@ EmailMessages.allow({
 // simple checks
 function simpleCheck (userId){
 	if (userId) {
-		return true
+		return true;
 	} else {
 		// FlowRouter.go('/sign-in');
-		return false
+		return false;
 	}
 }

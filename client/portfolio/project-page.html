@@ -1,5 +1,6 @@
 <template name="projectPage">
-	<!-- {{../category}} -->
+{{#if readiness}}
+	{{#if project}}
 	<div class="{{#if session 'current-page'}}project-page{{else}}project-cover{{/if}}">
 		<!-- <div class="content"> -->
 			{{#momentum plugin='animate-css' sKlass='content' timeout=120}}
@@ -15,15 +16,19 @@
 	<div class="background-container">
 		{{>Template.dynamic template=imagery data=image}}
 	</div>
-	
-	<!-- {{/if}} -->
+	{{else}}
+		{{> errPage}}
+	{{/if}}
+{{else}}
+	{{>loadingState}}
+{{/if}}
 </template>
 
 <template name="projectCoverText">
 	<!-- dates container -->
 	<div class="date-container">
 		<div class="date">
-			{{dateMY startDate}} - {{dateMY endDate}}
+			<h4>{{dateMY startDate}} - {{dateMY endDate}}</h4>
 		</div>
 	</div>
 	<!-- content container -->
@@ -48,17 +53,19 @@
 	{{>navMenu}}
 
 	<nav class="relative-nav">
-		<a href="{{prevPortfolioPageURL}}" class="nav-plate dynamic_color" title="Previous">
-			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+		<a type="button" href="{{prevPortfolioPageURL}}" class="nav-plate dynamic_color" title="Previous">
+			<!-- <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> -->
+			{{> SVGicon name="arrowPrev"}}
 		</a>
-		<a href="{{nextPortfolioPageURL}}" class="nav-plate dynamic_color" title="Next">
-			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		<a type="button" href="{{nextPortfolioPageURL}}" class="nav-plate dynamic_color" title="Next">
+			<!-- <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> -->
+			{{> SVGicon name="arrowNext"}}
 		</a>
 	</nav>
 
 	<div class="title-container">
 		<div class="title-plate dynamic_color">
-			{{title}}
+			<h2>{{title}}</h2>
 		</div>
 	</div>
 	
@@ -67,27 +74,25 @@
 <template name="projectPagination">
 	<div class="more">
 
-		{{#if buttonText}}
-		<a class="learn-more-btn" type="button" href="{{detailsURL}}" title="{{buttonText}}">{{buttonText}}</a>
-		{{/if}}
-
 		<ul class="item-list pgn-list">
 			{{#if pages}}
 				<li class="pgn-item {{#if isCurrentProjectPage}} active {{/if}}">
-					<a href="{{projectCoverUrl}}" title="Cover">0</a>
+					<a href="{{projectCoverUrl}}" title="Cover">
+						<h6>0</h6>
+					</a>
 				</li>
 				{{#each page in pages}}
-					<li class="pgn-item {{#if isCurrentProjectPage page.slug}} active {{/if}}">
-						<a href="{{projectPageUrl page.slug}}" title="Page {{page.order}}">{{page.order}}</a>
-					</li>
+				<li class="pgn-item {{#if isCurrentProjectPage page.slug}} active {{/if}}">
+					<a href="{{projectPageUrl page.slug}}" title="Page {{page.order}}">
+						<h6>{{page.order}}</h6>
+					</a>
+				</li>
 				{{/each}}
 			{{/if}}
-<!-- 			<li class="pgn-action">
-				<a href="#" title="Lear more">
-					<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-				</a>
-			</li>
- -->
 		</ul>
+
+		{{#if buttonText}}
+		<a class="learn-more-btn" type="button" href="{{detailsURL}}" title="{{buttonText}}">{{buttonText}}</a>
+		{{/if}}
 	</div>
 </template>

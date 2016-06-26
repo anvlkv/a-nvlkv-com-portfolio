@@ -3,5 +3,9 @@
     "ga": {
       "account":"UA-63309276-2"
     }
-  }
+  },
+  "kadira": { 
+    "appId": "rZpF92wDAB9Gu9djm", 
+    "appSecret": "4eec284a-37a8-4ac9-89fb-3777b500a925" 
+   }
 }

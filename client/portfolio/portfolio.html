@@ -1,10 +1,11 @@
 <template name="portfolio">
+	{{>SVGsymbols}}
 	<!-- page wrapper -->
-	{{#momentum plugin='animate-css' sKlass='page'}}
+	<!-- {{#momentum plugin='animate-css' sKlass='page'}} -->
+	<div class="page">
+	{{#if readiness}}
 
-	{{#if Template.subscriptionsReady}}
-
-		{{#momentum plugin='animate-css' sKlass='page-overlay' timeout=2000}}
+		{{#momentum plugin='animate-css' sKlass='page-overlay' timeout=1000}}
 			{{> Template.dynamic template=overlay}}
 		{{/momentum}}
 
@@ -13,7 +14,7 @@
 	{{else}}
 		{{>loadingState}}
 	{{/if}}
-
-	{{/momentum}}
+	</div>
+	<!-- {{/momentum}} -->
 	
 </template>

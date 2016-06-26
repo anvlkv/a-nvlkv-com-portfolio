@@ -1,21 +1,24 @@
 Meteor.methods({
 	sendEmail: function (msg) {
 		// validate msg and email
-		if (msg.email) {
-			let result = {};
-			this.unblock();
-			
-			result.email = Email.send({
-				to: 'a.nvlkv@gmail.com',
-				from: msg.email,
-				replyTo: msg.email,
-				subject: msg.subject,
-				text: msg.message
-			});
+		// console.log(msg);
 
-			result.backup = EmailMessages.insert(msg);
+		check(msg, {
+			email: ValidEmail,
+			subject: String,
+			message: String,
+			name: String,
+			sentFrom: String
+		});
 
-			return result;
-		}
+		Email.send({
+			to: 'a.nvlkv@gmail.com',
+			from: msg.email,
+			replyTo: msg.email,
+			subject: msg.subject,
+			text: msg.message + '\n Name: ' + msg.name + '\n url: ' + msg.sentFrom,
+		});
+
+		return EmailMessages.insert(msg);
 	}
 });

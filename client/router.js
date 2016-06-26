@@ -2,7 +2,7 @@
 // // // // // // // // // // // // // // // // // // // // // // 
 // root
 FlowRouter.route('/', {
-    name: 'root',
+    name: 'home',
     action: function() {
         BlazeLayout.render("mainLayout", {content: "dummy"});
         GAnalytics.pageview();
@@ -41,13 +41,12 @@ portfolio.route('/:category', {
         	imagery: "background",
         	textContent: "categoryCoverText",
 			navContent: "categoryCoverMenu",
-			galleryContent: "galleryGrid",
         });
         GAnalytics.pageview();
     }
 });
 
-// project page
+// project cover page
 portfolio.route('/:category/:project', {
     name: 'portfolio.project',
     action: function() {
@@ -94,7 +93,7 @@ FlowRouter.notFound = {
 
     },
     action: function() {
-    	BlazeLayout.render("mainLayout", {content: "dummy"});
+    	BlazeLayout.render("mainLayout", {content: "errPage"});
     	GAnalytics.pageview();
     }
 };

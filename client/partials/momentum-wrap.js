@@ -7,9 +7,9 @@ Template.override_momentum.replaces("momentum");
 var OFFSCREEN_CLASS = 'animate-off-screen';
 var IN_CLASS = 'animate-in';
 var OUT_CLASS = 'animate-out';
+var PROGRESS_CLASS = 'animate-in-progress';
 
-var EVENTS = 'webkitTransitionEnd oTransitionEnd transitionEnd ' 
-  + 'msTransitionEnd transitionend';
+var EVENTS = 'webkitTransitionEnd oTransitionEnd transitionEnd msTransitionEnd transitionend animationend webkitAnimationEnd oanimationend MSAnimationEnd';
 
 Momentum.registerPlugin('animate-css', function(options) {
   options = _.extend({
@@ -26,8 +26,9 @@ Momentum.registerPlugin('animate-css', function(options) {
   return {
     insertElement: function(node, next, done) {
       var klass = IN_CLASS;
-      if (options.extra)
-        klass += ' ' + options.extra();
+      if (options.extra){
+        klass += ' ' + options.extra();      	
+      }
       
       $(node)
         .addClass(OFFSCREEN_CLASS)

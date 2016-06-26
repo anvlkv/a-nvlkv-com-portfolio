@@ -10,3 +10,15 @@ form{
 .all-caps{
 	text-transform: uppercase;
 }
+
+.iframe-wraper{
+	overflow: hidden;
+	width: 25vw;
+	height: 25vh;
+	iframe{
+		width: 100vw;
+		height: 100vh;
+		transform: scale(.25);
+		transform-origin: 0 0;
+	}
+}

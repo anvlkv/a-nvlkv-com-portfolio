@@ -1,16 +1,29 @@
+Template.menuOverlay.onCreated(function(){
+	this.autorun(()=>{
+		this.subscribe('CategoriesList');
+		this.subscribe('ProjectsFeed');
+	});
+});
+
 Template.navMenu.helpers({
 	letters: function (){
 		let category = Categories.findOne(Session.get('current-category'));
 		if (category) {
-			return category.shortCut
+			return category.shortCut;
 		}
-		return 'Menu'
+		return 'Menu';
 	},
 });
 
-Template.menuContent.helpers({
+Template.menuOverlay.helpers({
 	categories: function () {
-		return Categories.find({},{sort:{order:1}});
+		return Categories.find({},{
+			sort:{order:1},
+			transform: function(doc){
+					doc.titleShort = doc.title.substring(doc.shortCut.length , doc.title.length);
+				return doc;
+			}
+		});
 	},
 	projects: function (category){
 		return Projects.find({primaryCategory:category._id},{sort:{order:1}});
@@ -20,24 +33,30 @@ Template.menuContent.helpers({
 			let params = {
 				category: category.slug,
 				project: project.slug
-			}
+			};
 			return FlowRouter.path('portfolio.project', params);
 		} else if (category) {
 			let params = {
 				category: category.slug,
-			}
+			};
 			return FlowRouter.path('portfolio.category', params);
 		}
 	},
 });
 
+Template.topLevelMenu.helpers({
+	isCurrentPage: function (page) {
+		let path = FlowRouter.current().route.name;
+		if (path.indexOf(page) >= 0 ) {
+			return true;
+		}
+	}
+});
 
 Template.navMenu.events({
 	'click .js_toggle_menu': function (e,t) {
 		if (!Session.get('menu-open')) {
 			Session.set('menu-open', true);		
-		} else {
-			Session.set('menu-open', false);
 		}
 	},
 	'click .js_email_me': function(e,t) {
@@ -45,18 +64,10 @@ Template.navMenu.events({
 	}
 });
 
-Template.menuContent.events({
+Template.menuOverlay.events({
 	'click .js_close_menu': function () {
+		let route = FlowRouter.current();
+		FlowRouter.go(route.route.name, route.params, {});
 		Session.set('menu-open', false);
 	},
-	'click .js_project_link': function () {
-		Session.set('menu-open', false);
-	},
-	'click .js_category_link': function () {
-		Session.set('menu-open', false);
-	},
-	'click .js_main_nav_link': function () {
-		Session.set('menu-open', false);
-	},
-	
 });

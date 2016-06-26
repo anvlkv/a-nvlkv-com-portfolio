@@ -4,8 +4,10 @@
 	position: absolute;
 	top:0;
 	left:0;
-	background-color: rgba($black-copy, .5);
+	background-color: rgba($black-copy, .75);
 	z-index: 10;
+	min-width: 100vw;
+	width: auto;
 }
 
 
@@ -13,16 +15,43 @@
 .email-overlay{
 	&.animate-in{
 		@include fadeIn($duration:$duration);
-		.email-dialog{
+		.dialog{
 			@include slideInDown($duration:$duration, $delay:$duration);
 		}
 	}
 	&.animate-out{
 		@include fadeOut($duration:$duration);	
-		.email-dialog{
+		.dialog{
 			@include slideOutUp($duration:$duration, $delay:$duration);
 		}
 	}
 
+}
+
+// animations
+
+.dialog{
+	&.animate-out:not(.animate-sent){
+		@include slideOutUp($duration:$duration, $delay:$duration);
+	}
+	&.email-dialog{
+		&.animate-in{
+			@include slideInDown($duration:$duration, $delay:$duration);	
+		}
+		&.animate-sent{
+			@include lightSpeedOut($duration:$duration);
+			&.animate-error{
+				@include bounceInRight($duration:$duration);		
+			}
+		}
+		&.animate-error{
+			@include shake($duration:$duration*2, $delay:$duration);
+		}
+	}
+	&.success-dialog{
+		&.animate-in{
+			@include slideInRight($duration:$duration);	
+		}
+	}
 }
 

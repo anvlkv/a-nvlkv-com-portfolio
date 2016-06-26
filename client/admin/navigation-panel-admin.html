@@ -15,8 +15,11 @@
   		<!-- Collect the nav links, forms, and other content for toggling -->
   		<div class="collapse navbar-collapse navbar-ex1-collapse">
   			<ul class="nav navbar-nav">
-  				<li><a href="/portfolio">Portfolio</a></li>
-  				<li class="active"><a href="/admin">Admin</a></li>
+  				<li><a href="/">Site</a></li>
+  				<li class="{{#if isCurrentPage 'portfolio'}} active {{/if}}"><a href="/admin/portfolio">Portfolio</a></li>
+          <li class="{{#if isCurrentPage 'wip'}} active {{/if}}"><a href="/admin/wip">WIP</a></li>
+          <li class="{{#if isCurrentPage 'files'}} active {{/if}}"><a href="/admin/files">Files</a></li>
+          <li class="{{#if isCurrentPage 'messages'}} active {{/if}}"><a href="/admin/messages">Messages</a></li>
   			</ul>
   			<div class="nav navbar-nav navbar-right">
   				{{>atNavButton}}

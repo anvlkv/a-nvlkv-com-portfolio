@@ -1,7 +1,5 @@
-Template.categoryPage.helpers({
-	category: function(){
-		// console.log('category helper called');
-	    // category in portfolio
+Template.categoryPage.onCreated(function(){
+	this.getCurrent_Category = ()=>{
 	    if (FlowRouter.getParam("category")) {
 		    let req = FlowRouter.current().params;
 	    	
@@ -15,44 +13,86 @@ Template.categoryPage.helpers({
 		    		Session.set('current-project', undefined);
 		    		Session.set('current-page', undefined);
 		    	}
-
-				return category
+				return category._id;
 	    	}
-
-	    } else {
-	    	// reset session params
-
-			return undefined
 	    }
+	};
+
+	this.autorun(()=>{
+		let	cat =  CategorySubs.subscribe('Category', this.getCurrent_Category()),
+			prj = ProjectSubs.subscribe('ProjectsListWithinCategory', this.getCurrent_Category()),
+			att = AttachementSubs.subscribe('AttachementsWithinCategory', this.getCurrent_Category());
+
+		this.ready.set(cat.ready() && prj.ready() && att.ready());
+	});
+});
+
+// Template.categoryPage.onRendered(function(){
+// 	if (this.ready.get())
+// 		dynamicColor(this);
+
+// 	Tracker.autorun(function () {
+// 		dynamicColor(this);
+// 	});
+// });
+
+Template.categoryPage.helpers({
+	category: function(){
+		// console.log('category helper called');
+	    // category in portfolio
+
+	    return Categories.findOne(Session.get('current-category'));
 	},
 	projects: function(){
-		return Projects.find({$or:[{primaryCategory: Session.get('current-category')}, {secondaryCategory: Session.get('current-category')},]})
-	}
+		return Projects.find(
+			{$or:[{primaryCategory: Session.get('current-category')}, {secondaryCategory: Session.get('current-category')},]},
+			{sort:{order:1}});
+	},
+	attachements: function(){
+		return Attachements.find({$or:[{primaryCategory: Session.get('current-category')}, {secondaryCategory: Session.get('current-category')},]});
+	},
+	url: function (project) {
+		let params = {
+			category: Categories.findOne(project.primaryCategory).slug,
+			project: project.slug
+		};
+		return FlowRouter.path('portfolio.project', params);
+	},
+	typeIs: function(item, type){
+		return item.type == type;
+	},
+	filename: function(fileId){
+		let file = Files.findOne({_id:fileId});
+		return file.original.name;
+	},
 });
 
 Template.categoryCoverMenu.helpers({
 	url: function (category){
 		let params = {
 			category: category.slug,
-		}
-		return FlowRouter.path('portfolio.category', params)
+		};
+		return FlowRouter.path('portfolio.category', params);
 	},
 	categories: function () {
 		return Categories.find({},{sort:{order:1}});
 	},
 	isCurrentCategory: function(id){
 		if (id==Session.get('current-category')) {
-			return true
+			return true;
 		}
 	}
 });
 
-Template.galleryGrid.helpers({
-	url: function (project) {
-		let params = {
-			category: Categories.findOne(project.primaryCategory).slug,
-			project: project.slug
+
+Template.categoryPage.events({
+	'click .file_download': function (e) {
+		if (!Modernizr.adownload) {
+			if ($(e.target).siblings('.hint').length < 1) {
+				$('<span class="hint">Right-click and select "Download Linked File"</>').insertAfter($(e.target).siblings('h4'));
+			}
+			return false;
 		}
-		return FlowRouter.path('portfolio.project', params)
-	}
+	},
+
 });

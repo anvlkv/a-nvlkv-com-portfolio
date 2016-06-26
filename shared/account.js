@@ -1,7 +1,7 @@
 AccountsTemplates.configure({
     forbidClientAccountCreation: true,
     onLogoutHook: function(){
-    	FlowRouter.go('/')
+    	FlowRouter.go('/');
     },
     onSubmitHook: function (error, state){
     	// console.log(error);
