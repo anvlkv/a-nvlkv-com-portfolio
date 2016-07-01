@@ -1,0 +1,38 @@
+<template name="landingPage">
+    <div class="page landing-page" style="background-color:{{currentSlide.backgroundColor}};">
+        {{>topLevelMenu color=globalPallet.utility}}
+        <div class="slide {{currentSlide.layout}}" style="color:{{currentSlide.textColor}};">
+
+            <!-- graphic content -->
+            {{#graphicsContainer patchColor=currentSlide.backgroundColor}}
+                {{>Template.dynamic template=currentSlide.graphics}}
+            {{/graphicsContainer}}
+
+            <!-- text content -->
+            <div class="slide-text">
+                <h3>{{currentSlide.title}}</h3>
+                <p>{{currentSlide.text}}</p>
+            </div>
+
+        </div>
+        <div class="slide-pagination">
+            <ul class="item-list pgn-list">
+                {{#each slide in slides}}
+                {{#if currentSlide slide}}
+                    <li class="pgn-item active">
+                        <a href="#" class="js_slide slide-link" data-slide="{{@index}}" title="{{slide.title}}" style="color:{{currentSlide.textColor}};">
+                            {{> SVGicon name="bullet"}}
+                        </a>
+                    </li>
+                {{else}}
+                    <li class="pgn-item">
+                        <a href="#" class="js_slide slide-link" data-slide="{{@index}}" title="{{slide.title}}" style="color:{{currentSlide.textColor}};">
+                            {{> SVGicon name="emptyBullet"}}
+                        </a>
+                    </li>
+                {{/if}}
+                {{/each}}
+            </ul>    
+        </div>
+    </div>    
+</template>

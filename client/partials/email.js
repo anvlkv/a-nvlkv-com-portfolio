@@ -68,7 +68,7 @@ Template.composeEmail.helpers({
 		} else if (Session.get('current-category')){
 			return Categories.findOne({_id:Session.get('current-category')}).title;
 		} else {
-			return 'Contact from a.nvlkv.com'
+			return 'Contact from a.nvlkv.com';
 		}
 	},
 	message: function(){
@@ -80,7 +80,7 @@ Template.composeEmail.events({
 	'click .js_clear_email': function (e, t) {
 		email_pre_form.clear();
 		t.$('form')[0].reset();
-		return false
+		return false;
 	},
 	'click .js_send_email, submit #emailForm': function (e, t) {
     	let msg={
@@ -109,7 +109,7 @@ Template.composeEmail.events({
     		});
     		t.$('.email-dialog').addClass('animate-error');
     	}
-		return false
+		return false;
 	},
 	'click .js_close_dialog': function () {
 		Session.set('email-dialog-open', false);
@@ -128,7 +128,7 @@ Template.successDialog.events({
 Template.formField.helpers({
 	isTextarea: function (type) {
 		if (type == 'textarea') {
-			return true
+			return true;
 		}
 	}
 });
@@ -146,8 +146,8 @@ Template.formField.events({
 		email_pre_form.set($(e.target).attr('name'), $(e.target).val());
 	},
 	'blur input, blur textarea, keyup .invalid-field': function (e,t) {
-		let val = $(e.target).val()
-		let name = $(e.target).attr('name');
+		let val = $(e.target).val(),
+			name = $(e.target).attr('name');
 		let validation_errors = validate.single(val, constraints[name]);
 		if (!validation_errors) {
 			$(e.target).removeClass('invalid-field');

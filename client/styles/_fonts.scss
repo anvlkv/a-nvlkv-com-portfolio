@@ -1,3 +1,4 @@
+// Skyhook Mono
 /**
  * @license
  * MyFonts Webfont Build ID 3237326, 2016-06-23T12:38:26-0400
@@ -18,11 +19,6 @@
  * 
  * © 2016 MyFonts Inc
 */
-
-
-
-
-  
 @font-face {font-family: 'SkyhookMono';
 	src: url('fonts/3165CE_0_0.eot');
 	src: url('fonts/3165CE_0_0.eot?#iefix') format('embedded-opentype'),
@@ -30,10 +26,48 @@
 		url('fonts/3165CE_0_0.woff') format('woff'),
 		url('fonts/3165CE_0_0.ttf') format('truetype'),
 		url('fonts/3165CE_0_0.svg#wf') format('svg');
-	}
+}
 
+// Permian Serif
+/**
+* FREE FONT LICENSING AGREEMENT
+* for the fonts with Original Name: Permian Typeface 
+* 
+* GRANT OF LICENSE
+* Ilya Ruderman grants you the right to use and unmodified copies of the fonts by any means, including placing on Web servers for free downloading, embedding in documents and Web pages, bundling with commercial and non commercial products, if it does not conflict with the conditions listed below:
+* 
+* - You may bundle the font with commercial software, but you may not sell the 
+* fonts by itself. They are free. 
+* 
+* - You may distribute the fonts in unmodified version only together 
+* with this Licensing Agreement. You have no right to modify the text of Licensing 
+* Agreement. It can be placed in a separate text file or inserted into the font 
+* file, but it must be easily viewed by users.
+* 
+* - You may not distribute modified version of the font under the Original name 
+* or combination of Original name with any other words without explicit written 
+* permission from Ilya Ruderman.
+* 
+* TERMINATION & TERRITORY
+* This license has no limits on time and territory, but it becomes null and void 
+* if any of the above conditions are not met.
+* 
+* DISCLAIMER
+* THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF 
+* ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY  
+* WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+* PURPOSE AND NONINFRINGEMENT OF COPYRIGHT, PATENT, TRADEMARK, 
+* OR OTHER RIGHT. IN NO EVENT SHALL ILYA RUDERMAN BE LIABLE FOR ANY 
+* CLAIM, DAMAGES OR OTHER LIABILITY, INCLUDING ANY GENERAL, SPECIAL, 
+* INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, WHETHER IN 
+* AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT 
+* OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM OTHER 
+* DEALINGS IN THE FONT SOFTWARE.
+* 
+* Ilya Ruderman
+*/
 @font-face {
-    font-family: 'permianseriftypefaceregular';
+    font-family: 'PermianSerif';
     src: url('fonts/permianserif_regular_macroman/PermianSerifTypeface-webfont.eot');
     src: url('fonts/permianserif_regular_macroman/PermianSerifTypeface-webfont.eot?#iefix') format('embedded-opentype'),
          url('fonts/permianserif_regular_macroman/PermianSerifTypeface-webfont.woff') format('woff'),
@@ -41,11 +75,31 @@
          url('fonts/permianserif_regular_macroman/PermianSerifTypeface-webfont.svg#permianseriftypefaceregular') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
+@font-face {
+    font-family: 'PermianSerif';
+    src: url('fonts/permianserif_bold_macroman/PermianSerifTypeface-Bold-webfont.eot');
+    src: url('fonts/permianserif_bold_macroman/PermianSerifTypeface-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/permianserif_bold_macroman/PermianSerifTypeface-Bold-webfont.woff') format('woff'),
+         url('fonts/permianserif_bold_macroman/PermianSerifTypeface-Bold-webfont.ttf') format('truetype'),
+         url('fonts/permianserif_bold_macroman/PermianSerifTypeface-Bold-webfont.svg#permianseriftypefaceregular') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'PermianSerif';
+    src: url('fonts/permianserif_italic_macroman/PermianSerifTypeface-Italic-webfont.eot');
+    src: url('fonts/permianserif_italic_macroman/PermianSerifTypeface-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/permianserif_italic_macroman/PermianSerifTypeface-Italic-webfont.woff') format('woff'),
+         url('fonts/permianserif_italic_macroman/PermianSerifTypeface-Italic-webfont.ttf') format('truetype'),
+         url('fonts/permianserif_italic_macroman/PermianSerifTypeface-Italic-webfont.svg#permianseriftypefaceregular') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
 // $font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
 $font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
-$font-family-serif:       'permianseriftypefaceregular', Georgia, "Times New Roman", Times, serif;
+$font-family-serif:       'PermianSerif', Georgia, "Times New Roman", Times, serif;
 $font-family-base:        $font-family-serif;
 
 

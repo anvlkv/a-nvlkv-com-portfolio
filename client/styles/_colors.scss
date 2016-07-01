@@ -2,6 +2,7 @@ $black-copy:#333333;
 
 $utility: #677CF7;
 
+
 //////////////////////////////////////////////////
 //		 override bootstrap default colors		//
 //////////////////////////////////////////////////
@@ -20,7 +21,7 @@ $gray-dark:$black-copy;   // #333
 // $brand-info:            #5bc0de;
 // $brand-warning:         #f0ad4e;
 // $brand-danger:          #d9534f;
-// $body-bg:               #fff;
+$body-bg:               #fff;
 // $text-color:            $gray-dark;
 // $link-color:            $brand-primary;
 // $link-hover-color:      darken($link-color, 15%);

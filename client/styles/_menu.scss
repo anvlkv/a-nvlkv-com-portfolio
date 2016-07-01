@@ -68,6 +68,9 @@
 .top-level-navigation{
   padding: $space;
   padding-bottom: 0;
+  @media screen and (max-width: $fg-sm - 1) {
+    padding: $space/4;
+  }
   .item-list{
     .item{
       padding: $space;
@@ -80,6 +83,9 @@
 
 // styles and satates
 .top-level-navigation{
+  @media screen and (max-width: $fg-sm - 1) {
+    font-size: 50%;
+  }
   .item{
     border-bottom: solid 3px transparent;
     &.active{

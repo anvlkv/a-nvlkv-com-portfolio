@@ -9,7 +9,7 @@ dynamicColor=(self)=>{
 				$(el).css('background-color', category.color);
 			}
 		} else {
-			console.log('no color');
+			// console.log('no color');
 		}
 		
 	});
