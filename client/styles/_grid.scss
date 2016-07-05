@@ -1,0 +1,21 @@
+
+$fg-class-row: 'fg-row';
+$fg-class-col: 'fg-col';
+$fg-class-off: 'fg-off';
+
+
+$fg-sm: 768px;
+$fg-md: 992px;
+$fg-lg: 1200px;
+
+$fg-breakpoints: (
+  (xs),
+  (sm, $fg-sm),
+  (md, $fg-md),
+  (lg, $fg-lg)
+);
+
+$fg-gutter: 0.5rem;
+
+
+$space: $fg-gutter*4;

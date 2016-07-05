@@ -1,23 +1,48 @@
 // configure overlay layout
 .menu-overlay {
+
   @extend .page;
   position: absolute;
   top:0;
   left:0;
-  background-color: white;
+  background-color: $white;
   z-index: 10;
+
 }
 
 //top level menu layout
 .top-level-navigation{
+
   @extend .fg-row;
   justify-content:space-between;
+
   .item-list{
+
     @extend .fg-row;
+    @media screen and (max-width: $fg-sm - 1 ) {
+      justify-content: center;
+      flex-grow:1;
+    }
+
     .item{
+      @media screen and (max-width: $fg-sm - 1 ) {
+        flex-grow:1;
+      }
+
+      .menu-item-link h5{
+
+        @extend .fg-row;
+        text-align: center;
+        align-items: center;
+        @media screen and (max-width: $fg-sm - 1 ) {
+          flex-direction: column;
+        }
+
+      }
 
     }
   }
+
   .close-button{
 
   }
@@ -25,21 +50,28 @@
 
 //internal navigation layout
 .current-level-navigation {
+
   overflow-y:auto;
   height: calc(100vh - 6rem - 1em);
+
   .item-list {
+
     @extend .fg-row;
     
     .item {
+
       @extend .fg-col-xs-12;
       @extend .fg-col-sm-3;
 
       .item-list {
+
         flex-direction: column;
 
         .item {
+
           @extend .fg-col-xs-12;
           @extend .fg-col-sm-12;
+
         }
       }
     }
@@ -51,7 +83,7 @@
   padding: $space;
 
   .item {
-    
+    margin-bottom: $space;
     .category-link {
       
       .category-initial {
@@ -61,6 +93,14 @@
         margin-left: -.6em;
       }
     }
+    .item-list{
+      .item{
+        margin-top: $space/2;
+        &:first-child{
+          margin-top: $space;  
+        }
+      }
+    }
   }
 }
 
@@ -68,18 +108,30 @@
 .top-level-navigation{
   padding: $space;
   padding-bottom: 0;
+  @media screen and (max-width: $fg-sm - 1) {
+    padding: $space/2;
+  }
   .item-list{
     .item{
       padding: $space;
+      @media screen and (max-width: $fg-sm - 1) {
+        padding: $space/2;
+      }
     }
   }
   .close-button{
     padding: $space;
+    @media screen and (max-width: $fg-sm - 1) {
+      padding: $space/2;
+    }
   }
 }
 
 // styles and satates
 .top-level-navigation{
+  @media screen and (max-width: $fg-sm - 1) {
+    font-size: 50%;
+  }
   .item{
     border-bottom: solid 3px transparent;
     &.active{
@@ -90,11 +142,11 @@
     }
     &:not(.active){
       &:hover{
-        border-bottom-color: white;
+        border-bottom-color: $white;
       }
       &:active{
-        background-color: rgba(white,.25);
-        border-bottom-color: white;
+        background-color: rgba($white,.25);
+        border-bottom-color: $white;
       }
     }
 
@@ -116,7 +168,7 @@
     .category-link {
       .category-initial {
         // font-size: 3em;
-        color: white;
+        color: $white;
       }
 
       .category-name {

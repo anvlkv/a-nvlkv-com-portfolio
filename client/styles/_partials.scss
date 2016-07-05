@@ -1,10 +1,27 @@
+.item-list{
+
+	list-style: none;
+	margin-bottom: 0;
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+	-webkit-margin-start: 0;
+	-webkit-margin-end: 0;
+	-webkit-padding-start: 0;
+
+}
+
 .pgn-list{
+
 	@extend .fg-row;
 	justify-content: flex-end;
 	text-align: center;	
+
 	.pgn-item, .pgn-action{
+
 		@extend .fg-col-xs-1;
 		position: relative;
+		max-width: none;
+
 		&::after{
 			// @extend .fg-row;
 			width: 100%;
@@ -13,24 +30,37 @@
 			// margin-left: -1 * $fg-gutter;
 			position: absolute;
 			content: "\2022";
-			color: white;
+			color: $white;
 		}
+
 		&.active{
+
 			&::after{
+
 				content: "\2014";
+
 			}
 			a{
+				
 				opacity: .5;
 				text-decoration: none;
+
 			}
 		}
 		&:not(.active){
+			
 			&, &::after, & a{
+
 				cursor: pointer;
+
 			}
+
 			&:hover{
+
 				&::after{
+					
 					content: "\25b2";
+
 				}
 			}
 		}
@@ -38,26 +68,34 @@
 }
 
 .loading{
+
 	$cube-side: 50px;
 	$cube-gutter: $cube-side/10;
-	width: 100%;
-	height: 100%;
+	width: 100vw;
+	height: 100vh;
 	overflow: hidden;
 	display: block;
+	position: relative;
+
 	.loader-container{
+
 		$size: $cube-side*3 + $cube-gutter*6;
 		width: $size;
 		height: $size;
+		// position: absolute;
 		margin: 0 auto;
 		margin-top: 30%;
-		margin-top: calc(50% - #{$size*1.5});
+		@media screen and (min-height: $size*6) {
+			margin-top: calc(50% - #{$size*1.5});
+		}
 		@include animation-name (loading);
 		@include count(infinite);
 		@include duration(1.1s);
 		@include function(linear);
-		.cube{
-			background-color: gray;
 
+		.cube{
+
+			background-color: gray;
 			width: $cube-side;
 			height: $cube-side;
 			margin: $cube-gutter;
@@ -67,13 +105,18 @@
 			@include duration(1s);
 			@include function(linear);
 			@include animation-direction(reverse);
+
 		}
 	}
 	&.animate-in, &{
+
 		@include fadeIn(.4s);
+
 	}
 	&.animate-out{
+
 		@include slideOutUp(.4s);
+
 	}
 }
 
@@ -81,100 +124,64 @@
 
 @include keyframes(loading) {
 	0%{
+
 		transform: rotate(360deg) scale(1);
 		opacity: .5
+
 	}
 	50%{
+
 		transform: rotate(180deg) scale(.25);
 		opacity: 1;
+
 	}
 	100%{
+
 		transform: rotate(0deg) scale(1);
 		opacity: .5
+
+	}
+}
+
+body{
+	#SVG_symbols {
+		position: absolute;
+		left: 0;
+		top: 0;
+		visibility: hidden;
+		opacity: 0;
+		width: 0;
+		height: 0;
+		overflow: hidden;
+		line-height: 0;
+	}
+	.svg-icon{
+		display: inline-block;
+		.icon-use{
+			width: 2em;
+			height: 2em;
+			// fill:$white;
+			// color:$white;
+		}
+	}
+	.svg-graphics{
+		svg{
+				
+			max-width: 100%;
+			max-height: 100%;
+			height: auto;
+			margin: 0 auto;
+			
+		}
+	}
+	.page-overlay{
+		@media screen and (min-width: $fg-sm) {
+			font-size: 80%;
+			
+		}
+		// min-width: 100vw;
+		// min-height: 100vh;
 	}
 }
 
 
-// dialog box layout
-
-.dialog{
-	@extend .fg-col-xs-12;
-	@extend .fg-col-sm-6;
-	@extend .fg-off-sm-3;
-	align-self: center;
-	.dialog-heading{
-		@extend .fg-row;
-		align-items: center;
-		justify-content:space-between;
-		h4{
-			@extend .fg-col-xs-10;
-		}
-		a{
-			@extend .fg-col-xs-1;
-			@extend .fg-off-xs-1;
-		}
-	}
-	.dialog-form{
-		form{
-			>div{
-				width: 100%;
-				label{
-					width: 100%;
-					.label-text{
-						width: 100%;
-					}
-					input, textarea{
-						width: 100%;	
-					}
-				}
-			}
-		}
-	}
-	.dialog-controls{
-		@extend .fg-row;
-		justify-content: flex-end;
-		a{
-			@extend .fg-col-xs-6;
-			@extend .fg-col-sm-3;
-		}
-	}
-}
-
-.dialog-form{
-	label{
-		.label-text{
-			font-size: 1.5em;
-		}
-		.error-text{
-			color: red;
-			font-weight: 100;
-		}
-		input, textarea{
-			font-size: 1.5em;
-			font-weight: normal;
-			&.invalid-field{
-				border: 1px solid red;
-			}
-		}
-		input{
-
-		}
-		textarea{
-
-		}
-		&.in-use{
-			.label-text{
-				font-size: 1em;
-			}
-		}
-	}
-}
-
-.dialog{
-	.dialog-heading{
-
-	}
-	.dialog-controls{
-
-	}
-}

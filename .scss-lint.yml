@@ -89,7 +89,7 @@
 #     leading_underscore: false
 #     filename_extension: false
 
-#   Indentation:
+  Indentation:
 #     enabled: true
 #     allow_non_nested_indentation: false
     character: tab # or 'space'

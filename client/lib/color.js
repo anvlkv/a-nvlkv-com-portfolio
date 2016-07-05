@@ -9,7 +9,7 @@ dynamicColor=(self)=>{
 				$(el).css('background-color', category.color);
 			}
 		} else {
-			console.log('no color');
+			// console.log('no color');
 		}
 		
 	});
@@ -17,8 +17,8 @@ dynamicColor=(self)=>{
 
 Template.registerHelper('globalPallet',()=>{
 	return {
-		utility: '#B367F7',
-		cta: '#677CF7',
+		utility: '#9067f7',
+		cta: '#67a8f7',
 		history: '#d555ac',
 		interactive:'#c4e059',
 	};

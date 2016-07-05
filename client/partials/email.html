@@ -5,10 +5,10 @@
 </template>
 
 <template name="composeEmail">
-	<div class="email-dialog dialog dynamic_color" data-color="{{globalPallet.utility}}">
+	<div class="email-dialog dialog utility-background">
 		<div class="dialog-heading">
 			<h4>Email me</h4>
-			<a href="#" class="close-button js_close_dialog" title="Menu">
+			<a href="#" class="close-button js_close_dialog" title="Close">
 				{{> SVGicon name="cross"}}
 			</a>
 		</div>
@@ -25,20 +25,20 @@
 			</form>
 		</div>
 		<div class="dialog-controls">
-			<a type="button" class="dialog-secondary-btn js_clear_email" href="#" title="Clear">Clear</a>
-			<a type="button" class="dialog-cta-btn dynamic_color js_send_email" data-color="{{globalPallet.cta}}" href="#" title="Send">Send</a>
+			<a type="button" class="dialog-secondary-btn secondary-btn js_clear_email" href="#" title="Clear">Clear</a>
+			<a type="button" class="dialog-cta-btn cta-color js_send_email" href="#" title="Send">Send</a>
 		</div>
 	</div>
 </template>
 
 <template name="formField">
-	<label class="{{#if value}}in-use{{/if}}">
+	<label>
 		<span class="label-text">
 			{{label_text}}
 		</span>
 		
 		{{#if isTextarea type}}
-		<textarea required="{{isRequired}}" name="{{name}}" placeholder="{{placeholder}}" rows="10">{{value}}</textarea>		
+		<textarea required="{{isRequired}}" name="{{name}}" placeholder="{{placeholder}}" rows="6">{{value}}</textarea>		
 		{{else}}
 		<input required="{{isRequired}}" type="{{type}}" name="{{name}}" placeholder="{{placeholder}}" value="{{value}}">		
 		{{/if}}
@@ -58,11 +58,11 @@
 </template>
 
 <template name="successDialog">
-	<div class="success-dialog dialog dynamic_color" data-color="{{globalPallet.cta}}">
+	<div class="success-dialog dialog utility-background">
 		<div class="dialog-heading">
 			<h4>Email sent</h4>
-			<a href="#" class="close-button js_close_dialog" title="Menu">
-				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+			<a href="#" class="close-button js_close_dialog" title="Close">
+				{{> SVGicon name="cross"}}
 			</a>
 		</div>
 		<div class="dialog-body">
@@ -71,7 +71,7 @@
 			</p>
 		</div>
 		<div class="dialog-controls">
-			<a type="button" class="dialog-cta-btn dynamic_color js_close_dialog" data-color="{{globalPalet.cta}}" href="#" title="OK">OK</a>
+			<a type="button" class="dialog-cta-btn cta-color js_close_dialog" href="#" title="OK">OK</a>
 		</div>
 	</div>
 </template>

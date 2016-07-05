@@ -143,6 +143,7 @@ spacebars-compiler@1.0.12
 srp@1.0.9
 standard-minifier-css@1.0.7_1
 standard-minifier-js@1.0.7_1
+sunstory:meteor-template-breakpoints@1.1.0
 templating@1.1.12_1
 templating-tools@1.0.4
 tracker@1.0.14

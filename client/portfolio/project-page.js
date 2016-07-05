@@ -156,5 +156,26 @@ Template.projectText.helpers({
 			}
 			
 		}
-	}
+	},
+	image: function(){
+		let templateInstance = Template.instance();
+
+		if (FlowRouter.getParam('page')) {
+			// console.log(FlowRouter.getParam("page"));
+			Session.set('current-page', FlowRouter.getParam('page'));
+
+			let project = Projects.findOne(Session.get('current-project'));
+			if (project.pages) {
+				let image;
+				project.pages.forEach(function (page) {
+					// console.log(page);
+					if (Session.get('current-page') == page.slug) {
+						image = page.image;
+					}
+				});
+				return image;
+			}
+			
+		}
+	},
 });

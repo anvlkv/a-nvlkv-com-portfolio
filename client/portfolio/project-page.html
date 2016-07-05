@@ -13,9 +13,14 @@
 		</div>
 	</div>
 
+	<!-- only show on larger screens -->
+	{{#if screensize 'sm, md, lg'}}
 	<div class="background-container">
 		{{>Template.dynamic template=imagery data=image}}
 	</div>
+	{{/if}}
+
+
 	{{else}}
 		{{> errPage}}
 	{{/if}}
@@ -26,13 +31,36 @@
 
 <template name="projectCoverText">
 	<!-- dates container -->
-	<div class="date-container">
-		<div class="date">
-			<h4>{{dateMY startDate}} - {{dateMY endDate}}</h4>
+	<!-- only on larger screens -->
+	{{#if screensize 'sm, md, lg'}}
+		<div class="date-container">
+			<div class="date">
+				<h4>
+				{{>SVGicon name='timeStamp'}}
+				<span>{{dateMY startDate}} - {{dateMY endDate}}</span>
+				</h4>
+			</div>
 		</div>
-	</div>
+	{{/if}}
+	
 	<!-- content container -->
 	<div class="content-plate dynamic_color">
+		<!-- show only on phones -->
+		{{#if screensize 'xs'}}
+			<div class="image-container">
+				<div class="date-container">
+					<div class="date">
+						<h4>
+						{{>SVGicon name='timeStamp'}}
+						<span>{{dateMY startDate}} - {{dateMY endDate}}</span>
+						</h4>
+					</div>
+				</div>
+				
+				<img src="/cfs/files/images/{{image}}" class="img-responsive" alt="{{title}}">
+			</div>
+		{{/if}}
+
 		<div class="text">
 			{{description}}
 		</div>
@@ -42,6 +70,13 @@
 
 <template name="projectText">
 	<div class="content-plate dynamic_color full-height">
+		<!-- show only on phones -->
+		{{#if screensize 'xs'}}
+			<div class="image-container">
+				<img src="/cfs/files/images/{{image}}" class="img-responsive" alt="{{title}}">
+			</div>
+		{{/if}}
+
 		<div class="text">
 			{{description}}
 		</div>
@@ -65,7 +100,7 @@
 
 	<div class="title-container">
 		<div class="title-plate dynamic_color">
-			<h2>{{title}}</h2>
+			<h3>{{title}}</h3>
 		</div>
 	</div>
 	

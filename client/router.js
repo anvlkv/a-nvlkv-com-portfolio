@@ -4,7 +4,7 @@
 FlowRouter.route('/', {
     name: 'home',
     action: function() {
-        BlazeLayout.render("mainLayout", {content: "dummy"});
+        BlazeLayout.render("mainLayout", {content: "landingPage"});
         GAnalytics.pageview();
     }
 });

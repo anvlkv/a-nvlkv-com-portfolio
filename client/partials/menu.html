@@ -1,7 +1,7 @@
 <template name="navMenu">
 	<!-- make animated class -->
 	<div class="mini-nav">
-		<a type="button" href="#" title="email me" class="mini-nav-btn js_email_me dynamic_color" data-color="{{globalPallet.cta}}">
+		<a type="button" href="#" title="email me" class="mini-nav-btn js_email_me cta-color">
 			{{>SVGicon name="email"}}
 		</a>
 		<a type="button" href="#" class="mini-nav-btn js_toggle_menu dynamic_color" data-color="{{color}}" title="Menu">
@@ -17,7 +17,7 @@
 
 <template name="menuOverlay">
 	<div class="menu-overlay">
-		{{>topLevelMenu}}
+		{{>topLevelMenu close="true"}}
 		<div class="current-level-navigation">
 			<ul class="item-list">
 				{{#each category in categories}}
@@ -45,23 +45,31 @@
 </template>
 
 <template name="topLevelMenu">
-	<nav class="top-level-navigation dynamic_color">
+	<nav class="top-level-navigation utility-background dynamic_color" data-color={{color}}>
 		<ul class="item-list">
 			<li class="item {{#if isCurrentPage 'home'}} active {{/if}}">
-				<a class="js_main_nav_link" href="/" title="Home">
-					<h5>Home</h5>
+				<a class="js_main_nav_link menu-item-link" href="/" title="Home">
+					<h5>{{> SVGicon name="home"}}&nbsp;<span class="tab-name">Home</span></h5>
 				</a>
 			</li>
 			<li class="item {{#if isCurrentPage 'portfolio'}} active {{/if}}">
-				<a class="js_main_nav_link" href="/portfolio" title="Portfolio">
-					<h5>Portfolio</h5>
+				<a class="js_main_nav_link menu-item-link" href="/portfolio" title="Portfolio">
+					<h5>{{> SVGicon name="portfolio"}}&nbsp;<span class="tab-name">Portfolio</span></h5>
+				</a>
+			</li>
+			<li class="item">
+				<a class="js_email_me menu-item-link" href="?email=true" title="email me">
+					<h5>{{>SVGicon name="email"}}&nbsp;<span class="tab-name">Contact me</span></h5>
+
 				</a>
 			</li>
 			<!-- <li><a href="/about" title="About">About</a></li> -->
 			<!-- <li><a href="/blog" title="Blog">Blog</a></li> -->
 		</ul>
+		{{#if close}}
 		<a href="#" class="close-button js_close_menu" title="Menu">
 			{{> SVGicon name="cross"}}
 		</a>
+		{{/if}}
 	</nav>
 </template>
