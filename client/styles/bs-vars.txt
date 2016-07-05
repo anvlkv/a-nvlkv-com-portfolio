@@ -27,7 +27,7 @@ moved to _colors.scss 			$brand-danger:          #d9534f !default;
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-moved to _colors.scss			$body-bg:               #fff !default;
+moved to _colors.scss			$body-bg:               $white !default;
 //** Global text color on `<body>`.
 moved to _colors.scss			$text-color:            $gray-dark !default;
 
@@ -112,7 +112,7 @@ $border-radius-large:       6px !default;
 $border-radius-small:       3px !default;
 
 //** Global color for active items (e.g., navs or dropdowns).
-$component-active-color:    #fff !default;
+$component-active-color:    $white !default;
 //** Global background color for active items (e.g., navs or dropdowns).
 $component-active-bg:       $brand-primary !default;
 
@@ -150,26 +150,26 @@ moved to _colors.scss			$table-border-color:            #ddd !default;
 $btn-font-weight:                normal !default;
 
 moved to _colors.scss			$btn-default-color:              #333 !default;
-moved to _colors.scss			$btn-default-bg:                 #fff !default;
+moved to _colors.scss			$btn-default-bg:                 $white !default;
 moved to _colors.scss			$btn-default-border:             #ccc !default;
 
-moved to _colors.scss			$btn-primary-color:              #fff !default;
+moved to _colors.scss			$btn-primary-color:              $white !default;
 moved to _colors.scss			$btn-primary-bg:                 $brand-primary !default;
 moved to _colors.scss			$btn-primary-border:             darken($btn-primary-bg, 5%) !default;
 
-moved to _colors.scss			$btn-success-color:              #fff !default;
+moved to _colors.scss			$btn-success-color:              $white !default;
 moved to _colors.scss			$btn-success-bg:                 $brand-success !default;
 moved to _colors.scss			$btn-success-border:             darken($btn-success-bg, 5%) !default;
 
-moved to _colors.scss			$btn-info-color:                 #fff !default;
+moved to _colors.scss			$btn-info-color:                 $white !default;
 moved to _colors.scss			$btn-info-bg:                    $brand-info !default;
 moved to _colors.scss			$btn-info-border:                darken($btn-info-bg, 5%) !default;
 
-moved to _colors.scss			$btn-warning-color:              #fff !default;
+moved to _colors.scss			$btn-warning-color:              $white !default;
 moved to _colors.scss			$btn-warning-bg:                 $brand-warning !default;
 moved to _colors.scss			$btn-warning-border:             darken($btn-warning-bg, 5%) !default;
 
-moved to _colors.scss			$btn-danger-color:               #fff !default;
+moved to _colors.scss			$btn-danger-color:               $white !default;
 moved to _colors.scss			$btn-danger-bg:                  $brand-danger !default;
 moved to _colors.scss			$btn-danger-border:              darken($btn-danger-bg, 5%) !default;
 
@@ -186,7 +186,7 @@ $btn-border-radius-small:        $border-radius-small !default;
 //##
 
 //** `<input>` background color
-moved to _colors.scss			$input-bg:                       #fff !default;
+moved to _colors.scss			$input-bg:                       $white !default;
 //** `<input disabled>` background color
 moved to _colors.scss			$input-bg-disabled:              $gray-lighter !default;
 
@@ -237,7 +237,7 @@ $cursor-disabled:                not-allowed !default;
 //## Dropdown menu container and contents.
 
 //** Background for the dropdown menu.
-moved to _colors.scss			$dropdown-bg:                    #fff !default;
+moved to _colors.scss			$dropdown-bg:                    $white !default;
 //** Dropdown menu `border-color`.
 moved to _colors.scss			$dropdown-border:                rgba(0,0,0,.15) !default;
 //** Dropdown menu `border-color` **for IE8**.
@@ -401,7 +401,7 @@ moved to _colors.scss			$navbar-inverse-border:                     darken($navb
 
 // Inverted navbar links
 moved to _colors.scss			$navbar-inverse-link-color:                 lighten($gray-light, 15%) !default;
-moved to _colors.scss			$navbar-inverse-link-hover-color:           #fff !default;
+moved to _colors.scss			$navbar-inverse-link-hover-color:           $white !default;
 moved to _colors.scss			$navbar-inverse-link-hover-bg:              transparent !default;
 moved to _colors.scss			$navbar-inverse-link-active-color:          $navbar-inverse-link-hover-color !default;
 moved to _colors.scss			$navbar-inverse-link-active-bg:             darken($navbar-inverse-bg, 10%) !default;
@@ -410,12 +410,12 @@ moved to _colors.scss			$navbar-inverse-link-disabled-bg:           transparent 
 
 // Inverted navbar brand label
 moved to _colors.scss			$navbar-inverse-brand-color:                $navbar-inverse-link-color !default;
-moved to _colors.scss			$navbar-inverse-brand-hover-color:          #fff !default;
+moved to _colors.scss			$navbar-inverse-brand-hover-color:          $white !default;
 moved to _colors.scss			$navbar-inverse-brand-hover-bg:             transparent !default;
 
 // Inverted navbar toggle
 moved to _colors.scss			$navbar-inverse-toggle-hover-bg:            #333 !default;
-moved to _colors.scss			$navbar-inverse-toggle-icon-bar-bg:         #fff !default;
+moved to _colors.scss			$navbar-inverse-toggle-icon-bar-bg:         $white !default;
 moved to _colors.scss			$navbar-inverse-toggle-border-color:        #333 !default;
 
 
@@ -453,19 +453,19 @@ moved to _colors.scss			$nav-pills-active-link-hover-color:         $component-a
 //##
 
 moved to _colors.scss			$pagination-color:                     $link-color !default;
-moved to _colors.scss			$pagination-bg:                        #fff !default;
+moved to _colors.scss			$pagination-bg:                        $white !default;
 moved to _colors.scss			$pagination-border:                    #ddd !default;
 
 moved to _colors.scss			$pagination-hover-color:               $link-hover-color !default;
 moved to _colors.scss			$pagination-hover-bg:                  $gray-lighter !default;
 moved to _colors.scss			$pagination-hover-border:              #ddd !default;
 
-moved to _colors.scss			$pagination-active-color:              #fff !default;
+moved to _colors.scss			$pagination-active-color:              $white !default;
 moved to _colors.scss			$pagination-active-bg:                 $brand-primary !default;
 moved to _colors.scss			$pagination-active-border:             $brand-primary !default;
 
 moved to _colors.scss			$pagination-disabled-color:            $gray-light !default;
-moved to _colors.scss			$pagination-disabled-bg:               #fff !default;
+moved to _colors.scss			$pagination-disabled-bg:               $white !default;
 moved to _colors.scss			$pagination-disabled-border:           #ddd !default;
 
 
@@ -525,7 +525,7 @@ moved to _colors.scss			$state-danger-border:            darken(adjust-hue($stat
 //** Tooltip max width
 $tooltip-max-width:           200px !default;
 //** Tooltip text color
-moved to _colors.scss			$tooltip-color:               #fff !default;
+moved to _colors.scss			$tooltip-color:               $white !default;
 //** Tooltip background color
 moved to _colors.scss			$tooltip-bg:                  #000 !default;
 $tooltip-opacity:             .9 !default;
@@ -541,7 +541,7 @@ moved to _colors.scss			$tooltip-arrow-color:         $tooltip-bg !default;
 //##
 
 //** Popover body background color
-moved to _colors.scss			$popover-bg:                          #fff !default;
+moved to _colors.scss			$popover-bg:                          $white !default;
 //** Popover maximum width
 $popover-max-width:                   276px !default;
 //** Popover border color
@@ -583,9 +583,9 @@ moved to _colors.scss			$label-warning-bg:            $brand-warning !default;
 moved to _colors.scss			$label-danger-bg:             $brand-danger !default;
 
 //** Default label text color
-moved to _colors.scss			$label-color:                 #fff !default;
+moved to _colors.scss			$label-color:                 $white !default;
 //** Default text color of a linked label
-moved to _colors.scss			$label-link-hover-color:      #fff !default;
+moved to _colors.scss			$label-link-hover-color:      $white !default;
 
 
 //== Modals
@@ -601,7 +601,7 @@ $modal-title-padding:         15px !default;
 $modal-title-line-height:     $line-height-base !default;
 
 //** Background color of modal content area
-moved to _colors.scss			$modal-content-bg:                             #fff !default;
+moved to _colors.scss			$modal-content-bg:                             $white !default;
 //** Modal content border color
 moved to _colors.scss			$modal-content-border-color:                   rgba(0,0,0,.2) !default;
 //** Modal content border color **for IE8**
@@ -653,7 +653,7 @@ moved to _colors.scss			$alert-danger-border:         $state-danger-border !defa
 //** Background color of the whole progress component
 moved to _colors.scss			$progress-bg:                 #f5f5f5 !default;
 //** Progress bar text color
-moved to _colors.scss			$progress-bar-color:          #fff !default;
+moved to _colors.scss			$progress-bar-color:          $white !default;
 //** Variable for setting rounded corners on progress bar.
 $progress-border-radius:      $border-radius-base !default;
 
@@ -674,7 +674,7 @@ moved to _colors.scss			$progress-bar-info-bg:        $brand-info !default;
 //##
 
 //** Background color on `.list-group-item`
-moved to _colors.scss			$list-group-bg:                 #fff !default;
+moved to _colors.scss			$list-group-bg:                 $white !default;
 //** `.list-group-item` border color
 moved to _colors.scss			$list-group-border:             #ddd !default;
 //** List group border radius
@@ -707,7 +707,7 @@ moved to _colors.scss			$list-group-link-heading-color: #333 !default;
 //
 //##
 
-moved to _colors.scss			$panel-bg:                    #fff !default;
+moved to _colors.scss			$panel-bg:                    $white !default;
 $panel-body-padding:          15px !default;
 $panel-heading-padding:       10px 15px !default;
 $panel-footer-padding:        $panel-heading-padding !default;
@@ -721,7 +721,7 @@ moved to _colors.scss			$panel-default-text:          $gray-dark !default;
 moved to _colors.scss			$panel-default-border:        #ddd !default;
 moved to _colors.scss			$panel-default-heading-bg:    #f5f5f5 !default;
 
-moved to _colors.scss			$panel-primary-text:          #fff !default;
+moved to _colors.scss			$panel-primary-text:          $white !default;
 moved to _colors.scss			$panel-primary-border:        $brand-primary !default;
 moved to _colors.scss			$panel-primary-heading-bg:    $brand-primary !default;
 
@@ -773,15 +773,15 @@ moved to _colors.scss			$well-border:                 darken($well-bg, 7%) !defa
 //
 //##
 
-moved to _colors.scss			$badge-color:                 #fff !default;
+moved to _colors.scss			$badge-color:                 $white !default;
 //** Linked badge text color on hover
-moved to _colors.scss			$badge-link-hover-color:      #fff !default;
+moved to _colors.scss			$badge-link-hover-color:      $white !default;
 moved to _colors.scss			$badge-bg:                    $gray-light !default;
 
 //** Badge text color in active nav link
 moved to _colors.scss			$badge-active-color:          $link-color !default;
 //** Badge background color in active nav link
-moved to _colors.scss			$badge-active-bg:             #fff !default;
+moved to _colors.scss			$badge-active-bg:             $white !default;
 
 $badge-font-weight:           bold !default;
 $badge-line-height:           1 !default;
@@ -810,15 +810,15 @@ $breadcrumb-separator:          "/" !default;
 
 $carousel-text-shadow:                        0 1px 2px rgba(0,0,0,.6) !default;
 
-moved to _colors.scss			$carousel-control-color:                      #fff !default;
+moved to _colors.scss			$carousel-control-color:                      $white !default;
 $carousel-control-width:                      15% !default;
 $carousel-control-opacity:                    .5 !default;
 $carousel-control-font-size:                  20px !default;
 
-moved to _colors.scss			$carousel-indicator-active-bg:                #fff !default;
-moved to _colors.scss			$carousel-indicator-border-color:             #fff !default;
+moved to _colors.scss			$carousel-indicator-active-bg:                $white !default;
+moved to _colors.scss			$carousel-indicator-border-color:             $white !default;
 
-moved to _colors.scss			$carousel-caption-color:                      #fff !default;
+moved to _colors.scss			$carousel-caption-color:                      $white !default;
 
 
 //== Close
@@ -827,7 +827,7 @@ moved to _colors.scss			$carousel-caption-color:                      #fff !defa
 
 $close-font-weight:           bold !default;
 moved to _colors.scss			$close-color:                 #000 !default;
-$close-text-shadow:           0 1px 0 #fff !default;
+$close-text-shadow:           0 1px 0 $white !default;
 
 
 //== Code
@@ -837,7 +837,7 @@ $close-text-shadow:           0 1px 0 #fff !default;
 moved to _colors.scss			$code-color:                  #c7254e !default;
 moved to _colors.scss			$code-bg:                     #f9f2f4 !default;
 
-moved to _colors.scss			$kbd-color:                   #fff !default;
+moved to _colors.scss			$kbd-color:                   $white !default;
 moved to _colors.scss			$kbd-bg:                      #333 !default;
 
 moved to _colors.scss			$pre-bg:                      #f5f5f5 !default;

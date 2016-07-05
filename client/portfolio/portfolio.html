@@ -4,9 +4,7 @@
 	<div class="page">
 	{{#if readiness}}
 
-		{{#momentum plugin='animate-css' sKlass='page-overlay' timeout=1000}}
-			{{> Template.dynamic template=overlay}}
-		{{/momentum}}
+		{{>pageOverlay}}
 
 		{{>Template.dynamic template=pageType}}
 

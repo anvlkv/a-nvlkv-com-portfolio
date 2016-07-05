@@ -381,48 +381,6 @@ Template.portfolio.onCreated(function(){
 				}
 			}
 		}
-		// console.log(AdjacentSubs);
-
-		// this.ready.set(Subs.ready());
-		
-		// this.ready(function(){
-		// 	// find and subscribe for ajdacent categories and projects
-		// 	// 
-		// 	// find currect position
-		// 	let current_category, current_project, adj_categories, adj_projects;
-		// 	if (Session.get('current-category')) {
-		// 		current_category = Categories.findOne(Session.get('current-category'));
-		// 	}else{
-		// 		current_category = Categories.findOne({},{sort:{order:1}});
-		// 	}
-		// 	if (Session.get('current-project')) {
-		// 		current_project = Projects.findOne(Session.get('current-project'));
-		// 	} else {
-		// 		current_project = Projects.findOne({primaryCategory:current_category._id},{sort:{order:1}});
-		// 	}
-		// 	// find adjacent items
-		// 	// 
-		// 	// by order and end date
-		// 	adj_categories = Categories.find({$or: [ { oder: current_category.order - 1 }, { oder: current_category.order + 1 } ]});
-		// 	adj_projects = Projects.find(
-		// 		{
-		// 			$or: [ { 
-		// 					oder: current_project.order - 1,
-		// 					primaryCategory: current_category._id,
-		// 				}, {
-		// 					oder: current_project.order + 1,
-		// 					primaryCategory: current_category._id,
-		// 				}, {
-		// 					endDate:{$gt:current_project.endDate},
-		// 				},{
-		// 					endDate:{$lt:current_project.endDate},
-		// 					}
-		// 				}
-		// 			]
-		// 		}
-
-			// );
-		// });
 
 		Session.set('menu-open', false);
 		Session.set('email-dialog-open', false);
@@ -437,6 +395,20 @@ Template.portfolio.onRendered(function(){
 	if (Modernizr.touchevents) {
 		this.$('.page').swipe({
 			swipe: function(event, direction, distance, duration, fingerCount, fingerData){
+				let total_height=0,
+					screen_height =$(window).height();
+
+				$.each(this.children(), function(index, val) {
+					 /* iterate through array or object */
+					 // console.log(index, val);
+					 // console.log(val);
+					 if ($(val).css('position')!= 'absolute') {
+						 total_height += $(val).height();
+					 }
+				});
+
+				// console.log(total_height);
+
 				if (!Session.get('menu-open') && !Session.get('email-dialog-open')) {
 					switch (direction){
 						case 'left':
@@ -446,10 +418,18 @@ Template.portfolio.onRendered(function(){
 							FlowRouter.go(navigationURL('order','prev'));
 							break;
 						case 'up':
-							FlowRouter.go(navigationURL('time','next'));
+							if ($(window).scrollTop() >= (total_height - screen_height)) {
+								FlowRouter.go(navigationURL('time','next'));
+							} else {
+								$(window).scrollTop(distance);
+							}
 							break;
 						case 'down':
-							FlowRouter.go(navigationURL('time','prev'));
+							if ($(window).scrollTop() === 0) {
+								FlowRouter.go(navigationURL('time','prev'));
+							} else {
+								$(window).scrollTop(-distance);
+							}
 							break;
 					}
 				}
@@ -462,33 +442,4 @@ Template.portfolio.onRendered(function(){
 
 Template.portfolio.onDestroyed(function(){
 	portfolioHotKeys.unload();
-});
-
-
-Template.portfolio.helpers({
-	overlay: function () {
-		const route = FlowRouter.current();
-		if (route.queryParams.menu && route.queryParams.email) {
-			FlowRouter.go(route.route.name, route.params);
-		}
-		if (route.queryParams.menu || Session.get('menu-open')) {
-			if (!Session.get('menu-open')) {
-				Session.set('menu-open', true);
-			}
-			if (!route.queryParams.menu) {
-				FlowRouter.go(route.route.name, route.params, {menu:true});
-			}	
-
-			return 'menuOverlay';
-		} else if (route.queryParams.email || Session.get('email-dialog-open')){
-			if (!Session.get('email-dialog-open')) {
-				Session.set('email-dialog-open', true);
-			}
-			if (!route.queryParams.menu) {
-				FlowRouter.go(route.route.name, route.params, {email:true});
-			}	
-
-			return 'emailOverlay';
-		}
-	}
 });

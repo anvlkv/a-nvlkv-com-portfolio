@@ -1,8 +1,25 @@
+menuHotKeys = new Hotkeys({
+	autoLoad:false
+});
+
+menuHotKeys.add({
+	combo:'esc',
+	callback : function(){
+		Session.set('menu-open', false);
+		FlowRouter.setQueryParams({menu: null});
+    }
+});
+
 Template.menuOverlay.onCreated(function(){
 	this.autorun(()=>{
 		this.subscribe('CategoriesList');
 		this.subscribe('ProjectsFeed');
+		menuHotKeys.load();
 	});
+});
+
+Template.menuOverlay.onDestroyed(function(){
+	menuHotKeys.unload();
 });
 
 Template.navMenu.helpers({
@@ -56,7 +73,7 @@ Template.topLevelMenu.helpers({
 Template.navMenu.events({
 	'click .js_toggle_menu': function (e,t) {
 		if (!Session.get('menu-open')) {
-			Session.set('menu-open', true);		
+			Session.set('menu-open', true);	
 		}
 	},
 	'click .js_email_me': function(e,t) {
@@ -70,4 +87,11 @@ Template.menuOverlay.events({
 		FlowRouter.go(route.route.name, route.params, {});
 		Session.set('menu-open', false);
 	},
+});
+
+Template.topLevelMenu.events({
+	'click .js_email_me': function () {
+		Session.set('menu-open', false);
+		Session.set('email-dialog-open', true);
+	}
 });

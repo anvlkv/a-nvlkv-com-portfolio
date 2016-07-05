@@ -39,16 +39,44 @@ Template.emailOverlay.onRendered(function(){
 	Session.set('email-sent', false);
 });
 
+emailHotKeys = new Hotkeys({
+	autoLoad:false
+});
 
+emailHotKeys.add({
+	combo:'esc',
+	callback : function(){
+		email_pre_form.clear();
+		Session.set('email-dialog-open', false);
+		FlowRouter.setQueryParams({email: null});
+    }
+});
+
+emailHotKeys.add({
+	combo:'ctrl+enter',
+	callback : function(){
+		$('#emailForm').submit();
+    }
+});
+
+Template.emailOverlay.onCreated(function(){
+
+	this.autorun(()=>{
+		emailHotKeys.load();
+	});
+});
+Template.emailOverlay.onDestroyed(function(){
+	emailHotKeys.unload();
+});
 
 Template.emailOverlay.helpers({
 	dialog: function () {
 		// switch dialogs here
 		if (!Session.get('email-sent')) {
-			return 'composeEmail'		
+			return 'composeEmail';
 		} else {
 			// return 'composeEmail'		
-			return 'successDialog'
+			return 'successDialog';
 		}
 	}
 });
@@ -113,37 +141,43 @@ Template.composeEmail.events({
 	},
 	'click .js_close_dialog': function () {
 		Session.set('email-dialog-open', false);
+		FlowRouter.setQueryParams({email: null});
 	},
 });
 
 Template.successDialog.events({
 	'click .js_close_dialog': function () {
 		Session.set('email-dialog-open', false);
+		FlowRouter.setQueryParams({email: null});
 	},
 });
 
 
 // tiny pieces
 
+Template.formField.onRendered(function(){
+	if (this.data.value) {
+		this.$('label').addClass('in-use');
+	}
+});
+
 Template.formField.helpers({
 	isTextarea: function (type) {
 		if (type == 'textarea') {
 			return true;
 		}
-	}
+	},
 });
 
 Template.formField.events({
 	'focus input, focus textarea': function(e,t){
 		$(e.target).parent('label').addClass('in-use');
 	},
-	'blur input, blur textarea': function(e,t){
+	'blur input, blur textarea, change input, change textarea': function(e,t){
+		email_pre_form.set($(e.target).attr('name'), $(e.target).val());
 		if (!$(e.target).val()) {
 			$(e.target).parent('label').removeClass('in-use');
 		}
-	},
-	'keyup input, keyup textarea':function (e, t){
-		email_pre_form.set($(e.target).attr('name'), $(e.target).val());
 	},
 	'blur input, blur textarea, keyup .invalid-field': function (e,t) {
 		let val = $(e.target).val(),

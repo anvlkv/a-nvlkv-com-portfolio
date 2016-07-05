@@ -1,0 +1,161 @@
+// dialog box layout
+
+.dialog{
+
+	@extend .fg-col-xs-12;
+	@extend .fg-col-sm-6;
+	@extend .fg-off-sm-3;
+	align-self: center;
+
+	.dialog-heading{
+
+		@extend .fg-row;
+		align-items: center;
+		justify-content:space-between;
+
+		h4{
+
+			@extend .fg-col-xs-10;
+
+		}
+		a{
+
+			@extend .fg-col-xs-1;
+			@extend .fg-off-xs-1;
+
+		}
+	}
+	.dialog-form{
+
+		form{
+			>div{
+
+				width: 100%;
+
+				label{
+
+					width: 100%;
+
+					.label-text{
+
+						width: 100%;
+
+					}
+					input, textarea{
+
+						width: 100%;
+
+					}
+				}
+			}
+		}
+	}
+	.dialog-controls{
+
+		@extend .fg-row;
+		justify-content: flex-end;
+
+		a{
+
+			@extend .fg-col-xs-6;
+			@extend .fg-col-sm-6;
+
+		}
+	}
+}
+
+.dialog-form{
+	
+	label{
+
+		margin-bottom: $space/2;
+		margin-top: $space/2;
+
+		.label-text{
+
+			display: block;
+			font-size: 1.5em;
+			transform-origin: 0 0;	
+			color: $white;
+			font-family: $headings-font-family;
+			transform: translateY(1em);
+			
+			transition-property: transform;
+			transition-duration: $duration;
+			transition-timing-function: ease-in;
+
+		}
+		.error-text{
+
+			color: $red;
+			font-weight: normal;
+			// font-size: 1.5em;
+			font-family: $headings-font-family;
+
+		}
+		input, textarea{
+
+			font-size: 1.5em;
+			font-weight: normal;
+			border: none;
+			border-bottom: $space/2 solid $white;
+			background-color: transparent;
+			color: $white;
+			outline-color: $cta-background;
+			transition-property: border-color;
+			transition-duration: $duration;
+			transition-timing-function: ease-in;
+
+			@include placeholder() {
+				opacity:0;
+				transition-property: opacity;
+				transition-duration: $duration;
+				transition-timing-function: ease-in;
+			}
+
+			&.invalid-field{
+				border-color: $red;
+			}
+
+
+
+			&:focus{
+				@include placeholder() {
+					opacity:1;
+				}
+				border-color: $cta-background;
+			}
+		}
+		input{
+
+		}
+		textarea{
+
+		}
+		&.in-use{
+			.label-text{
+				transform: scale(.75) translateY(0);
+			}
+		}
+	}
+}
+
+.dialog{
+	
+	padding: $space;
+
+	.dialog-heading{
+		h4{
+			font-size: 2.5em;
+		}
+	}
+	.dialog-controls{
+		font-family: $headings-font-family;
+		font-size: 2em;
+	}
+
+	p{
+		margin-top: $space;
+		font-size: 2em;
+	}
+}

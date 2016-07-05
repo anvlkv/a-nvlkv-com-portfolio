@@ -1,20 +1,34 @@
 <template name="landingPage">
     <div class="page landing-page" style="background-color:{{currentSlide.backgroundColor}};">
+    
+        {{>pageOverlay}}
+
         {{>topLevelMenu color=globalPallet.utility}}
-        <div class="slide {{currentSlide.layout}}" style="color:{{currentSlide.textColor}};">
+        
+        {{#with currentSlide}}
+        <div class="slide {{layout}}" style="color:{{textColor}};">
 
             <!-- graphic content -->
-            {{#graphicsContainer patchColor=currentSlide.backgroundColor}}
+            {{#graphicsContainer patchColor=backgroundColor}}
                 {{>Template.dynamic template=currentSlide.graphics}}
             {{/graphicsContainer}}
 
             <!-- text content -->
             <div class="slide-text">
-                <h3>{{currentSlide.title}}</h3>
-                <p>{{currentSlide.text}}</p>
+                <h3>{{title}}</h3>
+                <p>{{text}}</p>
             </div>
 
+            <!-- button content -->
+            {{#if button}}
+                <div class="slide-btn">
+                    <a class="slide-link-btn js_slide_link" type="button" href="{{#if button.link}}{{button.link}}{{else}}#{{/if}}" title="{{button.text}}">{{button.text}}</a>
+                </div>
+            {{/if}}
+
         </div>
+        {{/with}}
+
         <div class="slide-pagination">
             <ul class="item-list pgn-list">
                 {{#each slide in slides}}

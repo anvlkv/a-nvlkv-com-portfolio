@@ -25,21 +25,26 @@
 
 
 <template name="aboutPortfolio">
+	{{#if screensize 'xs'}}
+		{{>navMenu icon="true" color=globalPallet.utility}}
+	{{/if}}
 	<div class="cover-title">
 		<h1>Portfolio</h1>
 		<hr>
-		<h2>Aleksandr<br/>
-		Novolokov</h2>
+		<h2>a.nvlkv</h2>
 	</div>
 
-	<div class="issue-plate dynamic_color" data-color="{{globalPallet.history}}">
-		<div class="date-containter">
+	<div class="issue-plate white-background" >
+		<div class="date-container">
 			<div class="date">
-				<h4>{{dateMY cover.dateOfIssue}}</h4>
+				<h4>
+				{{>SVGicon name='timeStamp'}}
+				<span>{{dateMY dateOfIssue}}</span>
+				</h4>
 			</div>
 		</div>
 		<div class="nav-hint">
-			<p>Swipe down or use down arrow key to navigate the timeline</p>
+			<p>Follow the timeline of projects</p>
 			<p>{{> SVGicon name="swipeUp"}}
 			{{> SVGicon name="arrowKeyDown"}}</p>
 		</div>
@@ -48,15 +53,18 @@
 </template>
 
 <template name="coverNav">
+	{{#if screensize 'sm, md, lg'}}
+		{{>navMenu icon="true" color=globalPallet.utility}}
+	{{/if}}
 	<!-- <div class="spacer">&nbsp;</div> -->
-	<div class="navigation-plate dynamic_color" data-color="{{globalPallet.interactive}}">
+	<div class="navigation-plate utility-background">
 		<nav class="relative-nav">
-			<a href="{{coverPageButtonUrl}}" class="nav-plate dynamic_color" data-color="{{globalPallet.cta}}" title="Hi! Start here">
-				<h3>Hi!</h3>
+			<a href="{{coverPageButtonUrl}}" class="nav-plate cta-color" title="Hi! Start here">
+				<h3>Start here!</h3>
 			</a>
 		</nav>
 		<div class="nav-hint">
-			<p>Swipe right, click or use right arrow key to follow page order</p>
+			<p>Explore projects by order</p>
 			<p>{{> SVGicon name="swipeLeft"}}
 			{{> SVGicon name="arrowKeyRight"}}
 			{{> SVGicon name="click"}}

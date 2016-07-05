@@ -1,7 +1,12 @@
+// vars
+@import "grid";
+@import "timing";
 @import "colors";
 @import "fonts";
+
+// packages
 @import '{reywood:bootstrap3-sass}/bootstrap';
-@import "admin";
+@import "flex-grid";
 @import "animate-scss/properties";
 @import "animate-scss/sliding-entrances/sliding-entrances";
 @import "animate-scss/sliding-exits/sliding-exits";
@@ -10,6 +15,12 @@
 @import "animate-scss/lightspeed/lightspeed";
 @import "animate-scss/bouncing-entrances/bouncing-entrances";
 @import "animate-scss/attention-seekers/attention-seekers";
+
+// mijn
+@import "mixins";
+@import "admin";
+@import "partials";
+@import "form";
 @import "portfolio";
 @import "menu";
 @import "email";
