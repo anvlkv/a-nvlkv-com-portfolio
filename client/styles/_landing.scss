@@ -74,16 +74,23 @@
 
 			.slide-text{
 
-				align-items: baseline;
+				align-items: center;
 				flex-direction:row;
 				flex-wrap: wrap;
-
+				// justify-content: center;
 				>*{
 
 					@extend .fg-col-xs-12;
 					@extend .fg-col-sm-6;
 
 				}
+				
+				h3{
+
+					align-self: baseline;
+
+				}
+
 
 			}
 
@@ -198,6 +205,16 @@
 			font-size: 120%;
 		}
 
+		&.wide-image{
+			.slide-text{
+				h3{
+
+					font-size: 270%;
+
+				}
+			}
+		}
+
 		.slide-text {
 
 			h3 {
@@ -212,6 +229,8 @@
 		.slide-link-btn{
 
 			font-weight: bold;
+			letter-spacing: .1em;
+			word-spacing: .1em;
 
 		}
 	}
@@ -251,13 +270,6 @@
 .landing-page {
 
 	background-color: $body-bg;
-
-	.slide-link-btn{
-
-		background-color: $cta-background;
-		color: $cta;
-
-	}
 
 	.slide-pagination {
 

@@ -121,14 +121,14 @@
 
 @include keyframes(oneWaylambada) {
 
-	0%,100%{
+	0%{
 
 		transform: rotate(0deg)
 					translate(-5px)
 					rotate(0deg);
 
 	}
-	50%{
+	100%{
 
 		transform:rotate(360deg)
 					translate(-5px)

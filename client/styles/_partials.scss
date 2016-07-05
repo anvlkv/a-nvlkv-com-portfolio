@@ -20,9 +20,7 @@
 
 		@extend .fg-col-xs-1;
 		position: relative;
-		@media screen and (max-width: $fg-sm - 1) {
-			max-width: none;
-		}
+		max-width: none;
 
 		&::after{
 			// @extend .fg-row;
