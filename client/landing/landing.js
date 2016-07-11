@@ -54,6 +54,17 @@ const slides = [
 
 Template.landingPage.onCreated(function(){
 	this.activeSlide = new ReactiveVar(0);
+	this.autorun(()=>{
+		if (Session.get('replay-slides')) {
+			this.activeSlide.set(0);
+			Session.set('replay-slides', false);
+		}
+	});
+});
+
+Template.landingPage.onRendered(function(){
+	Session.set('current-category', null);
+	Session.set('current-project', null);
 });
 
 // let activeSlide = new ReactiveVar(0);
@@ -64,6 +75,11 @@ Template.landingPage.helpers({
 	},
 	currentSlide: function(slide){
 		const t = Template.instance();
+
+		if (FlowRouter.getQueryParam('sld')) {
+			t.activeSlide.set(FlowRouter.getQueryParam('sld'));
+		}
+		
 		if (!t.activeSlide.get()) {
 			t.activeSlide.set(0);
 		}
@@ -85,22 +101,6 @@ Template.landingPage.helpers({
 				return true;
 			}
 		}
-	},
-	overlay: function () {
-		const route = FlowRouter.current();
-		if (route.queryParams.menu && route.queryParams.email) {
-			FlowRouter.go(route.route.name, route.params);
-		}
-		if (route.queryParams.email || Session.get('email-dialog-open')){
-			if (!Session.get('email-dialog-open')) {
-				Session.set('email-dialog-open', true);
-			}
-			if (!route.queryParams.menu) {
-				FlowRouter.go(route.route.name, route.params, {email:true});
-			}	
-
-			return 'emailOverlay';
-		}
 	}
 });
 
@@ -114,5 +114,5 @@ Template.landingPage.events({
 		} else {
 			return e;
 		}
-	}
+	},
 });

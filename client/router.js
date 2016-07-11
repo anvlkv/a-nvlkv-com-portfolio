@@ -1,18 +1,45 @@
+
+
 // main routing
 // // // // // // // // // // // // // // // // // // // // // // 
 // root
-FlowRouter.route('/', {
+const site = FlowRouter.group({
+    prefix: '',
+    triggersEnter:[function(){
+        
+        GAnalytics.pageview();
+
+        if (!Session.get('consent') && !Cookie.get('a_nvlkv_consent')) {
+            
+            Session.set('active-overlay', 'consent');
+            
+            let route = FlowRouter.current();
+
+            if (Object.keys(FlowRouter.current().queryParams).length > 0) {
+                Session.set('consent-redirect', route.path);
+
+                FlowRouter.setQueryParams({email:null, menu:null});
+            }
+
+        }else if (Cookie.get('a_nvlkv_consent')) {
+            Session.set('consent', Cookie.get('a_nvlkv_consent'));
+        }else if (Session.get('consent')==='cookies-only' || Session.get('consent')==='experiment'){
+            Cookie.set('a_nvlkv_consent',Session.get('consent'));
+        }
+    }],
+});
+
+site.route('/', {
     name: 'home',
     action: function() {
         BlazeLayout.render("mainLayout", {content: "landingPage"});
-        GAnalytics.pageview();
     }
 });
 
 
 // portfolio
 
-const portfolio = FlowRouter.group({
+const portfolio = site.group({
     prefix: "/portfolio",
 });
 
@@ -27,7 +54,6 @@ portfolio.route('/', {
         	textContent: "aboutPortfolio",
 			navContent: "coverNav",
         });
-        GAnalytics.pageview();
     }
 });
 
@@ -42,7 +68,6 @@ portfolio.route('/:category', {
         	textContent: "categoryCoverText",
 			navContent: "categoryCoverMenu",
         });
-        GAnalytics.pageview();
     }
 });
 
@@ -57,7 +82,6 @@ portfolio.route('/:category/:project', {
 			textContent: "projectCoverText",
 			navContent: "projectNav",
         });
-        GAnalytics.pageview();
     }
 });
 
@@ -73,27 +97,25 @@ portfolio.route('/:category/:project/:page', {
     			textContent: "projectText",
     			navContent: "projectNav",
             });
-            GAnalytics.pageview();
         }
 });
 
 // back-cover page
-FlowRouter.route('/portfolio/back-cover', {
+portfolio.route('/portfolio/back-cover', {
     name: 'portfolio.back-cover',
     action: function() {
         BlazeLayout.render("mainLayout", {content: "portfolio", pageType: "coverView"});
-        GAnalytics.pageview();
     }
 });
 
 
 FlowRouter.notFound = {
     // Subscriptions registered here don't have Fast Render support.
+    name: 'page.notFound',
     subscriptions: function() {
 
     },
     action: function() {
     	BlazeLayout.render("mainLayout", {content: "errPage"});
-    	GAnalytics.pageview();
     }
 };

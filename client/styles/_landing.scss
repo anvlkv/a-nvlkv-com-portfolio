@@ -2,11 +2,12 @@
 .landing-page{
 
 	@extend .fg-col-xs;
-	justify-content:space-between;
+	justify-content:flex-start;
 	
 	.top-level-navigation{
 		flex-grow:0;
 		flex-shrink:0;
+
 	}
 
 	.slide{
@@ -20,6 +21,7 @@
 		}
 		@media screen and (min-width: $fg-sm) {
 			flex-wrap: wrap;
+			max-height: calc(100vh - #{$space*10});
 		}
 		// overflow: hidden;
 
@@ -27,35 +29,50 @@
 
 			@extend .fg-col-xs-12;
 			@extend .fg-col-sm-6;
+			@media screen and (max-width: $fg-sm - 1) {
+				max-height: calc(70vh - #{$space*10});
+				flex-basis: auto;
+			}
 
 		}
 
 		.svg-graphics{
 
-			@media screen and (max-width: $fg-sm - 1) {
-				max-height: 60%;
-				max-height: calc(70vh - #{$space*10});
-			}
+			justify-content: center;
 			@media screen and (min-width: $fg-sm) {
-				max-height: 90%;
 				max-height: calc(100vh - #{$space*10});
+				flex-basis: 100vh;
+				flex-shrink:0;
+				flex-grow:1;
 			}
+
 
 		}
 
 		.slide-text{
 
 			@extend .fg-col-xs;
-			flex-grow:0;
+			flex-grow:.5;
+			justify-content: flex-end;
 
 		}
 
 		.slide-btn{
 
 			@extend .fg-col-xs-12;
-			align-self:stretch;
+			@extend .fg-col-lg-6;
+			flex-shrink:0;
+			flex-grow:.5;
+			// @extend .fg-off-lg-;
+			align-self:center;
 			text-align: center;
-
+			max-height: 3em;
+			@media screen and (max-width: $fg-lg - 1) {
+				align-self: stretch;
+			}
+			@media screen and (max-width: $fg-md - 1) {
+				max-height: 6em;
+			}
 
 		}
 
@@ -66,9 +83,21 @@
 				
 				@extend .fg-col-xs-12;
 				flex-basis: 50%;
-				flex-grow:0;
 				max-height: 40%;
-				max-height: calc(40vh - 10rem);
+				max-height: calc(40vh - #{$space*6});
+				
+
+			}
+
+			.svg-graphics {
+
+				flex-grow:1;
+
+			}
+
+			.slide-text, .slide-btn {
+
+				flex-grow:0.5;
 
 			}
 
@@ -77,6 +106,10 @@
 				align-items: center;
 				flex-direction:row;
 				flex-wrap: wrap;
+				@media screen and (max-height: 530px) {
+					max-height: calc(40vh - #{$space*2})
+				}
+
 				// justify-content: center;
 				>*{
 
@@ -87,7 +120,7 @@
 				
 				h3{
 
-					align-self: baseline;
+					// align-self: baseline;
 
 				}
 
@@ -171,7 +204,7 @@
 			justify-content: space-around;
 			margin: 0 auto;
 			@media screen and (min-width: $fg-sm) {
-				justify-content: flex-end;
+				justify-content: center;
 			}
 
 			.pgn-item{
@@ -243,6 +276,7 @@
 
 		@media screen and (min-width: $fg-sm) {
 			padding: $space;
+			margin-top: $space*2;
 		}
 
 		.slide-text{
@@ -259,8 +293,13 @@
 
 		.slide-btn{
 			// @media screen and (max-width: $fg-sm - 1) {
-				margin-top: $space;
+				padding-top: $space;
 			// }
+
+			@media screen and (min-width: $fg-sm) {
+				margin-left: $space;
+				margin-right: $space;
+			}
 		}
 
 	}

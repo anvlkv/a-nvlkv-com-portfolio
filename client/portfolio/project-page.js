@@ -21,11 +21,12 @@ Template.projectPage.onCreated(function(){
 
 		    // if category is not set or is not the same as in url set category
 	    	
-
-	    	let project = Projects.findOne({slug:req.project, primaryCategory: this.getCurrent_Category()});
+		    let category = Categories.findOne({_id:this.getCurrent_Category()}),
+	    		project = Projects.findOne({slug:req.project, primaryCategory: this.getCurrent_Category()});
 
 	    	if (project) {
 		    	Session.set('current-project', project._id);
+		    	Session.set('current-page-title', category.title + '.' + project.title);
 
 				// page in project
 				if (req.page) {
@@ -64,6 +65,10 @@ Template.projectPage.onCreated(function(){
 			Session.set('current-page',this.getCurrent_ProjectPage().slug);
 		}
 	});
+});
+
+Template.projectPage.onDestroyed(function(){
+	Session.set('current-page-title', null);
 });
 
 // Template.projectPage.onRendered(function(){

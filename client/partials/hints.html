@@ -1,0 +1,19 @@
+<template name="hintOverlay">
+	<div class="hint-overlay">
+		<div class="wrap">
+			<div class="close-btn">
+				<a href="#" class="close-button js_close_hint" title="Clos">
+					<h5>{{> SVGicon name="cross"}}</h5>
+				</a>
+			</div>
+			{{#with hint}}
+			<div class="hint-icon">
+				{{> SVGicon name=icon}}
+			</div>
+			<div class="hint-text">
+				{{text}}
+			</div>
+			{{/with}}
+		</div>
+	</div>
+</template>

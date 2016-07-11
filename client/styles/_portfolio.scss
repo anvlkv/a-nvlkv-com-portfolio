@@ -78,8 +78,9 @@
 
 				@extend .fg-col-xs-12;
 				@extend .fg-col-sm-12;
-				flex-grow:0;
-				flex-shrink:1;
+				// flex-grow:0;
+				// flex-shrink:0;
+				flex-basis:auto;
 
 			}
 		}
@@ -134,7 +135,11 @@
 		.content{
 			@extend .fg-col-xs;
 			justify-content:space-between;
+			@media screen and (max-width: $fg-sm - 1) {
+				flex-grow:2;
+			}
 			.cover-title{
+
 			}
 			.issue-plate{
 
@@ -148,13 +153,25 @@
 				@extend .fg-row;
 				flex-direction:column;
 				justify-content:space-between;
+				flex-wrap: nowrap;
 
 				.date-container, .nav-hint{
 
 					@extend .fg-col-xs-10;
 					@extend .fg-off-xs-1;
-					flex-grow:.5;
+					width: 100%;
+				}
 
+				.date-container{
+
+					flex-basis: 50%;
+					flex-grow:1;
+
+				}
+
+				.nav-hint{
+					flex-basis: auto;
+					flex-grow:0;
 				}
 			}
 		}
@@ -175,10 +192,19 @@
 				@extend .fg-row;
 				flex-direction:column;
 				justify-content:center;
+				flex-wrap: nowrap;
 
 				.relative-nav{
-					
-					flex-basis: 0;
+
+					@extend .fg-col-xs;
+					@media screen and (min-width: $fg-sm) and (max-width: $fg-lg - 1) {
+						justify-content: flex-end;
+						align-items: flex-end;
+					}
+					@media screen and (min-width: $fg-lg) {
+						justify-content: flex-end;
+						align-items: flex-start;
+					}
 
 					.nav-plate{
 
@@ -186,14 +212,32 @@
 						@extend .fg-off-xs-1;
 						@extend .fg-col-sm-8;
 						@extend .fg-off-sm-4;
-						
-						
+						@extend .fg-col-lg-10;
+						@extend .fg-off-lg-1;
+						flex-basis: auto;
+						width: 100%;
 					}
 				}
 				.nav-hint{
 					@extend .fg-col-xs-10;
 					@extend .fg-off-xs-1;
-					@extend .fg-col-sm-12;
+					@extend .fg-col-sm-8;
+					@extend .fg-off-sm-4;
+					@extend .fg-col-lg-10;
+					@extend .fg-off-lg-1;
+
+					flex-basis: auto;
+					flex-grow:0;
+
+					width: 100%;
+					
+				}
+
+				.relative-nav{
+
+					flex-basis: 50%;
+					flex-grow:1;
+
 				}
 			}
 			// align-self: flex-end;
@@ -424,6 +468,19 @@
 		font-size: 80%;
 	}
 
+	@media screen and (max-height: 600px) {
+		font-size: 70%;
+	}
+
+
+	@media screen and (max-height: 500px) {
+		font-size: 60%;
+	}
+
+	@media screen and (min-width: $fg-lg)  {
+		font-size: 120%;
+	}
+
 	.top-level-navigation{
 
 		@media screen and (max-width: $fg-sm - 1)  {
@@ -589,9 +646,9 @@
 
 			.date-container{
 				// margin: $space;
-				padding-bottom: $space*2;
-				margin-bottom: $space/2;
-				margin-top: 0;
+				// padding-bottom: $space*2;
+				// margin-bottom: $space/2;
+				// margin-top: 0;
 			}
 		}
 		.navigation-plate{
@@ -725,7 +782,7 @@
 			}
 		}
 	}
-	.relative-nav .nav-plate, .mini-nav .mini-nav-btn{
+	a[type=button]{
 		&:hover{
 			box-shadow: -1px 1px 15px rgba(#000, .25);
 			transform: scale(1.05);

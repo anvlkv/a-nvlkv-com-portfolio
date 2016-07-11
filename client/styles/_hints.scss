@@ -1,0 +1,46 @@
+.hint-overlay{
+	
+	@extend .page;
+	
+	position: absolute;
+	top:0;
+	// left:0;
+	background-color: rgba($black-copy, .75);
+	z-index: 10;
+	width: auto;
+	width: 100vw;
+	height: 100%;
+	
+
+	.wrap{
+
+		height: 100vh;
+		@extend .fg-col-xs;
+		color: $white;
+		align-items: center;
+		justify-content: center;
+
+	}
+
+	.close-btn{
+		align-self: flex-end;
+		margin: $space;
+	}
+
+	.hint-icon{
+		@extend .fg-col-xs;
+		font-size: 600%;
+		text-align: center;
+		flex-grow:1;
+		justify-content:flex-end;
+	}
+
+	.hint-text{
+		@extend .fg-col-xs;
+		font-size: 400%;
+		text-align: center;
+		flex-grow:1;
+		justify-content:flex-start;
+		font-family: $headings-font-family;
+	}
+}

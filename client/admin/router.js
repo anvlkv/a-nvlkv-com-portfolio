@@ -14,17 +14,17 @@ FlowRouter.route('/sign-in',{
 });
 
 
-var adminSection = FlowRouter.group({
+const adminSection = FlowRouter.group({
     prefix: "/admin",
     name:"admin-routes",
     triggersEnter:[function(){
-        console.log('entering admin path')
-        route = FlowRouter.current()
+        console.log('entering admin path');
+        let route = FlowRouter.current();
         if (!Meteor.user()) {
-            console.log('no active user at the moment')
+            console.log('no active user at the moment');
             if (!Meteor.loggingIn()) {
                 console.log('neither they are trying to log in');
-                console.log('redirecting to sign-in')
+                console.log('redirecting to sign-in');
                 Session.set('redirectAfterLogin', route.path);
                 FlowRouter.go('/sign-in');
             }
@@ -40,10 +40,10 @@ adminSection.route('/', {
     }
 });
 
-var portfolioSection = adminSection.group({
+const portfolioSection = adminSection.group({
     name: 'admin-portfolio-routes',
     prefix: '/portfolio'
-})
+});
 
 portfolioSection.route('/', {
     name:'admin.portfolio',

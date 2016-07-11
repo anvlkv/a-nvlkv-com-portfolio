@@ -1,3 +1,57 @@
+function redirect(){
+	if (Session.get('consent-redirect')) {
+		FlowRouter.go(Session.get('consent-redirect'));
+		Session.set('consent-redirect', false);
+	}
+}
+
+function optOut (){
+	console.log('opting out!');
+	// report withdrawal
+	GAnalytics.event('consent', 'withdrawal');
+	// actual withdrawal
+	Cookie.clearAll();
+	window['ga-disable-'+Meteor.settings.public.ga.account] = true;
+	Session.set('consent', 'opt-out');
+	redirect();
+}
+
+// consent form
+Template.consentOverlay.events({
+	'click .js_withdraw': function () {
+		optOut();
+		Session.set('active-overlay', false);
+		redirect();
+
+		return false;
+	},
+	'click .js_consent, submit form': function(e, t){
+
+		if(!t.$('[name=cookies]:checked')){
+			optOut();
+		}else if(!t.$('[name=experiment]:checked')){
+			Session.set('consent', 'cookies-only');
+			Cookie.set('a_nvlkv_consent','cookies-only');
+			GAnalytics.event('consent', 'cookies-only');
+		}else if (t.$('[name=experiment]:checked') && t.$('[name=cookies]:checked')){
+			Session.set('consent', 'experiment');
+			Cookie.set('a_nvlkv_consent','experiment');
+			GAnalytics.event('consent', 'experiment');
+		}else{
+			t.$('.js_withdraw').click();
+		}
+
+		Session.set('active-overlay', false);
+		redirect();
+
+		return false;
+	}
+});
+
+
+
+
+// email form
 let constraints = {
 	name:{
 		presence: {
@@ -46,8 +100,9 @@ emailHotKeys = new Hotkeys({
 emailHotKeys.add({
 	combo:'esc',
 	callback : function(){
+		GAnalytics.event('email', 'key-press', 'esc');
 		email_pre_form.clear();
-		Session.set('email-dialog-open', false);
+		Session.set('active-overlay', false);
 		FlowRouter.setQueryParams({email: null});
     }
 });
@@ -55,6 +110,7 @@ emailHotKeys.add({
 emailHotKeys.add({
 	combo:'ctrl+enter',
 	callback : function(){
+		GAnalytics.event('email', 'key-press', 'ctrl+enter');
 		$('#emailForm').submit();
     }
 });
@@ -63,6 +119,7 @@ Template.emailOverlay.onCreated(function(){
 
 	this.autorun(()=>{
 		emailHotKeys.load();
+		GAnalytics.event('email','open');
 	});
 });
 Template.emailOverlay.onDestroyed(function(){
@@ -107,10 +164,14 @@ Template.composeEmail.helpers({
 Template.composeEmail.events({
 	'click .js_clear_email': function (e, t) {
 		email_pre_form.clear();
+		form_errors.clear();
 		t.$('form')[0].reset();
+		t.$('form .invalid-field').removeClass('invalid-field');
+		GAnalytics.event('email', 'clear-form');
 		return false;
 	},
 	'click .js_send_email, submit #emailForm': function (e, t) {
+		GAnalytics.event('email', 'submit');
     	let msg={
     		email: t.$('[name=email]').val(),
     		subject: t.$('[name=subject]').val(),
@@ -131,6 +192,7 @@ Template.composeEmail.events({
     			}
     		});
     	} else {
+    		GAnalytics.event('email', 'errors','on-submit', validation_errors.length);
     		$.each(validation_errors, function(index, val) {
     			form_errors.set(index, val);
     			t.$('[name='+ index +']').addClass('invalid-field');
@@ -140,20 +202,22 @@ Template.composeEmail.events({
 		return false;
 	},
 	'click .js_close_dialog': function () {
-		Session.set('email-dialog-open', false);
+		GAnalytics.event('email', 'close');
+		Session.set('active-overlay', false);
 		FlowRouter.setQueryParams({email: null});
 	},
 });
 
 Template.successDialog.events({
 	'click .js_close_dialog': function () {
-		Session.set('email-dialog-open', false);
+		GAnalytics.event('email', 'close', 'success');
+		Session.set('active-overlay', false);
 		FlowRouter.setQueryParams({email: null});
 	},
 });
 
 
-// tiny pieces
+// forms basic
 
 Template.formField.onRendered(function(){
 	if (this.data.value) {
@@ -162,11 +226,16 @@ Template.formField.onRendered(function(){
 });
 
 Template.formField.helpers({
-	isTextarea: function (type) {
-		if (type == 'textarea') {
-			return true;
+	inputType: function(){
+		switch(this.type){
+			case 'textarea':
+				return 'formTextarea';
+			case 'checkbox':
+				return 'formCheckbox';
+			default:
+				return 'formInput';
 		}
-	},
+	}
 });
 
 Template.formField.events({
@@ -196,5 +265,64 @@ Template.formField.events({
 Template.formError.helpers({
 	errors: function(name){
 		return form_errors.get(name);
+	}
+});
+
+Template.formCheckbox.events({
+	'click #checkbox-bounds': function (e, t) {
+		let checkmark = Snap(t.$('#checkmark')[0]),
+			pts_checkmark_semi = Snap(t.$('#checkmark-semi-checked')[0]).attr('points'),
+			pts_checkmark_checked = Snap(t.$('#checkmark-checked')[0]).attr('points'),
+			pts_checkmark_unchecked = Snap(t.$('#checkmark-unchecked')[0]).attr('points');
+
+		if (t.$('#checkbox-input:checked')[0]) {
+
+			t.$('#checkbox-frame polygon').each(function(index, el) {
+				let frame = Snap(el);
+				let pts_initial_frame = frame.attr('points');
+				let pts_final_frame = Snap(t.$('#checkbox-frame-unchecked polygon#'+$(el).attr('id'))[0]).attr('points');
+				// console.log(pts_initial_frame, pts_final_frame);
+				Snap.animate(pts_initial_frame, pts_final_frame, function(val){
+					if(val)
+						frame.attr('points', val);
+				}, 250, mina.easein);
+			});
+
+			Snap.animate(pts_checkmark_checked, pts_checkmark_semi,function(val){
+				if(val)
+					checkmark.attr('points', val);
+			}, 125, mina.easeout, function(){
+				Snap.animate(pts_checkmark_semi, pts_checkmark_unchecked, function(val){
+					if(val)
+						checkmark.attr('points', val);
+				}, 125, mina.easeout);
+			});
+
+		}else{
+
+			t.$('#checkbox-frame polygon').each(function(index, el) {
+				let frame = Snap(el);
+				let pts_initial_frame = frame.attr('points');
+				let pts_final_frame = Snap(t.$('#checkbox-frame-checked polygon#'+$(el).attr('id'))[0]).attr('points');
+				// console.log(pts_initial_frame, pts_final_frame);
+				Snap.animate(pts_initial_frame, pts_final_frame, function(val){
+					if(val)
+						frame.attr('points', val);
+				}, 250, mina.easein);
+			});
+			Snap.animate(pts_checkmark_unchecked, pts_checkmark_semi,function(val){
+				if(val)
+					checkmark.attr('points', val);
+			}, 125, mina.easeout, function(){
+				Snap.animate(pts_checkmark_semi, pts_checkmark_checked, function(val){
+					if(val)
+						checkmark.attr('points', val);
+				}, 125, mina.easeout);
+				
+			});
+
+		}
+
+		return e;
 	}
 });

@@ -1,5 +1,9 @@
 <head>
+  <meta charset="utf-8">
   <title>a.nvlkv</title>
+
+  <meta name="description" content="See UX designer portfolio project. Participate in study. Contact a.nvlkv">
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -26,13 +30,16 @@
   <meta name="msapplication-square310x310logo" content="/img/favicon/mstile-310x310.png" />
 </head>
 
-<body>
+<body lang="en">
+<div id="SVG_defs">
   {{>SVGsymbols}}
-
+</div>
   
 </body>
 
 
 <template name="mainLayout">
+    {{>pageOverlay}}
+
     {{>Template.dynamic template=content}}
 </template>

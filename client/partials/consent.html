@@ -1,0 +1,44 @@
+<template name="consentOverlay">
+	<div class="consent-overlay">
+		<div class="consent-dialog dialog utility-background">
+			<div class="dialog-heading">
+				<h4>It's good to have you here</h4>
+			</div>
+			<div class="dialog-form">
+				<form id="consentForm">
+					<legend>
+						<p>Please, consider to agree on the following options</p>
+					</legend>
+					<div class="consent-item">
+						<!-- experiment consent -->
+						{{>SVGicon name="metrics"}}
+						<div class="description">
+							<p>This site runs a small study on visual encoding. If you chose to participate results will be available to you as soon as you finish a path.</p>
+						</div>
+
+						<div class="statement">
+							{{>formField label_text="I agree to participate in this study" name="experiment" type="checkbox" isRequired="true"}}
+						</div>
+					</div>
+					
+					<div class="consent-item">
+						<!-- cookies consent -->
+						{{>SVGicon name="cookie"}}
+						<div class="description">
+							<p>This site uses cookies to ensure best user experience. Cookies are also required if you choose to participate in study.</p>
+						</div>
+
+						<div class="statement">
+							{{>formField label_text="I consent to the use of cookies on this site" name="cookies" type="checkbox" value="true" isRequired="true"}}
+						</div>
+					</div>
+					
+				</form>
+			</div>
+			<div class="dialog-controls">
+				<a type="button" class="dialog-secondary-btn secondary-btn js_withdraw" href="#" title="Disagree">Disagree</a>
+				<a type="button" class="dialog-cta-btn cta-color js_consent" href="#" title="Ok">OK</a>
+			</div>
+		</div>
+	</div>
+</template>

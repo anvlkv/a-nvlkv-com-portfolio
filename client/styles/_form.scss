@@ -3,9 +3,14 @@
 .dialog{
 
 	@extend .fg-col-xs-12;
-	@extend .fg-col-sm-6;
-	@extend .fg-off-sm-3;
-	align-self: center;
+	@extend .fg-col-sm-10;
+	@extend .fg-off-sm-1;
+	@extend .fg-col-lg-8;
+	@extend .fg-off-lg-2;
+	align-self:flex-start;
+	@media screen and (min-width: $fg-sm) {
+		align-self: center;
+	}
 
 	.dialog-heading{
 
@@ -46,6 +51,30 @@
 						width: 100%;
 
 					}
+
+					&.checkbox-input-group{
+						
+						@extend .fg-row;
+						align-items: center;
+						
+						.checkbox{
+
+							@extend .fg-col-xs-3;
+							@extend .fg-col-sm-2;
+							// @extend .fg-col-lg-1;
+							order:1;
+
+						}
+
+						.label-text{
+
+							@extend .fg-col-xs-9;
+							@extend .fg-col-sm-10;
+							// @extend .fg-col-lg-11;
+							order:2;
+							
+						}
+					}
 				}
 			}
 		}
@@ -71,6 +100,20 @@
 		margin-bottom: $space/2;
 		margin-top: $space/2;
 
+		&.textarea-input-group, &.text-input-group, &.email-input-group{
+
+			&.in-use{
+				.label-text{
+					transform: scale(.75) translateY(0);
+				}
+			}
+
+			.label-text{
+				transform: translateY(1em);
+			}
+
+		}
+
 		.label-text{
 
 			display: block;
@@ -78,8 +121,6 @@
 			transform-origin: 0 0;	
 			color: $white;
 			font-family: $headings-font-family;
-			transform: translateY(1em);
-			
 			transition-property: transform;
 			transition-duration: $duration;
 			transition-timing-function: ease-in;
@@ -126,17 +167,6 @@
 				border-color: $cta-background;
 			}
 		}
-		input{
-
-		}
-		textarea{
-
-		}
-		&.in-use{
-			.label-text{
-				transform: scale(.75) translateY(0);
-			}
-		}
 	}
 }
 
@@ -144,7 +174,20 @@
 	
 	padding: $space;
 
+	@media screen and (min-width: $fg-sm) {
+		font-size: 80%;
+	}
+
+	form{
+		legend{
+			font-size: inherit;
+			border: none;
+		}
+	}
+
 	.dialog-heading{
+		border-bottom: $space/8 solid $black-copy;
+		padding-bottom: ($space/8)*7;
 		h4{
 			font-size: 2.5em;
 		}
@@ -158,4 +201,20 @@
 		margin-top: $space;
 		font-size: 2em;
 	}
+}
+
+
+.checkbox{
+	input[type="checkbox"]{
+		position: absolute;
+		top:-2000em;
+		left:-2000em;
+		opacity: 0;
+	}
+
+	svg{
+		width: 3em;
+		height: 3em;
+	}
+
 }

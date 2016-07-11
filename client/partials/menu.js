@@ -5,7 +5,8 @@ menuHotKeys = new Hotkeys({
 menuHotKeys.add({
 	combo:'esc',
 	callback : function(){
-		Session.set('menu-open', false);
+		GAnalytics.event('menu','key-press', 'esc');
+		Session.set('active-overlay', false);
 		FlowRouter.setQueryParams({menu: null});
     }
 });
@@ -15,6 +16,8 @@ Template.menuOverlay.onCreated(function(){
 		this.subscribe('CategoriesList');
 		this.subscribe('ProjectsFeed');
 		menuHotKeys.load();
+
+		GAnalytics.event('menu', 'open');
 	});
 });
 
@@ -72,26 +75,32 @@ Template.topLevelMenu.helpers({
 
 Template.navMenu.events({
 	'click .js_toggle_menu': function (e,t) {
-		if (!Session.get('menu-open')) {
-			Session.set('menu-open', true);	
-		}
+		Session.set('active-overlay', 'menu');
+		return false;
 	},
 	'click .js_email_me': function(e,t) {
-		Session.set('email-dialog-open', true);
+		Session.set('active-overlay', 'email');
+		return false;
 	}
 });
 
 Template.menuOverlay.events({
 	'click .js_close_menu': function () {
+		GAnalytics.event('menu', 'close');
 		let route = FlowRouter.current();
 		FlowRouter.go(route.route.name, route.params, {});
-		Session.set('menu-open', false);
+		Session.set('active-overlay', false);
+		return false;
 	},
+	'click .js_menu_link': function(e) {
+		GAnalytics.event('menu', 'go', $(e.target).attr('href'));
+		Session.set('active-overlay', false);
+		return e;
+	}
 });
 
 Template.topLevelMenu.events({
 	'click .js_email_me': function () {
-		Session.set('menu-open', false);
-		Session.set('email-dialog-open', true);
+		Session.set('active-overlay', 'email');
 	}
 });

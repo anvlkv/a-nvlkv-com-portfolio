@@ -7,7 +7,7 @@ Template.categoryPage.onCreated(function(){
 	    	
 	    	if (category) {
 		    	Session.set('current-category', category._id);
-
+		    	Session.set('current-page-title', category.title);
 		    	// reset 'current-project'
 		    	if (Session.get('current-project') && !req.project) {
 		    		Session.set('current-project', undefined);
@@ -25,6 +25,10 @@ Template.categoryPage.onCreated(function(){
 
 		this.ready.set(cat.ready() && prj.ready() && att.ready());
 	});
+});
+
+Template.categoryPage.onDestroyed(function(){
+	Session.set('current-page-title', null);
 });
 
 // Template.categoryPage.onRendered(function(){

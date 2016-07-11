@@ -320,7 +320,8 @@ portfolioHotKeys = new Hotkeys({
 portfolioHotKeys.add({
 	combo:'right',
 	callback : function(){
-		if (!Session.get('menu-open') && !Session.get('email-dialog-open')){
+		GAnalytics.event('portfolio','key-press', 'right');
+		if (!Session.get('active-overlay') || Session.get('active-overlay')==='hint'){
 	        FlowRouter.go(navigationURL('order','next'));
 	    } 
     }
@@ -328,7 +329,8 @@ portfolioHotKeys.add({
 portfolioHotKeys.add({
 	combo:'left',
 	callback : function(){
-		if (!Session.get('menu-open') && !Session.get('email-dialog-open')){
+		GAnalytics.event('portfolio','key-press', 'left');
+		if (!Session.get('active-overlay') || Session.get('active-overlay')==='hint'){
 	        FlowRouter.go(navigationURL('order','prev'));
 	    } 
     }
@@ -336,7 +338,8 @@ portfolioHotKeys.add({
 portfolioHotKeys.add({
 	combo:'down',
 	callback : function(){
-		if (!Session.get('menu-open') && !Session.get('email-dialog-open')){
+		GAnalytics.event('portfolio','key-press', 'down');
+		if (!Session.get('active-overlay') || Session.get('active-overlay')==='hint'){
 	        FlowRouter.go(navigationURL('time','next'));
 	    } 
     }
@@ -344,7 +347,8 @@ portfolioHotKeys.add({
 portfolioHotKeys.add({
 	combo:'up',
 	callback : function(){
-		if (!Session.get('menu-open') && !Session.get('email-dialog-open')){
+		GAnalytics.event('portfolio','key-press', 'up');
+		if (!Session.get('active-overlay') || Session.get('active-overlay')==='hint'){
 	        FlowRouter.go(navigationURL('time','prev'));
 	    } 
     }
@@ -352,7 +356,8 @@ portfolioHotKeys.add({
 portfolioHotKeys.add({
 	combo:'enter',
 	callback : function(){
-		if (!Session.get('menu-open') && !Session.get('email-dialog-open')){
+		GAnalytics.event('portfolio','key-press', 'enter');
+		if (!Session.get('active-overlay') || Session.get('active-overlay')==='hint'){
 	        FlowRouter.go(navigationURL('order','current'));
 	    } 
     }
@@ -381,65 +386,96 @@ Template.portfolio.onCreated(function(){
 				}
 			}
 		}
-
-		Session.set('menu-open', false);
-		Session.set('email-dialog-open', false);
 		portfolioHotKeys.load();
-	    
 	});
 });
 
 
 
+let interval;
+
 Template.portfolio.onRendered(function(){
 	if (Modernizr.touchevents) {
-		this.$('.page').swipe({
-			swipe: function(event, direction, distance, duration, fingerCount, fingerData){
-				let total_height=0,
-					screen_height =$(window).height();
+		let win = $(window),
+			pgn = this.$('.page');
 
-				$.each(this.children(), function(index, val) {
-					 /* iterate through array or object */
-					 // console.log(index, val);
-					 // console.log(val);
-					 if ($(val).css('position')!= 'absolute') {
-						 total_height += $(val).height();
-					 }
-				});
-
-				// console.log(total_height);
-
-				if (!Session.get('menu-open') && !Session.get('email-dialog-open')) {
-					switch (direction){
-						case 'left':
-							FlowRouter.go(navigationURL('order','next'));
-							break;
-						case 'right':
-							FlowRouter.go(navigationURL('order','prev'));
-							break;
-						case 'up':
-							if ($(window).scrollTop() >= (total_height - screen_height)) {
-								FlowRouter.go(navigationURL('time','next'));
-							} else {
-								$(window).scrollTop(distance);
-							}
-							break;
-						case 'down':
-							if ($(window).scrollTop() === 0) {
-								FlowRouter.go(navigationURL('time','prev'));
-							} else {
-								$(window).scrollTop(-distance);
-							}
-							break;
-					}
+		pgn.swipe({
+			swipeLeft: function(event, direction){
+				GAnalytics.event('portfolio', 'swipe', direction);
+				if (!Session.get('active-overlay') || Session.get('active-overlay')==='hint') {
+					FlowRouter.go(navigationURL('order','next'));
 				}
-			}
+			},
+			swipeRight: function(event, direction){
+				GAnalytics.event('portfolio', 'swipe', direction);
+				if (!Session.get('active-overlay') || Session.get('active-overlay')==='hint') {
+					FlowRouter.go(navigationURL('order','prev'));
+				}
+			},
 		});
+
+
+		swipeDown = ()=>{
+			if (!$._data( this.$('.page')[0], 'events' ).swipeDown) {
+				// console.log('binding');
+				pgn.one('swipeDown', function(){
+					GAnalytics.event('portfolio', 'swipe', 'down');
+					if (!Session.get('active-overlay') || Session.get('active-overlay')==='hint') {
+						FlowRouter.go(navigationURL('time','prev'));
+						win.scrollTop(0);
+					}
+				});
+			}
+		};
+
+		swipeUp = ()=>{
+			if (!$._data( this.$('.page')[0], 'events' ).swipeUp) {
+				// console.log('binding');
+				pgn.one('swipeUp', function(){
+					GAnalytics.event('portfolio', 'swipe', 'up');
+					if (!Session.get('active-overlay') || Session.get('active-overlay')==='hint') {
+						FlowRouter.go(navigationURL('time','next'));
+						win.scrollTop(0);
+					}
+				});
+			}
+		};
+			
+		interval = Meteor.setInterval(function () {
+			let p_hgh = pgn.height(),
+				w_hgh = win.height(),
+				s_top = win.scrollTop();
+			
+			if (w_hgh<p_hgh-10) {
+				if (s_top>0) {
+					if ($._data( this.$('.page')[0], 'events' ).swipeDown) {
+						pgn.off('swipeDown');
+					}
+					if (p_hgh - w_hgh <= s_top+10) {
+						// console.log(p_hgh,w_hgh,s_top);
+						swipeUp();
+					}
+				}else{
+					if ($._data( this.$('.page')[0], 'events' ).swipeUp) {
+						pgn.off('swipeUp');
+					}
+					swipeDown();
+				}
+			}else{
+				swipeUp();
+				swipeDown();
+			}
+
+		}, 250);
 	}
-	if(this.ready.get())
+
+	if(this.ready.get()){
 		dynamicColor(this);
+
+	}
 });
 
 Template.portfolio.onDestroyed(function(){
 	portfolioHotKeys.unload();
+	Meteor.clearInterval(interval);
 });

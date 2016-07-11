@@ -2,11 +2,8 @@
 .menu-overlay {
 
   @extend .page;
-  position: absolute;
-  top:0;
-  left:0;
+  @extend .active-overlay;
   background-color: $white;
-  z-index: 10;
 
 }
 
@@ -27,6 +24,7 @@
     .item{
       @media screen and (max-width: $fg-sm - 1 ) {
         flex-grow:1;
+        flex-basis:25%;
       }
 
       .menu-item-link h5{

@@ -1,7 +1,7 @@
 <template name="projectPage">
 {{#if readiness}}
 	{{#if project}}
-	<div class="{{#if session 'current-page'}}project-page{{else}}project-cover{{/if}}">
+	<div class="{{#if session 'current-page'}}project-page{{else}}project-cover{{/if}} {{#if screensize 'xs'}}dynamic_color{{/if}}">
 		<!-- <div class="content"> -->
 			{{#momentum plugin='animate-css' sKlass='content' timeout=120}}
 				{{>Template.dynamic template=textContent data=project}}
@@ -56,7 +56,7 @@
 						</h4>
 					</div>
 				</div>
-				
+
 				<img src="/cfs/files/images/{{image}}" class="img-responsive" alt="{{title}}">
 			</div>
 		{{/if}}
@@ -88,11 +88,11 @@
 	{{>navMenu}}
 
 	<nav class="relative-nav">
-		<a type="button" href="{{prevPortfolioPageURL}}" class="nav-plate dynamic_color" title="Previous">
+		<a tabindex="2" type="button" href="{{prevPortfolioPageURL}}" class="nav-plate dynamic_color" title="Previous">
 			<!-- <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> -->
 			{{> SVGicon name="arrowPrev"}}
 		</a>
-		<a type="button" href="{{nextPortfolioPageURL}}" class="nav-plate dynamic_color" title="Next">
+		<a tabindex="3" type="button" href="{{nextPortfolioPageURL}}" class="nav-plate dynamic_color" title="Next">
 			<!-- <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> -->
 			{{> SVGicon name="arrowNext"}}
 		</a>
@@ -109,7 +109,7 @@
 <template name="projectPagination">
 	<div class="more">
 
-		<ul class="item-list pgn-list">
+		<ul tabindex="6" class="item-list pgn-list">
 			{{#if pages}}
 				<li class="pgn-item {{#if isCurrentProjectPage}} active {{/if}}">
 					<a href="{{projectCoverUrl}}" title="Cover">
@@ -127,7 +127,7 @@
 		</ul>
 
 		{{#if buttonText}}
-		<a class="learn-more-btn" type="button" href="{{detailsURL}}" title="{{buttonText}}">{{buttonText}}</a>
+		<a tabindex="1" class="learn-more-btn" type="button" href="{{detailsURL}}" title="{{buttonText}}">{{buttonText}}</a>
 		{{/if}}
 	</div>
 </template>
