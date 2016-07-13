@@ -25,7 +25,6 @@ cfs:standard-packages
 cfs:gridfs
 mizzao:bootboxjs
 session
-meteortoys:allthings
 aldeed:collection2
 aldeed:autoform
 hausor:autoform-bs-minicolors
