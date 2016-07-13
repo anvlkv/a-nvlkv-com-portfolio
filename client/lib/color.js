@@ -1,6 +1,15 @@
+visual_code ='';
+visual_code = ABTest.start("Visual Code", ['color', 'bw']);
+
 dynamicColor=(self)=>{
 	self.$('.dynamic_color').each(function(index, el) {
+		if (visual_code === 'bw') {
+			$(el).css('background', '#f7f7f7');
+			return;
+		}
+
 		const current_category = Session.get('current-category');
+
 		if ($(el).data('color')) {
 			$(el).css('background', $(el).data('color'));
 		} else if(current_category) {

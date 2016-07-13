@@ -1,3 +1,22 @@
+.mini-nav{
+
+  @extend .fg-row;
+  justify-content:flex-end;
+  .mini-nav-btn{
+    @extend .fg-col-xs-6;
+    @extend .fg-col-sm-3;
+    min-width: $space * 5;
+  }
+
+  &.btns-3 .mini-nav-btn{
+    @extend .fg-col-xs-4;
+    @extend .fg-col-sm-2;
+  }
+
+}
+
+
+
 // configure overlay layout
 .menu-overlay {
 
@@ -11,20 +30,28 @@
 .top-level-navigation{
 
   @extend .fg-row;
-  justify-content:space-between;
 
   .item-list{
-
+    // @extend .fg-col-xs-12;
     @extend .fg-row;
+    flex-grow:1;
     @media screen and (max-width: $fg-sm - 1 ) {
       justify-content: center;
-      flex-grow:1;
     }
 
     .item{
       @media screen and (max-width: $fg-sm - 1 ) {
         flex-grow:1;
         flex-basis:25%;
+      }
+
+      &.align-end{
+        margin-right: 0;
+        margin-left: auto;
+      }
+
+      a{
+        display: block;
       }
 
       .menu-item-link h5{
@@ -39,10 +66,6 @@
       }
 
     }
-  }
-
-  .close-button{
-
   }
 }
 
@@ -128,7 +151,7 @@
 // styles and satates
 .top-level-navigation{
   @media screen and (max-width: $fg-sm - 1) {
-    font-size: 50%;
+    font-size: 60%;
   }
   .item{
     border-bottom: solid 3px transparent;

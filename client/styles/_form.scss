@@ -5,8 +5,8 @@
 	@extend .fg-col-xs-12;
 	@extend .fg-col-sm-10;
 	@extend .fg-off-sm-1;
-	@extend .fg-col-lg-8;
-	@extend .fg-off-lg-2;
+	// @extend .fg-col-lg-8;
+	// @extend .fg-off-lg-2;
 	align-self:flex-start;
 	@media screen and (min-width: $fg-sm) {
 		align-self: center;

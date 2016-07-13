@@ -9,6 +9,9 @@ const site = FlowRouter.group({
         
         GAnalytics.pageview();
 
+        this._startViewingRoute = new Date();
+
+
         if (!Session.get('consent') && !Cookie.get('a_nvlkv_consent')) {
             
             Session.set('active-overlay', 'consent');
@@ -26,6 +29,9 @@ const site = FlowRouter.group({
         }else if (Session.get('consent')==='cookies-only' || Session.get('consent')==='experiment'){
             Cookie.set('a_nvlkv_consent',Session.get('consent'));
         }
+    }],
+    triggersExit:[function(){
+        GAnalytics.timing('time-on-page', FlowRouter.current().path, new Date() - this._startViewingRoute, visual_code);
     }],
 });
 
@@ -47,9 +53,15 @@ const portfolio = site.group({
 portfolio.route('/', {
     name: 'portfolio',
     action: function() {
+        // front or back cover?
+        let cvr = 'coverPage';
+        if (Session.get('show-back-cover')) {
+            cvr = 'backCover';
+        }
+
         BlazeLayout.render("mainLayout", {
         	content: "portfolio",
-        	pageType: "coverPage",
+        	pageType: cvr,
         	imagery: "background",
         	textContent: "aboutPortfolio",
 			navContent: "coverNav",
@@ -82,7 +94,7 @@ portfolio.route('/:category/:project', {
 			textContent: "projectCoverText",
 			navContent: "projectNav",
         });
-    }
+    },
 });
 
 
@@ -101,12 +113,12 @@ portfolio.route('/:category/:project/:page', {
 });
 
 // back-cover page
-portfolio.route('/portfolio/back-cover', {
-    name: 'portfolio.back-cover',
-    action: function() {
-        BlazeLayout.render("mainLayout", {content: "portfolio", pageType: "coverView"});
-    }
-});
+// portfolio.route('/portfolio/back-cover', {
+//     name: 'portfolio.back-cover',
+//     action: function() {
+//         BlazeLayout.render("mainLayout", {content: "portfolio", pageType: "coverView"});
+//     }
+// });
 
 
 FlowRouter.notFound = {

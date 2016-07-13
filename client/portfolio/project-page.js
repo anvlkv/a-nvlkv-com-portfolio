@@ -67,23 +67,17 @@ Template.projectPage.onCreated(function(){
 	});
 });
 
+
 Template.projectPage.onDestroyed(function(){
 	Session.set('current-page-title', null);
 });
 
-// Template.projectPage.onRendered(function(){
-// 	if (this.ready.get())
-// 		dynamicColor(this);
-
-// 	Tracker.autorun(function () {
-// 		dynamicColor(this);
-// 	});
-// });
-
 
 Template.projectPage.helpers({
 	project: function(){
-		return Projects.findOne(Session.get('current-project'));
+		let project = Projects.findOne(Session.get('current-project'));
+
+		return project;
 	},
 	image: function(){
 		let project = Projects.findOne(Session.get('current-project'));

@@ -6,7 +6,6 @@ function redirect(){
 }
 
 function optOut (){
-	console.log('opting out!');
 	// report withdrawal
 	GAnalytics.event('consent', 'withdrawal');
 	// actual withdrawal
@@ -16,7 +15,27 @@ function optOut (){
 	redirect();
 }
 
+
 // consent form
+Template.consentOverlay.onCreated(function(){
+	this.autorun(()=>{
+		this.consent_test = ABTest.start("Consent", ['prepopulated', 'puzzled']);
+	});
+});
+
+Template.consentOverlay.helpers({
+	experimentValue: function () {
+		return true;
+	},
+	cookiesValue: function () {
+		if (Template.instance().consent_test === 'puzzled') {
+			return false;
+		}else{
+			return true;
+		}
+	},
+});
+
 Template.consentOverlay.events({
 	'click .js_withdraw': function () {
 		optOut();
@@ -37,6 +56,7 @@ Template.consentOverlay.events({
 			Session.set('consent', 'experiment');
 			Cookie.set('a_nvlkv_consent','experiment');
 			GAnalytics.event('consent', 'experiment');
+			ABTest.finish("Consent");
 		}else{
 			t.$('.js_withdraw').click();
 		}
@@ -323,6 +343,8 @@ Template.formCheckbox.events({
 
 		}
 
-		return e;
+		t.$('#checkbox-input').prop('checked', !t.$('#checkbox-input').prop('checked'));
+
+		return false;
 	}
 });

@@ -33,6 +33,15 @@ Template.navMenu.helpers({
 		}
 		return 'Menu';
 	},
+	showMetrics: function(){
+		let consent = Session.get('consent'),
+			path = Session.get('path-status');
+		if (consent === 'experiment' && path === 'finished') {
+			return true;
+		}else{
+			return false;
+		}
+	}
 });
 
 Template.menuOverlay.helpers({

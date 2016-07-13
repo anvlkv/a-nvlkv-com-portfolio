@@ -20,6 +20,52 @@
 {{/if}}
 </template>
 
+<template name="backCover">
+{{#if readiness}}
+	{{#if cover}}
+	<div class="background-container">
+		{{>Template.dynamic template=imagery data=cover.image}}	
+	</div>
+	<div class="portfolio-cover back-cover">
+		<div class="nav-container">
+			{{>navMenu icon="true"}}
+		</div>
+		<h1>Thank you!</h1>
+		<p>That's it, you've seen all projects. I hope it was a pleasant journey.</p>
+		{{#if session 'consent' 'experiment'}}
+		<p>Information about study is available to you under {{>SVGicon name='metrics'}} icon in menu on top</p>
+		{{/if}}
+		<p></p>
+
+		<div class="exits">
+			<div class="start-over">
+				<a class="js_next_by_order" href="#" title="Back to start">
+					{{>SVGicon name="startOver"}}
+					<h3>Back to start</h3>
+				</a>
+			</div>
+			<div class="keep-in-touch">
+				<div class="dialog-form">
+					<form id="emailForm">
+						<div class="sender-info">
+							{{>formField label_text="Would you like to keep in touch?" name="email" placeholder="Please enter your email address" type="email" value=email isRequired=true}}
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="copy-right">
+			
+		</div>
+	</div>
+	{{else}}
+		{{>errPage}}
+	{{/if}}
+{{else}}
+	{{>loadingState}}
+{{/if}}
+</template>
+
 
 
 
@@ -54,7 +100,7 @@
 
 <template name="coverNav">
 	{{#if screensize 'sm, md, lg'}}
-		{{>navMenu icon="true" color=globalPallet.utility}}
+		{{>navMenu icon="true"}}
 	{{/if}}
 	<!-- <div class="spacer">&nbsp;</div> -->
 	<div class="navigation-plate utility-background">

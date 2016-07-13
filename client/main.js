@@ -20,8 +20,12 @@ Template.registerHelper('log',(item)=>{
 	// return item
 });
 
-Template.registerHelper('session',(input)=>{
-	return Session.get(input);
+Template.registerHelper('session',(varName, val)=>{
+	if (!val) {
+		return Session.get(varName);
+	} else {
+		return Session.get(varName) === val;
+	}
 });
 
 Template.registerHelper('readiness',()=>{
@@ -41,7 +45,14 @@ Deps.autorun(function(){
 	document.title = 'a.nvlkv — ' + location;
 });
 
-Template.body.events({
+Template.mainLayout.onRendered(function(){
+
+	$('body').addClass('vc-'+visual_code);
+	GAnalytics.event(FlowRouter.current().route.name, 'set-visual-code', visual_code);
+	startExperienceController();
+});
+
+Template.mainLayout.events({
 	'click .item': function (e) {
 		let intended_target = $(e.target).children('a');
 		if (intended_target.length === 1) {

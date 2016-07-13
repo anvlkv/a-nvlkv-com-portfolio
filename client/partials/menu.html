@@ -1,6 +1,11 @@
 <template name="navMenu">
 	<!-- make animated class -->
-	<div class="mini-nav">
+	<div class="mini-nav {{#if showMetrics}}btns-3{{/if}}">
+		{{#if showMetrics}}
+			<a tabindex="6" type="button" href="#" title="show metrics" class="mini-nav-btn js_show_metrics cta-color">
+				{{>SVGicon name="metrics"}}
+			</a>
+		{{/if}}
 		<a tabindex="4" type="button" href="#" title="email me" class="mini-nav-btn js_email_me cta-color">
 			{{>SVGicon name="email"}}
 		</a>
@@ -64,8 +69,8 @@
 				</a>
 			</li>
 			{{#if close}}
-			<li class="item">
-				<a tabindex="4" href="#" class="close-button js_close_menu" title="Close">
+			<li class="item align-end">
+				<a tabindex="4" href="#" class="js_close_menu" title="Close">
 					<h5>{{> SVGicon name="cross"}}</h5>
 				</a>
 			</li>

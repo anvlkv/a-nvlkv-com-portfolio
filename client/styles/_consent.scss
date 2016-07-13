@@ -10,7 +10,10 @@
 	}
 
 	.consent-item{
-		margin-bottom: $space*2;
+		@media screen and (max-width: $fg-sm - 1) {
+			margin-bottom: $space*2;
+		}
+		
 		
 		@extend .fg-row;
 		align-items: center;
@@ -30,7 +33,7 @@
 		.description{
 			
 			@extend .fg-col-xs-12;
-			@extend .fg-col-sm-8;
+			@extend .fg-col-sm-10;
 			// @extend .fg-col-lg-9;
 
 		}
@@ -38,7 +41,7 @@
 		.statement{
 
 			@extend .fg-col-xs-12;
-			@extend .fg-col-sm-8;
+			@extend .fg-col-sm-10;
 			@extend .fg-off-sm-2;
 			// @extend .fg-col-lg-9;
 			// @extend .fg-off-lg-1;

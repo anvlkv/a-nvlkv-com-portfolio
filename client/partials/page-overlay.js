@@ -1,20 +1,21 @@
 Template.pageOverlay.helpers({
 	overlay: function () {
-		const route = FlowRouter.current();
+		let route = FlowRouter.current();
+		let overlay = Session.get('active-overlay');
 		// reset if both params
 		if (route.queryParams.menu && route.queryParams.email) {
 			FlowRouter.go(route.route.name, route.params);
 		}
 		// manage overlays
-		if (Session.get('active-overlay')==='consent') {
+		if (overlay==='consent') {
 			// consent for cookies and experiment
 			return 'consentOverlay';
 
-		}else if (route.queryParams.menu || Session.get('active-overlay')==='menu') {
+		}else if (route.queryParams.menu || overlay==='menu') {
 			if (route.route.name == 'home') {
 				FlowRouter.setQueryParams({menu:null});
 			} else {
-				if (Session.get('active-overlay')!='menu') {
+				if (overlay!='menu') {
 					Session.set('active-overlay', 'menu');
 				}
 				if (!route.queryParams.menu) {
@@ -24,8 +25,8 @@ Template.pageOverlay.helpers({
 				return 'menuOverlay';
 			}
 			
-		} else if (route.queryParams.email || Session.get('active-overlay')==='email'){
-			if (Session.get('active-overlay') != 'email') {
+		} else if (route.queryParams.email || overlay==='email'){
+			if (overlay != 'email') {
 				Session.set('active-overlay', 'email');
 			}
 			if (!route.queryParams.menu) {
@@ -34,9 +35,10 @@ Template.pageOverlay.helpers({
 
 			return 'emailOverlay';
 
-		} else if (Session.get('active-overlay')==='hint'){
+		} else if (overlay==='hint'){
 			
 			return 'hintOverlay';
 		}
 	}
 });
+

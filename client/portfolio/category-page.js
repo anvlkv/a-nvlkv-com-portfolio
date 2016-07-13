@@ -31,21 +31,23 @@ Template.categoryPage.onDestroyed(function(){
 	Session.set('current-page-title', null);
 });
 
-// Template.categoryPage.onRendered(function(){
-// 	if (this.ready.get())
-// 		dynamicColor(this);
-
-// 	Tracker.autorun(function () {
-// 		dynamicColor(this);
-// 	});
-// });
+Template.categoryPage.onRendered(function(){
+	if (this.ready.get())
+		dynamicColor(this);
+	
+});
 
 Template.categoryPage.helpers({
 	category: function(){
 		// console.log('category helper called');
 	    // category in portfolio
+	    let category = Categories.findOne(Session.get('current-category'));
 
-	    return Categories.findOne(Session.get('current-category'));
+	    if (visual_code === 'bw') {
+	    	category.color = '#f7f7f7';
+	    }
+
+	    return category;
 	},
 	projects: function(){
 		return Projects.find(

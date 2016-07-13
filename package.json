@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "jquery": "~1.11.3",
-    "jquery-selectorator": "git://github.com/anvlkv/jquery-selectorator.git#3ee431acce1cd9be3a3bc94b574ddca9440635b4",
+    "jquery-selectorator": "^0.1.6",
     "meteor-node-stubs": "~0.2.0"
   }
 }

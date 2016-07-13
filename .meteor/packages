@@ -44,7 +44,7 @@ flowkey:hotkeys
 oles:autoprefixer-beta
 hedcet:touch-swipe
 email
-datariot:ganalytics
+# datariot:ganalytics
 froatsnook:valid-email
 awsp:validatejs
 reactive-dict
@@ -53,3 +53,5 @@ meteorhacks:subs-manager
 sunstory:meteor-template-breakpoints
 snapsvg:core
 mrt:cookies
+manuel:abtest
+mystor:device-detection

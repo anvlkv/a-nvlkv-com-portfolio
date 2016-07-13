@@ -40,6 +40,13 @@ adminSection.route('/', {
     }
 });
 
+adminSection.route('/abtests',{
+    name:'abtests',
+    action: function(){
+        BlazeLayout.render("adminLayout", {content: "abtests", navigation:"navPanelAdmin"});
+    }
+});
+
 const portfolioSection = adminSection.group({
     name: 'admin-portfolio-routes',
     prefix: '/portfolio'

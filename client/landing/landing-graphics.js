@@ -127,6 +127,10 @@ Template.graphics_userResearchSides.onRendered(function(){
 
 Template.graphics_teamCollaborationSideFront.onRendered(function(){
 
+	let team = ['artist', 'salesman', 'programmer', 'designer'];
+
+	let seq = [[0,3], [1,2], [0,1], [2,3]];
+
 	set_face = function(face, name){
 		// console.log(face, name);
 		face.animate({
@@ -154,15 +158,10 @@ Template.graphics_teamCollaborationSideFront.onRendered(function(){
 	};
 
 	swap_faces = function(name1, name2) {
-
 		set_face(get_face(name1), get_c_name(name2));
 		set_face(get_face(name2), get_c_name(name1));
 	};
 
-
-	let team = ['artist', 'salesman', 'programmer', 'designer'];
-
-	let seq = [[0,3], [1,2], [0,1], [2,3]];
 
 	intervals.push(Meteor.setInterval(function(){
 		$.each(seq, function(index, val) {

@@ -23,17 +23,6 @@
 
 	}
 
-	.mini-nav{
-
-		@extend .fg-row;
-		justify-content:flex-end;
-		.mini-nav-btn{
-			@extend .fg-col-xs-6;
-			@extend .fg-col-sm-3;
-			min-width: $space * 5;
-		}
-
-	}
 
 	// background images container
 	.background-container{
@@ -444,7 +433,6 @@
 				right: $fg-gutter;
 				width: 2em;
 				height: 2em;
-				background-color: $utility;
 				font-size: 2em;
 				text-align: center;
 				line-height: 200%;
@@ -481,13 +469,13 @@
 		font-size: 120%;
 	}
 
-	.top-level-navigation{
+	// .top-level-navigation{
 
-		@media screen and (max-width: $fg-sm - 1)  {
-			font-size: 100%;
-		}
+	// 	@media screen and (max-width: $fg-sm - 1)  {
+	// 		font-size: 100%;
+	// 	}
 
-	}
+	// }
 
 	@for $i from 1 through 6 {
 		h#{$i}{
@@ -655,6 +643,12 @@
 			.nav-hint{
 
 			}
+		}
+		.mini-nav{
+			@media screen and (min-width: $fg-sm) {
+				margin-top: $space;
+			}
+			
 		}
 	}
 	.project-cover, .project-page{

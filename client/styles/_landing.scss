@@ -16,10 +16,10 @@
 		flex-grow:1;
 		align-items: center;
 		justify-content: center;
-		@media screen and (max-width: $fg-sm - 1) {
+		@media screen and (max-width: $fg-md - 1) {
 			flex-basis: 100%;
 		}
-		@media screen and (min-width: $fg-sm) {
+		@media screen and (min-width: $fg-md) {
 			flex-wrap: wrap;
 			max-height: calc(100vh - #{$space*10});
 		}
@@ -29,7 +29,7 @@
 
 			@extend .fg-col-xs-12;
 			@extend .fg-col-sm-6;
-			@media screen and (max-width: $fg-sm - 1) {
+			@media screen and (max-width: $fg-md - 1) {
 				max-height: calc(70vh - #{$space*10});
 				flex-basis: auto;
 			}
@@ -39,11 +39,12 @@
 		.svg-graphics{
 
 			justify-content: center;
-			@media screen and (min-width: $fg-sm) {
+			flex-grow:2;
+			@media screen and (min-width: $fg-md) {
 				max-height: calc(100vh - #{$space*10});
 				flex-basis: 100vh;
 				flex-shrink:0;
-				flex-grow:1;
+				
 			}
 
 
@@ -52,7 +53,7 @@
 		.slide-text{
 
 			@extend .fg-col-xs;
-			flex-grow:.5;
+			flex-grow:1;
 			justify-content: flex-end;
 
 		}
@@ -62,8 +63,7 @@
 			@extend .fg-col-xs-12;
 			@extend .fg-col-lg-6;
 			flex-shrink:0;
-			flex-grow:.5;
-			// @extend .fg-off-lg-;
+			flex-grow:1;
 			align-self:center;
 			text-align: center;
 			max-height: 3em;
@@ -85,19 +85,24 @@
 				flex-basis: 50%;
 				max-height: 40%;
 				max-height: calc(40vh - #{$space*6});
+
+				@media screen and (max-width: $fg-md - 1) and (orientation: landscape) {
+					max-height: 60%;
+					max-height: calc(60vh - #{$space*6});
+				}
 				
 
 			}
 
 			.svg-graphics {
 
-				flex-grow:1;
+				flex-grow:2;
 
 			}
 
 			.slide-text, .slide-btn {
 
-				flex-grow:0.5;
+				flex-grow:1;
 
 			}
 
@@ -142,6 +147,11 @@
 				order:1;
 
 			}
+			.slide-btn{
+
+				order:2;
+
+			}
 
 			.svg-graphics{
 
@@ -149,13 +159,7 @@
 
 			}
 
-			.slide-btn{
-
-				order:2;
-
-			}
-
-			@media screen and (max-width: $fg-sm - 1), screen and (orientation: portrait) {
+			@media screen and (max-width: $fg-md - 1) {
 				.svg-graphics{
 
 					order:2;
@@ -173,7 +177,7 @@
 
 		&.single-image{
 
-			@media screen and (max-width: $fg-sm -1) {
+			@media screen and (max-width: $fg-md -1) {
 				justify-content: flex-start;			
 			}
 
@@ -197,20 +201,23 @@
 
 		@extend .fg-col-sm-12;
 		flex-shrink:0;
+		@media screen and (min-width: $fg-md - 1) {
+			min-height: 2em;		
+		}
 		// align-self:flex-end;
 
 		.pgn-list{
 
 			justify-content: space-around;
 			margin: 0 auto;
-			@media screen and (min-width: $fg-sm) {
+			@media screen and (min-width: $fg-md) {
 				justify-content: center;
 			}
 
 			.pgn-item{
 
 				min-width: 2.25em;
-				@media screen and (min-width: $fg-sm) {
+				@media screen and (min-width: $fg-md) {
 					margin-left: $space;
 				}
 				&::after{
@@ -225,16 +232,16 @@
 // font- and sizing
 .landing-page {
 
-	.top-level-navigation{
-		@media screen and (max-width: $fg-sm - 1) {
-			font-size: 80%;
-		}
-	}
+	// .top-level-navigation{
+	// 	@media screen and (max-width: $fg-md - 1) {
+	// 		font-size: 80%;
+	// 	}
+	// }
 
 	.slide {
 
 		font-size: 200%;
-		@media screen and (max-width: $fg-sm - 1) {
+		@media screen and (max-width: $fg-md - 1) {
 			font-size: 120%;
 		}
 
@@ -274,16 +281,22 @@
 
 	.slide {
 
-		@media screen and (min-width: $fg-sm) {
+		@media screen and (min-width: $fg-md) {
 			padding: $space;
 			margin-top: $space*2;
+		}
+
+		.svg-graphics{
+			@media screen and (max-width: $fg-md) and (orientation:portrait) {
+				margin-top: $space;			
+			}
 		}
 
 		.slide-text{
 
 			>*{
 
-				@media screen and (min-width: $fg-sm) {
+				@media screen and (min-width: $fg-md) {
 					padding: $space;
 				}
 
@@ -292,11 +305,11 @@
 		}
 
 		.slide-btn{
-			// @media screen and (max-width: $fg-sm - 1) {
+			// @media screen and (max-width: $fg-md - 1) {
 				padding-top: $space;
 			// }
 
-			@media screen and (min-width: $fg-sm) {
+			@media screen and (min-width: $fg-md) {
 				margin-left: $space;
 				margin-right: $space;
 			}
