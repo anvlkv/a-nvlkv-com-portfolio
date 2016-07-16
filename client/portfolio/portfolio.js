@@ -2,9 +2,11 @@ navigationPath = new ReactiveDict();
 
 let currentPath = new ReactiveDict();
 let totalPath = new ReactiveDict();
+let navigationMap ={};
 
 
 function slugify (object){
+	// console.log(object);
 	if (object) {
 		return object.slug;
 	} else {
@@ -13,176 +15,160 @@ function slugify (object){
 }
 
 function navigationOBJ (axis, direction){
-	let current_project = Projects.findOne(Session.get('current-project')),
-	current_category = Categories.findOne(Session.get('current-category')),
+	// let current_project = Projects.findOne(Session.get('current-project')),
+	// current_category = Categories.findOne(Session.get('current-category')),
 	params={};
+
+	// console.log(arguments);
 	switch (axis){
 		case 'time':
-			switch (direction){
-				case 'next':
-					if (current_project) {
-						params.project = Projects.findOne({endDate : {$lt : current_project.endDate}},{sort:{endDate:-1}});
-						if (params.project) {
-							params.category = Categories.findOne(params.project.primaryCategory);
-								if (params.project) {
-									params.project = params.project._id;
-								}
-								if (params.category) {
-									params.category = params.category._id;
-								}
-						}
-					} else if (current_category){
-						params.project = Projects.findOne({primaryCategory: current_category._id},{sort:{endDate:-1}});
-							if (params.project) {
-								params.project = params.project._id;
-							}
-							if (current_category) {
-								params.category = current_category._id;
-							}
-					} else {
-						params.project = Projects.findOne({},{sort:{endDate:-1}});
-						if (params.project) {
-							params.category = Categories.findOne(params.project.primaryCategory);
-								if (params.project) {
-									params.project = params.project._id;
-								}
-								if (params.category) {
-									params.category = params.category._id;
-								}
-						}
-					}
-					break;
-				case 'prev':
-					if (current_project) {
-						params.project = Projects.findOne({endDate : {$gt : current_project.endDate}},{sort:{endDate:1}});
-						if (params.project) {
-							params.category = Categories.findOne(params.project.primaryCategory);
-								if (params.project) {
-									params.project = params.project._id;
-								}
-								if (params.category) {
-									params.category = params.category._id;
-								}
-						}
-					} else if (current_category){
-						params.project = Projects.findOne({primaryCategory: current_category._id},{sort:{endDate:1}});
-							if (params.project) {
-								params.project = params.project._id;
-							}
-							if (current_category) {
-								params.category = current_category._id;
-							}
-					} else {
-						params.project = Projects.findOne({},{sort:{endDate:1}});
-						if (params.project) {
-							params.category = Categories.findOne(params.project.primaryCategory);
-								if (params.project) {
-									params.project = params.project._id;
-								}
-								if (params.category) {
-									params.category = params.category._id;
-								}
-						}
-					}
-					break;
-			}
-			break;
-		case 'order':
-			switch (direction){
-				case 'next':
-					if (current_project) {
-						params.project = Projects.findOne({order: {$gt: current_project.order}, primaryCategory: current_category._id},{sort:{order:1}});
-							if (params.project) {
-								params.project = params.project._id;
-							}
-						if (params.project) {
-							params.category = current_category._id;
-						}
-					} else if (current_category){
-						params.project = Projects.findOne({primaryCategory: current_category._id},{sort:{order:1}});
-							if (params.project) {
-								params.project = params.project._id;
-							}
-						params.category = current_category._id;
-					}
-					// navigate to next category
-					if (!params.project && !params.category) {
-						if (current_category) {
-							params.category = Categories.findOne({order: {$gt: current_category.order}},{sort:{order:1}});
-						} else {
-							params.category = Categories.findOne({},{sort:{order:1}});
-						}
-							if (params.category) {
-								params.category = params.category._id;
-							}
-						
-					}
-					break;
-				case 'prev':
-					if (current_project) {
-						params.project = Projects.findOne({order: {$lt: current_project.order}, primaryCategory: current_category._id},{sort:{order:1}});
-							if (params.project) {
-								params.project = params.project._id;
-							}
-						params.category = current_category._id;
-					} else if (current_category){
-						let prev_category_by_order = Categories.findOne({order: {$lt: current_category.order}},{sort:{order:-1}});
-						if (prev_category_by_order) {
-							params.project = Projects.findOne({primaryCategory: prev_category_by_order._id},{sort:{order:-1}});
-								if (params.project) {
-									params.project = params.project._id;
-								}
-							params.category = prev_category_by_order._id;
-						}
-					}
-					// navigate to prev category
-					if (!params.project && !params.category) {
-						if (current_category) {
-							params.category = Categories.findOne({order: {$lt: current_category.order}},{sort:{order:-1}});
-						} else {
-							params.category = Categories.findOne({},{sort:{order:-1}});
-						}
-							if (params.category) {
-								params.category = params.category._id;
-							}
-						
-					}
-					break;
-				case 'current':
-					if (current_project) {
-						if (current_project.pages && Session.get('current-page')) {
-							for (var i = 0; i < current_project.pages.length; i++) {
-								if (current_project.pages[i].slug == Session.get('current-page') && current_project.pages.length - 1 > i){
-									params.page = current_project.pages[i+1].slug;
-									params.project = current_project.slug;
-									params.category = current_category.slug;
-								} else if (current_project.pages.length - 1 == i && !params.page) {
-									// add contact form here
-									return navigationOBJ('order', 'next');
-								}
-							}
-						} else if (current_project.pages) {
-							params.page = current_project.pages[0].slug;
-							params.project = current_project._id;
-							params.category = current_category._id;
-						} else {
-							// add contact form here
-							return navigationOBJ('order', 'next');
-						}
-					} else {
-						return navigationOBJ('order', 'next');
-					}
-					break;
-			}
-			break;
-	}
+			let now;
 
+			$.each(navigationMap.timeline, function(index, val) {
+
+				if (!now && val[0]===navigationMap.current[0] && val[1]===navigationMap.current[1]) {
+					now = index;
+				} else if (!now && val[0]===navigationMap.current[0]){
+					now = index;
+				}
+
+			});
+			
+			// console.log(now);
+			switch (direction){
+				case 'next':
+					if(!now){
+						params.category = navigationMap.timeline[0][0];
+						params.project = navigationMap.timeline[0][1];
+					}else if (navigationMap.timeline[now+1]) {
+						params.category = navigationMap.timeline[now+1][0];
+						params.project = navigationMap.timeline[now+1][1];
+					}
+					break;
+				case 'prev':
+					if(!now){
+						params.category = navigationMap.timeline[navigationMap.timeline.length - 1][0];
+						params.project = navigationMap.timeline[navigationMap.timeline.length - 1][1];
+					}else if (navigationMap.timeline[now-1]) {
+						params.category = navigationMap.timeline[now-1][0];
+						params.project = navigationMap.timeline[now-1][1];
+					}
+					break;
+				default:
+					break;
+			}
+			break;
+		// case 'order':
+		// 	switch (direction){
+		// 		case 'next':
+		// 			if (current_project) {
+		// 				params.project = Projects.findOne({order: {$gt: current_project.order}, primaryCategory: current_category._id},{sort:{order:1}});
+		// 				if (params.project) {
+		// 					params.project = params.project._id;
+		// 					params.category = current_category._id;
+		// 				}
+		// 			} else if (current_category){
+		// 				params.project = Projects.findOne({primaryCategory: current_category._id},{sort:{order:1}});
+		// 					if (params.project) {
+		// 						params.project = params.project._id;
+		// 					}
+		// 				params.category = current_category._id;
+		// 			}
+
+		// 			// navigate to next category
+		// 			if (!params.project && !params.category) {
+		// 				if (current_category) {
+		// 					params.category = Categories.findOne({order: {$gt: current_category.order}},{sort:{order:1}});
+		// 				} else {
+		// 					params.category = Categories.findOne({},{sort:{order:1}});
+		// 				}
+						
+		// 				if (params.category) {
+		// 					params.category = params.category._id;
+		// 				}
+						
+		// 			}
+		// 			break;
+		// 		case 'prev':
+		// 			if (current_project) {
+		// 				params.project = Projects.findOne({order: {$lt: current_project.order}, primaryCategory: current_category._id},{sort:{order:1}});
+		// 				if (params.project) {
+		// 					params.project = params.project._id;
+		// 				}
+		// 				params.category = current_category._id;
+		// 			} else if (current_category){
+
+		// 				let prev_category_by_order = Categories.findOne({order: {$lt: current_category.order}},{sort:{order:-1}});
+		// 				if (prev_category_by_order) {
+		// 					params.project = Projects.findOne({primaryCategory: prev_category_by_order._id},{sort:{order:-1}});
+		// 						if (params.project) {
+		// 							params.project = params.project._id;
+		// 						}
+		// 					params.category = prev_category_by_order._id;
+		// 				}
+
+		// 			}
+
+		// 			// navigate to prev category
+		// 			if (!params.project && !params.category) {
+		// 				if (current_category) {
+		// 					params.category = Categories.findOne({order: {$lt: current_category.order}},{sort:{order:-1}});
+		// 				} else {
+		// 					params.category = Categories.findOne({},{sort:{order:-1}});
+		// 				}
+
+
+		// 				if (params.category) {
+		// 					params.category = params.category._id;
+
+		// 					let prev_project_by_order = Projects.findOne({primaryCategory: params.category},{sort:{order:-1}});
+
+		// 					if (prev_project_by_order) {
+		// 						params.project = prev_project_by_order._id;
+		// 					}
+		// 				}
+						
+		// 			}
+		// 			break;
+		// 		case 'current':
+		// 			if (current_project) {
+		// 				if (current_project.pages && Session.get('current-page')) {
+		// 					for (var i = 0; i < current_project.pages.length; i++) {
+		// 						if (current_project.pages[i].slug == Session.get('current-page') && current_project.pages.length - 1 > i){
+		// 							params.page = current_project.pages[i+1].slug;
+		// 							params.project = current_project._id;
+		// 							params.category = current_category._id;
+		// 						} else if (current_project.pages.length - 1 == i && !params.page) {
+		// 							// console.log(current_project, '1');
+		// 							return navigationOBJ('order', 'next');
+		// 						}
+		// 					}
+		// 				} else if (current_project.pages) {
+		// 					params.page = current_project.pages[0].slug;
+		// 					params.project = current_project._id;
+		// 					params.category = current_category._id;
+		// 					// console.log(params, '0');
+		// 				} else {
+		// 					// console.log(current_project, '2');
+		// 					return navigationOBJ('order', 'next');
+		// 				}
+		// 			} else {
+		// 				// console.log(current_project, '3');
+		// 				return navigationOBJ('order', 'next');
+		// 			}
+		// 			break;
+		// 	}
+		// 	// break;
+	}
+	// console.log(params);
 	return params;
 }
 
 function navigationURL (axis, direction){
 
 	let params = navigationOBJ(axis, direction);
+	// console.log(params);
+
 
 	params = {
 		project: slugify(Projects.findOne({_id:params.project})),
@@ -190,16 +176,20 @@ function navigationURL (axis, direction){
 		page: params.page
 	};
 
-	// console.log(arguments, params);
+	// console.log(params);
+	let path;
 	if (params.project && params.category && params.page) {
-		return FlowRouter.path('portfolio.project.page', params);
+		path = FlowRouter.path('portfolio.project.page', params);
 	} else if (params.project && params.category) {
-		return FlowRouter.path('portfolio.project', params);
+		path = FlowRouter.path('portfolio.project', params);
 	} else if (params.category){
-		return FlowRouter.path('portfolio.category', params);
+		path = FlowRouter.path('portfolio.category', params);
 	} else {
-		return FlowRouter.path('portfolio');
+		path = FlowRouter.path('portfolio');
 	}
+
+	console.log(path);
+	return path;
 
 }
 
@@ -231,12 +221,17 @@ function navigateByTo (axis, direction){
 		}
 	}
 
+	// navigationURL(axis, direction);
 	FlowRouter.go(navigationURL(axis, direction));
 }
 
 
 Template.registerHelper('dateMY', function(date){
 	return moment(date).format('MMM YYYY');
+});
+
+Template.registerHelper('dateY', function(date){
+	return moment(date).format('YYYY');
 });
 
 
@@ -308,6 +303,8 @@ portfolioHotKeys.add({
 		hideHint();
 		if (!Session.get('active-overlay') || Session.get('active-overlay')==='hint'){
 	        navigateByTo('order','current');
+	        // console.log(navigationOBJ('order','current'));
+	        // console.log(navigationURL('order','current'));
 	        addToExperiencePath('keyEnter');
 	    } 
     }
@@ -325,17 +322,77 @@ Template.portfolio.onCreated(function(){
 
 		// console.log(cat.ready() && prj.ready() && cvr.ready());
 		this.ready.set(cat.ready() && prj.ready() && cvr.ready());
+	});
 
-		if (this.ready.get()) {
-			let navs = [navigationOBJ('order','next'), navigationOBJ('order','prev'), navigationOBJ('time','next'), navigationOBJ('time','prev')];
-			for (var i = 0; i < navs.length; i++) {
-				if (navs[i].project) {
-					AdjacentSubs.subscribe('Project', navs[i].project);
+
+	this.autorun(()=>{
+		if (this.ready.get()===true) {
+			let current = {
+				category: FlowRouter.current().params.category,
+				project: FlowRouter.current().params.project,
+				page: FlowRouter.current().params.page
+			};
+
+			navigationMap.timeline =[];
+			navigationMap.feed =[];
+			navigationMap.current =[];
+
+			Categories.find({}, {sort:{order:1}}).forEach(function (category) {
+				let projects = [];
+
+				if (current.category === category.slug) {
+					navigationMap.current[0]=category._id;
 				}
-				if (navs[i].category) {
-					AdjacentSubs.subscribe('Category', navs[i].category);
-				}
-			}
+				
+				Projects.find({primaryCategory: category._id}, {sort:{order:1}}).forEach(function (project) {
+					let pages = [];
+
+
+					if (navigationMap.current[0]===category._id && current.project === project.slug) {
+						navigationMap.current[1]=project._id;
+					}
+
+					if (project.pages) {
+						$.each(project.pages, function(index, val) {
+
+							if (navigationMap.current[0]===category._id && navigationMap.current[1]===project._id && current.page === val.slug) {
+								navigationMap.current[2]=val.slug;
+							}
+
+							pages.push(index);
+						});
+					}
+
+					projects.push([project._id, pages]);
+
+				});
+
+				navigationMap.feed.push([category._id, projects]);
+
+
+			});
+
+			Projects.find({}, {sort:{endDate:-1}}).forEach(function (project) {
+				navigationMap.timeline.push([project.primaryCategory, project._id]);
+			});
+
+
+			// console.log(navigationMap.current);
+		}
+	});
+
+	this.autorun(()=>{
+		if (this.ready.get()===true && (FlowRouter.getParam('category')||FlowRouter.getParam('project')||FlowRouter.getParam('page'))) {
+			navigationMap.current[0]=Session.get('current-category');
+			navigationMap.current[1]=Session.get('current-project');
+			navigationMap.current[2]=Session.get('current-page');
+			console.log(navigationMap.current);
+		}
+	});
+
+	this.autorun(()=>{
+			if (this.ready.get()===true) {
+			
 			// init path
 			Projects.find({}).forEach(function (project) {
 				totalPath.set(project._id, true);
@@ -449,7 +506,7 @@ Template.portfolio.onRendered(function(){
 		}, 250);
 	}
 	
-	Tracker.autorun(()=>{
+	this.autorun(()=>{
 		if(this.ready.get()===true){
 			dynamicColor(this);
 
@@ -457,16 +514,24 @@ Template.portfolio.onRendered(function(){
 			let route = FlowRouter.getRouteName();
 			Meteor.clearTimeout(hintTimeout[0]);
 			Meteor.clearTimeout(hintTimeout[1]);
+			let timing = {
+				start: 8000,
+				end: 10000,
+			};
+			if (FlowRouter.getRouteName() === 'portfolio') {
+				timing.start = 16000;
+			}
+			
 			hintTimeout[0] = Meteor.setTimeout(function () {
-				showHint();
+				showHint();	
 				hintTimeout[1] = Meteor.setTimeout(function () {
 					hideHint();
-				}, 10000);
-			}, 8000);
+				}, timing.end);
+			}, timing.start);
 		}
 	});
 
-	Tracker.autorun(()=>{
+	this.autorun(()=>{
 		if (this.ready.get()===true) {
 
 			if(Session.get('current-project')){
@@ -493,23 +558,37 @@ Template.portfolio.onRendered(function(){
 				}
 			}
 
-			if (FlowRouter.getRouteName() === 'portfolio') {
-				let validPath =[];
-				$.each(totalPath.keys, function(index, key) {
-					if (currentPath.keys[index]) {
-						validPath.push(true);
-					}
-				});
-
-				if (validPath.every(elem => elem === true)) {
-					Session.set('path-status', 'finished');
+			let validPath =[];
+			$.each(totalPath.keys, function(index, key) {
+				if (currentPath.keys[index]) {
+					validPath.push(true);
+				}else{
+					validPath.push(false);
 				}
+			});
+
+			if (validPath.every(elem => elem === true)) {
+				Session.set('path-status', 'finished');
 			}
 
-			if (navigationPath.get('continuous')===true) {
+			if (navigationPath.get('continuous')===true && Session.get('path-status')==='finished' && Session.get('show-back-cover') !== true) {
 				Session.set('show-back-cover', true);
 			}else{
 				Session.set('show-back-cover', false);
+			}
+		}
+	});
+
+	this.autorun(()=>{
+		if (this.ready.get()===true) {
+			let navs = [navigationOBJ('order','next'), navigationOBJ('order','prev'), navigationOBJ('time','next'), navigationOBJ('time','prev')];
+			for (var i = 0; i < navs.length; i++) {
+				if (navs[i].project) {
+					AdjacentSubs.subscribe('Project', navs[i].project);
+				}
+				if (navs[i].category) {
+					AdjacentSubs.subscribe('Category', navs[i].category);
+				}
 			}
 		}
 	});
@@ -529,5 +608,8 @@ Template.portfolio.events({
 	},
 	'click .js_prev_by_order': function () {
 		navigateByTo('order', 'prev');
+	},
+	'click .js_current_by_order': function () {
+		navigateByTo('order', 'current');
 	}
 });
