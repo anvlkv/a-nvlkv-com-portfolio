@@ -13,6 +13,10 @@
     @extend .fg-col-sm-2;
   }
 
+  @media screen and (min-width: $fg-sm) {
+    margin-top: $space;
+  }
+
 }
 
 
@@ -86,7 +90,7 @@
 
       .item-list {
 
-        flex-direction: column;
+        // flex-direction: column;
 
         .item {
 

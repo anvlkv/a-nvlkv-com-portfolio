@@ -39,7 +39,14 @@ Template.backCover.helpers({
 		let cover = Covers.findOne({isBack:true}, {sort:{dateOfIssue:-1}});
 		
 		return cover;
-	}
+	},
+	showMetrics: function(){
+		if (Consent.get('experiment') && Session.get('path-status') === 'finished') {
+			return true;
+		}else{
+			return false;
+		}
+	},
 });
 
 Template.backCover.onDestroyed(function(){
@@ -58,3 +65,6 @@ Template.coverNav.helpers({
 		}
 	},
 });
+
+// backCover.events in forms.js
+

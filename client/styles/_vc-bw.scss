@@ -2,7 +2,7 @@
 	.black-border{
 		border: $space/8 solid $black-copy;
 	}
-	.page{
+	.page:not(.err-page){
 		.cta-background{
 
 			@extend .black-border;
@@ -38,7 +38,7 @@
 			background-color: $white;
 		}
 
-		input, textarea, label{
+		input, textarea, label, .inline-group{
 			&, >*{
 				color: $utility;
 				border-color: $utility;	
@@ -49,6 +49,16 @@
 			&, >*{
 				color: $utility;
 			}
+
+			&[type="button"]{
+				background-color: $white;
+			}
+		}
+
+		.pgn-item{
+			&::after{
+				color: $utility;
+			}
 		}
 
 		.current-level-navigation .item .category-link .category-initial{
@@ -57,6 +67,15 @@
 
 		.dynamic_color{
 			@extend .black-border;
+		}
+
+	}
+
+	.hint-overlay{
+		.close-button{
+			h5{
+				color: $white ;
+			}
 		}
 	}
 }

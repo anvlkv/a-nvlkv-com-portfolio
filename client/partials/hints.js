@@ -37,7 +37,7 @@ experiencePath = new ReactiveDict();
 
 
 startExperienceController = function(){
-	if (Session.get('consent') != 'opt-out' && Cookie.get('a_nvlkv_consent')) {
+	if (Consent.get('cookies') && Cookie.get('a_nvlkv_consent')) {
 		if(Cookie.get('a_nvlkv_exp')){
 			let previous =  Cookie.get('a_nvlkv_exp').split(' ');
 			$.each(previous, function(index, val) {
@@ -50,7 +50,7 @@ startExperienceController = function(){
 addToExperiencePath = function(name){
 	if (!experiencePath.get(name)) {
 		experiencePath.set(name, true);
-		if (Session.get('consent') != 'opt-out') {
+		if (Consent.get('experiment')) {
 			if (Cookie.get('a_nvlkv_exp')) {
 				Cookie.set('a_nvlkv_exp', Cookie.get('a_nvlkv_exp') + ' ' + name);	
 			}else{
@@ -64,6 +64,7 @@ addToExperiencePath = function(name){
 hideHint = function(){
 	if (Session.get('active-overlay') === 'hint') {
 		Session.set('active-overlay', false);
+		GAnalytics.event(FlowRouter.current().path, 'hint-hidden');
 	}
 	// $('.hint-overlay').hide();
 };
@@ -93,12 +94,14 @@ Template.hintOverlay.helpers({
 						if (FlowRouter.current().route.name == route) {
 							if (device == Meteor.Device._type) {
 								hint = val;
+								GAnalytics.event(FlowRouter.current().path, 'hint-shown', hint.name);
 							}
 						}
 					});
 				});
 			}
 		});
+
 		return hint;
 	},
 });
@@ -106,6 +109,6 @@ Template.hintOverlay.helpers({
 
 Template.hintOverlay.events({
 	'click .js_close_hint': function () {
-		Session.set('active-overlay', false);
+		hideHint();
 	}
 });

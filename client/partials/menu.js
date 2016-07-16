@@ -34,9 +34,7 @@ Template.navMenu.helpers({
 		return 'Menu';
 	},
 	showMetrics: function(){
-		let consent = Session.get('consent'),
-			path = Session.get('path-status');
-		if (consent === 'experiment' && path === 'finished') {
+		if (Consent.get('experiment') && Session.get('path-status') === 'finished') {
 			return true;
 		}else{
 			return false;

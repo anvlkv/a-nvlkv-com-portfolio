@@ -32,9 +32,9 @@ Template.categoryPage.onDestroyed(function(){
 });
 
 Template.categoryPage.onRendered(function(){
-	if (this.ready.get())
+	if (this.ready.get()===true)
 		dynamicColor(this);
-	
+
 });
 
 Template.categoryPage.helpers({

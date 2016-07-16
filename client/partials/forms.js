@@ -1,20 +1,11 @@
+Consent = new ReactiveDict();
+
 function redirect(){
 	if (Session.get('consent-redirect')) {
 		FlowRouter.go(Session.get('consent-redirect'));
 		Session.set('consent-redirect', false);
 	}
 }
-
-function optOut (){
-	// report withdrawal
-	GAnalytics.event('consent', 'withdrawal');
-	// actual withdrawal
-	Cookie.clearAll();
-	window['ga-disable-'+Meteor.settings.public.ga.account] = true;
-	Session.set('consent', 'opt-out');
-	redirect();
-}
-
 
 // consent form
 Template.consentOverlay.onCreated(function(){
@@ -38,28 +29,17 @@ Template.consentOverlay.helpers({
 
 Template.consentOverlay.events({
 	'click .js_withdraw': function () {
-		optOut();
+		// optOut();
+		Consent.set('cookies', false);
+		Consent.set('experiment', false);
 		Session.set('active-overlay', false);
 		redirect();
 
 		return false;
 	},
 	'click .js_consent, submit form': function(e, t){
-
-		if(!t.$('[name=cookies]:checked')){
-			optOut();
-		}else if(!t.$('[name=experiment]:checked')){
-			Session.set('consent', 'cookies-only');
-			Cookie.set('a_nvlkv_consent','cookies-only');
-			GAnalytics.event('consent', 'cookies-only');
-		}else if (t.$('[name=experiment]:checked') && t.$('[name=cookies]:checked')){
-			Session.set('consent', 'experiment');
-			Cookie.set('a_nvlkv_consent','experiment');
-			GAnalytics.event('consent', 'experiment');
-			ABTest.finish("Consent");
-		}else{
-			t.$('.js_withdraw').click();
-		}
+		Consent.set('cookies', t.$('[name=cookies]').prop('checked'));
+		Consent.set('experiment', t.$('[name=experiment]').prop('checked'));
 
 		Session.set('active-overlay', false);
 		redirect();
@@ -226,6 +206,9 @@ Template.composeEmail.events({
 		Session.set('active-overlay', false);
 		FlowRouter.setQueryParams({email: null});
 	},
+	'blur input, blur textarea, change input, change textarea': function(e,t){
+		email_pre_form.set($(e.target).attr('name'), $(e.target).val());
+	}
 });
 
 Template.successDialog.events({
@@ -234,6 +217,41 @@ Template.successDialog.events({
 		Session.set('active-overlay', false);
 		FlowRouter.setQueryParams({email: null});
 	},
+});
+
+
+Template.backCover.events({
+	'click #keepInTouchEmail, submit #keepInTouchForm': function (e, t) {
+		GAnalytics.event('back-cover', 'submit');
+    	let msg={
+    		email: t.$('[name=email]').val(),
+    		subject: 'Keep in touch',
+    		message: 'Keep in touch form submitted',
+    		name: 'Keep in touch',
+    		sentFrom: 'back-cover',
+    	};
+    	let validation_errors = validate(msg, constraints, {fullMessages: false});
+    	if (!validation_errors) {
+    		t.$('.keep-in-touch').addClass('animate-sent');
+    		Meteor.call('sendEmail', msg, function (error, result) {
+    			if (error) {
+    				console.log(error);
+    				t.$('.keep-in-touch').addClass('animate-error');
+    			}else{
+    				t.$('.keep-in-touch').html('<p>Thank you! I\'ll be in touch with you soon.</p>');
+    				t.$('.keep-in-touch').removeClass('animate-sent').addClass('animate-in');
+    			}
+    		});
+    	} else {
+    		GAnalytics.event('back-cover', 'errors','on-submit', validation_errors.length);
+    		$.each(validation_errors, function(index, val) {
+    			form_errors.set(index, val);
+    			t.$('[name='+ index +']').addClass('invalid-field');
+    		});
+    		t.$('.keep-in-touch').addClass('animate-error');
+    	}
+		return false;
+	}
 });
 
 
@@ -260,12 +278,13 @@ Template.formField.helpers({
 
 Template.formField.events({
 	'focus input, focus textarea': function(e,t){
-		$(e.target).parent('label').addClass('in-use');
+		// console.log($(e.target));
+		$(e.target).closest('label').addClass('in-use');
 	},
 	'blur input, blur textarea, change input, change textarea': function(e,t){
-		email_pre_form.set($(e.target).attr('name'), $(e.target).val());
+		// email_pre_form.set($(e.target).attr('name'), $(e.target).val());
 		if (!$(e.target).val()) {
-			$(e.target).parent('label').removeClass('in-use');
+			$(e.target).closest('label').removeClass('in-use');
 		}
 	},
 	'blur input, blur textarea, keyup .invalid-field': function (e,t) {

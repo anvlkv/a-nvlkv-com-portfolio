@@ -65,6 +65,14 @@ Template.landingPage.onCreated(function(){
 Template.landingPage.onRendered(function(){
 	Session.set('current-category', null);
 	Session.set('current-project', null);
+	Tracker.autorun(()=>{
+		if (this.activeSlide.get() >= 0) {
+
+			// console.log(this.$('[data-slide='+this.activeSlide.get()+'] use'));
+		}
+
+
+	});
 });
 
 // let activeSlide = new ReactiveVar(0);

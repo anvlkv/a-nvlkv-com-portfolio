@@ -46,6 +46,11 @@ Deps.autorun(function(){
 });
 
 Template.mainLayout.onRendered(function(){
+	// add IE detection
+	if (IE) {
+		$('body').addClass('IE-'+IE);
+	}
+
 
 	$('body').addClass('vc-'+visual_code);
 	GAnalytics.event(FlowRouter.current().route.name, 'set-visual-code', visual_code);

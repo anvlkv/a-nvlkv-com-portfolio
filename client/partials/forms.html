@@ -1,11 +1,24 @@
 <template name="formField">
-	<label class="{{type}}-input-group">
+	<label class="{{type}}-input-group {{#if inlineFormID}}inline-form{{/if}}">
 		<span class="label-text">
 			{{label_text}}
 		</span>
 		
 
-		{{>Template.dynamic template=inputType}}
+		
+
+		{{#if inlineFormID}}
+			<div class="inline-group">
+				{{>Template.dynamic template=inputType}}
+				<a type="submit" class="field-submit" href="#" id="{{inlineFormID}}" title="Submit">
+					<h6><span>Submit</span></h6>
+				</a>
+			</div>
+		{{else}}
+
+			{{>Template.dynamic template=inputType}}
+
+		{{/if}}
 
 
 		{{>formError name}}
@@ -75,7 +88,7 @@
 		    	    <polygon id="lb-path" points="0 70 0 35 4 35 4 66 32 66 32 70"></polygon>
 		    	    {{/if}}
 		    	</g>
-		    	
+
 		    	{{#if value}}
 		    	<polygon id="checkmark" points="10.0266667 41.0927791 10.0012521 52.3810724 49.038317 91.4181373 100.066454 -0.0263117406 90.8808781 0.0435841185 47.4067945 78.4729066" fill="currentColor"></polygon>
 		    	{{else}}

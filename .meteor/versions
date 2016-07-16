@@ -61,6 +61,7 @@ fortawesome:fontawesome@4.5.0
 fourseven:scss@3.8.0_1
 froatsnook:valid-email@1.0.0
 geojson-utils@1.0.9
+google@1.1.13
 hausor:autoform-bs-minicolors@1.0.0
 hedcet:touch-swipe@1.6.6
 hot-code-push@1.0.4
@@ -115,15 +116,19 @@ mousetrap:mousetrap@1.4.6_1
 mpowaga:jquery-fileupload@9.11.2
 mpowaga:jquery-ui-widget@1.11.4
 mrt:cookies@0.3.0
+mrt:q@1.0.1
 msavin:jetsetter@2.0.0
 msavin:mongol@2.0.1
 mystor:device-detection@0.2.0
 natestrauser:select2@4.0.2
 npm-bcrypt@0.8.6_2
 npm-mongo@1.4.45
+oauth@1.1.11
+oauth2@1.1.10
 observe-sequence@1.0.12
 oles:autoprefixer-beta@0.5.0
 ordered-dict@1.0.8
+percolate:google-api@1.0.3
 percolate:momentum@0.7.2
 percolate:velocityjs@1.1.0
 promise@0.7.3
