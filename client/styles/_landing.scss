@@ -75,6 +75,13 @@
 				max-height: 6em;
 			}
 
+			.slide-link-btn{
+				display: inline-flex;
+				justify-content:space-between;
+				align-items:center;
+			}
+
+			
 		}
 
 		&.wide-image{
@@ -233,12 +240,6 @@
 // font- and sizing
 .landing-page {
 
-	// .top-level-navigation{
-	// 	@media screen and (max-width: $fg-md - 1) {
-	// 		font-size: 80%;
-	// 	}
-	// }
-
 	.slide {
 
 		font-size: 200%;
@@ -289,8 +290,9 @@
 
 		.svg-graphics{
 			@media screen and (max-width: $fg-md) and (orientation:portrait) {
-				margin-top: $space;			
+				margin-top: $space;
 			}
+			padding-bottom: $space;
 		}
 
 		.slide-text{
@@ -323,6 +325,10 @@
 .landing-page {
 
 	background-color: $body-bg;
+
+	#replay_button{
+		cursor: pointer;
+	}
 
 	.slide-pagination {
 
@@ -363,5 +369,39 @@
 		transition-duration: $duration*2;
 		transition-timing-function: ease-out;
 
+	}
+
+	.slide{
+		.svg-graphics{
+			@include slideInLeft ($duration:$duration);
+			// @include count (infinite);
+		}
+
+		.slide-text{
+			@include slideInDown ($duration:$duration);
+			// @include count (infinite);
+		}
+
+		.slide-btn{
+			@include slideInUp ($duration:$duration);
+			// @include count (infinite);
+		}
+
+		&.animate-out{
+			.svg-graphics{
+				@include slideOutLeft ($duration:$duration);
+				// @include count (infinite);
+			}
+
+			.slide-text{
+				@include slideOutUp ($duration:$duration);
+				// @include count (infinite);
+			}
+
+			.slide-btn{
+				@include slideOutDown ($duration:$duration);
+				// @include count (infinite);
+			}
+		}
 	}
 }

@@ -12,7 +12,9 @@
 		.cta-color{
 			@extend .cta-background;
 			
-			color: $cta;
+			&,*{
+				color: $cta;
+			} 
 			// @warn lightness($cta);
 			// @warn saturation($cta);
 

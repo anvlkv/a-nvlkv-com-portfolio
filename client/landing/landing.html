@@ -20,7 +20,9 @@
             <!-- button content -->
             {{#if button}}
                 <div class="slide-btn">
-                    <a class="slide-link-btn cta-color js_slide_link" type="button" href="{{#if button.link}}{{button.link}}{{else}}#{{/if}}" title="{{button.text}}">{{button.text}}</a>
+                    <a class="slide-link-btn cta-color js_slide_link" type="button" href="{{#if button.link}}{{button.link}}{{else}}#{{/if}}" title="{{button.text}}">
+                        <span>{{button.text}}</span>
+                    </a>
                 </div>
             {{/if}}
 

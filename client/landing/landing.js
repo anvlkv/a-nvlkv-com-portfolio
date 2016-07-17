@@ -12,7 +12,7 @@ const slides = [
 		text:'with\n acknowledging\n a problem',
 		layout: 'text-first',
 		button: {
-			text:'Where\'s the fun?',
+			text:'What\'s next?',
 		},
 
 	},{
@@ -21,7 +21,7 @@ const slides = [
 		text:'of collaboration\n with team in\n design-thinking',
 		layout:'wide-image',
 		button: {
-			text:'How to succeed?',
+			text:'What\'s success?',
 		},
 	},{
 		graphics: 'graphics_empoweredIndividual',
@@ -39,8 +39,9 @@ const slides = [
 		backgroundColor: '#0C1B2C',
 		textColor:'#ffffff',
 		layout:'text-first',
+		delay: 1500,
 		button: {
-			text:'Yay!',
+			text:'Good to know!',
 		},
 	},{
 		graphics:'graphics_goAhead',
@@ -52,26 +53,98 @@ const slides = [
 	}
 ];
 
+let activeSlide = new ReactiveVar(0);
+
 Template.landingPage.onCreated(function(){
-	this.activeSlide = new ReactiveVar(0);
 	this.autorun(()=>{
 		if (Session.get('replay-slides')) {
-			this.activeSlide.set(0);
+			activeSlide.set(0);
 			Session.set('replay-slides', false);
 		}
 	});
 });
 
 Template.landingPage.onRendered(function(){
-	Session.set('current-category', null);
-	Session.set('current-project', null);
-	Tracker.autorun(()=>{
-		if (this.activeSlide.get() >= 0) {
+	// Session.set('current-category', null);
+	// Session.set('current-project', null);
+	this.autorun(()=>{
+		if (activeSlide.get() >= 0 && activeSlide.get() < slides.length - 1) {
+			let slideTimeOut = Number.parseInt(ABTest.start("Slide timeout", ['6000', '8000', '10000']));
 
-			// console.log(this.$('[data-slide='+this.activeSlide.get()+'] use'));
+			let s = Snap(this.$('.js_slide_link')[0]),
+				canvasSize = 20,
+				progress = Snap(canvasSize, canvasSize),
+				centre = canvasSize/2,
+				radius = canvasSize*0.8/2,
+				path = '',
+				arc = progress.path(path),
+				startY = centre - radius,
+				color = this.$('.js_slide_link').css('color'),
+				slide = this.$('.slide').removeClass('animate-out'),
+				startSLide = activeSlide.get();
+
+			progress.appendTo(s);
+
+			s.click(function(event) {
+				
+				slide.find('.js_slide_link svg').remove();
+
+			});
+
+			// this.$('.js_slide_link').mouseenter(function() {
+				
+			// });
+
+			if (slides[activeSlide.get()].delay) {
+				slideTimeOut += slides[activeSlide.get()].delay;
+			}
+
+			let prog_bar = Snap.animate(0, 359.9, function(val){
+				
+				arc.remove();
+
+				let d = val,
+					dr = d - 90,
+					radians = (Math.PI*dr)/180,
+					endx = centre + radius * Math.cos(radians),
+					endy = centre + radius * Math.sin(radians),
+					largeArc = d>180 ? 1 : 0;
+
+					path = "M"+centre+","+startY+" A"+radius+","+radius+" 0 "+largeArc+",1 "+endx+","+endy;
+
+					// console.log(val);
+
+					arc = progress.path(path);
+
+
+					arc.attr({
+						stroke: color,
+						fill: 'none',
+						strokeWidth: 3
+					});
+
+			},slideTimeOut, mina.easeinout, function () {
+				if (startSLide === activeSlide.get()) {		
+					slide.addClass('animate-out');
+					Meteor.setTimeout(function () {
+						
+						slide.find('.js_slide_link svg').remove();
+						slide.find('.js_slide_link').click();
+
+					}, 250);
+				}
+			});
+
+			s.hover(function() {
+				// console.log('hovering');
+				prog_bar.stop();
+				slide.find('.js_slide_link svg').remove();
+			});
+
+
+		} else {
+			this.$('.slide').removeClass('animate-out');
 		}
-
-
 	});
 });
 
@@ -85,17 +158,17 @@ Template.landingPage.helpers({
 		const t = Template.instance();
 
 		if (FlowRouter.getQueryParam('sld')) {
-			t.activeSlide.set(FlowRouter.getQueryParam('sld'));
+			activeSlide.set(FlowRouter.getQueryParam('sld'));
 		}
 		
-		if (!t.activeSlide.get()) {
-			t.activeSlide.set(0);
+		if (!activeSlide.get()) {
+			activeSlide.set(0);
 		}
 		if (!slide) {
-			return slides[t.activeSlide.get()];
+			return slides[activeSlide.get()];
 		} else {
 			let keys = [],
-				obj = slides[t.activeSlide.get()],
+				obj = slides[activeSlide.get()],
 				objKeys = Object.keys(obj);
 			for (let j = 0; j < objKeys.length; j++) {
 				let key = objKeys[j];
@@ -114,13 +187,21 @@ Template.landingPage.helpers({
 
 Template.landingPage.events({
 	'click .js_slide': function (e,t) {
-		t.activeSlide.set($(e.currentTarget).data('slide'));
+		activeSlide.set($(e.currentTarget).data('slide'));
 	},
 	'click .js_slide_link': function (e, t){
-		if (!slides[t.activeSlide.get()].button.link) {
-			t.activeSlide.set(t.activeSlide.get()+1);
+		ABTest.start("Slide timeout");
+		GAnalytics.event('landing', 'slide-link');
+		if (!slides[activeSlide.get()].button.link) {
+			
+			activeSlide.set(activeSlide.get()+1);
+
 		} else {
-			return e;
+			
+			FlowRouter.go(slides[activeSlide.get()].button.link);
+
 		}
+
+		return e;
 	},
 });

@@ -44,7 +44,11 @@ site.route('/', {
     name: 'home',
     action: function() {
         BlazeLayout.render("mainLayout", {content: "landingPage"});
-    }
+    },
+    triggersEnter:[function(){
+        Session.set('current-category', null);
+        Session.set('current-project', null);
+    }]
 });
 
 
