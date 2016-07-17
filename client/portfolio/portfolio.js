@@ -2,9 +2,11 @@ navigationPath = new ReactiveDict();
 
 let currentPath = new ReactiveDict();
 let totalPath = new ReactiveDict();
+let navigationMap ={};
 
 
 function slugify (object){
+	// console.log(object);
 	if (object) {
 		return object.slug;
 	} else {
@@ -12,198 +14,95 @@ function slugify (object){
 	}
 }
 
-function navigationOBJ (axis, direction){
-	let current_project = Projects.findOne(Session.get('current-project')),
-	current_category = Categories.findOne(Session.get('current-category')),
-	params={};
+// function navigationOBJ (axis, direction){
+// 	// let current_project = Projects.findOne(Session.get('current-project')),
+// 	// current_category = Categories.findOne(Session.get('current-category')),
+// 	params={
+// 		project:FlowRouter.current().params.project,
+// 		category:FlowRouter.current().params.category,
+// 		page:FlowRouter.current().params.page
+// 	};
+
+// 	// console.log(arguments);
+	
+// }
+
+function navigationURL (axis, direction){
+
+	// let params = navigationOBJ(axis, direction);
+	// console.log(params);
+
+
+	// params = {
+	// 	project: slugify(Projects.findOne({_id:params.project})),
+	// 	category: slugify(Categories.findOne({_id:params.category})),
+	// 	page: params.page
+	// };
+
+	// console.log(FlowRouter.current().path);
+	let path;
+
 	switch (axis){
 		case 'time':
+			let now = navigationMap.timeline.indexOf(FlowRouter.current().path);
+			// console.log(now);
 			switch (direction){
 				case 'next':
-					if (current_project) {
-						params.project = Projects.findOne({endDate : {$lt : current_project.endDate}},{sort:{endDate:-1}});
-						if (params.project) {
-							params.category = Categories.findOne(params.project.primaryCategory);
-								if (params.project) {
-									params.project = params.project._id;
-								}
-								if (params.category) {
-									params.category = params.category._id;
-								}
-						}
-					} else if (current_category){
-						params.project = Projects.findOne({primaryCategory: current_category._id},{sort:{endDate:-1}});
-							if (params.project) {
-								params.project = params.project._id;
-							}
-							if (current_category) {
-								params.category = current_category._id;
-							}
-					} else {
-						params.project = Projects.findOne({},{sort:{endDate:-1}});
-						if (params.project) {
-							params.category = Categories.findOne(params.project.primaryCategory);
-								if (params.project) {
-									params.project = params.project._id;
-								}
-								if (params.category) {
-									params.category = params.category._id;
-								}
-						}
+					
+					if (now >= 0 && navigationMap.timeline[now+1]) {
+						path = navigationMap.timeline[now+1];
+					} else if (!navigationMap.timeline[now+1] || !now){
+						path = navigationMap.timeline[0];
 					}
 					break;
 				case 'prev':
-					if (current_project) {
-						params.project = Projects.findOne({endDate : {$gt : current_project.endDate}},{sort:{endDate:1}});
-						if (params.project) {
-							params.category = Categories.findOne(params.project.primaryCategory);
-								if (params.project) {
-									params.project = params.project._id;
-								}
-								if (params.category) {
-									params.category = params.category._id;
-								}
-						}
-					} else if (current_category){
-						params.project = Projects.findOne({primaryCategory: current_category._id},{sort:{endDate:1}});
-							if (params.project) {
-								params.project = params.project._id;
-							}
-							if (current_category) {
-								params.category = current_category._id;
-							}
-					} else {
-						params.project = Projects.findOne({},{sort:{endDate:1}});
-						if (params.project) {
-							params.category = Categories.findOne(params.project.primaryCategory);
-								if (params.project) {
-									params.project = params.project._id;
-								}
-								if (params.category) {
-									params.category = params.category._id;
-								}
-						}
+					if (now >= 0 && navigationMap.timeline[now-1]) {
+						path = navigationMap.timeline[now-1];
+					} else if (!navigationMap.timeline[now-1] || !now){
+						path = navigationMap.timeline[navigationMap.timeline.length - 1];
 					}
+					break;
+				default:
 					break;
 			}
 			break;
 		case 'order':
+			let current = [navigationMap.feed.indexOf(FlowRouter.current().path), navigationMap.detailedFeed.indexOf(FlowRouter.current().path)];
+			// console.log(current);
 			switch (direction){
 				case 'next':
-					if (current_project) {
-						params.project = Projects.findOne({order: {$gt: current_project.order}, primaryCategory: current_category._id},{sort:{order:1}});
-							if (params.project) {
-								params.project = params.project._id;
-							}
-						if (params.project) {
-							params.category = current_category._id;
-						}
-					} else if (current_category){
-						params.project = Projects.findOne({primaryCategory: current_category._id},{sort:{order:1}});
-							if (params.project) {
-								params.project = params.project._id;
-							}
-						params.category = current_category._id;
-					}
-					// navigate to next category
-					if (!params.project && !params.category) {
-						if (current_category) {
-							params.category = Categories.findOne({order: {$gt: current_category.order}},{sort:{order:1}});
-						} else {
-							params.category = Categories.findOne({},{sort:{order:1}});
-						}
-							if (params.category) {
-								params.category = params.category._id;
-							}
-						
+					if (current[0] >= 0 && navigationMap.feed[current[0]+1]) {
+						path = navigationMap.feed[current[0]+1];
+					} else if (!navigationMap.feed[current[0]+1] || !current[0]){
+						path = navigationMap.feed[0];
 					}
 					break;
 				case 'prev':
-					if (current_project) {
-						params.project = Projects.findOne({order: {$lt: current_project.order}, primaryCategory: current_category._id},{sort:{order:1}});
-							if (params.project) {
-								params.project = params.project._id;
-							}
-						params.category = current_category._id;
-					} else if (current_category){
-						let prev_category_by_order = Categories.findOne({order: {$lt: current_category.order}},{sort:{order:-1}});
-						if (prev_category_by_order) {
-							params.project = Projects.findOne({primaryCategory: prev_category_by_order._id},{sort:{order:-1}});
-								if (params.project) {
-									params.project = params.project._id;
-								}
-							params.category = prev_category_by_order._id;
-						}
-					}
-					// navigate to prev category
-					if (!params.project && !params.category) {
-						if (current_category) {
-							params.category = Categories.findOne({order: {$lt: current_category.order}},{sort:{order:-1}});
-						} else {
-							params.category = Categories.findOne({},{sort:{order:-1}});
-						}
-							if (params.category) {
-								params.category = params.category._id;
-							}
-						
+					if (current[0] >= 0 && navigationMap.feed[current[0]-1]) {
+						path = navigationMap.feed[current[0]-1];
+					} else if (!navigationMap.feed[current[0]-1] || !current[0]){
+						path = navigationMap.feed[navigationMap.feed.length - 1];
 					}
 					break;
 				case 'current':
-					if (current_project) {
-						if (current_project.pages && Session.get('current-page')) {
-							for (var i = 0; i < current_project.pages.length; i++) {
-								if (current_project.pages[i].slug == Session.get('current-page') && current_project.pages.length - 1 > i){
-									params.page = current_project.pages[i+1].slug;
-									params.project = current_project.slug;
-									params.category = current_category.slug;
-								} else if (current_project.pages.length - 1 == i && !params.page) {
-									// add contact form here
-									return navigationOBJ('order', 'next');
-								}
-							}
-						} else if (current_project.pages) {
-							params.page = current_project.pages[0].slug;
-							params.project = current_project._id;
-							params.category = current_category._id;
-						} else {
-							// add contact form here
-							return navigationOBJ('order', 'next');
-						}
-					} else {
-						return navigationOBJ('order', 'next');
+					if (current[1] >= 0 && navigationMap.detailedFeed[current[1]+1]) {
+						path = navigationMap.detailedFeed[current[1]+1];
+					} else if (!navigationMap.detailedFeed[current[1]+1] || !current[1]){
+						path = navigationMap.detailedFeed[0];
 					}
 					break;
+				default:
+					break;
 			}
-			break;
 	}
 
-	return params;
-}
-
-function navigationURL (axis, direction){
-
-	let params = navigationOBJ(axis, direction);
-
-	params = {
-		project: slugify(Projects.findOne({_id:params.project})),
-		category: slugify(Categories.findOne({_id:params.category})),
-		page: params.page
-	};
-
-	// console.log(arguments, params);
-	if (params.project && params.category && params.page) {
-		return FlowRouter.path('portfolio.project.page', params);
-	} else if (params.project && params.category) {
-		return FlowRouter.path('portfolio.project', params);
-	} else if (params.category){
-		return FlowRouter.path('portfolio.category', params);
-	} else {
-		return FlowRouter.path('portfolio');
-	}
+	// console.log(path);
+	return path;
 
 }
 
 function navigateByTo (axis, direction){
+
 	if (!navigationPath.get('direction') || !navigationPath.get('axis')) {
 		navigationPath.set('direction', direction);
 		navigationPath.set('axis', axis);
@@ -213,13 +112,19 @@ function navigateByTo (axis, direction){
 		}else{
 			navigationPath.set('continuous', false);
 
+			if (navigationPath.get('axis') === axis && navigationPath.get('direction') !== direction) {
+				navigationPath.set('backwards', true);
+			}else{
+				navigationPath.set('backwards', false);
+			}
 
-			if (Session.get('consent') && Session.get('consent') != 'opt-out') {
+
+			if (Session.get('consent') && Session.get('consent') !== 'opt-out') {
 				let interruption = '';
-				if (navigationPath.get('axis') != axis) {
+				if (navigationPath.get('axis') !== axis) {
 					interruption += navigationPath.get('axis') + '-' + axis + '|';
 				}
-				if (navigationPath.get('direction') != direction) {
+				if (navigationPath.get('direction') !== direction) {
 					interruption += navigationPath.get('direction') + '-' + direction + '|';
 				}
 				GAnalytics.event(FlowRouter.current().path, 'path-interrupted', interruption);
@@ -231,12 +136,23 @@ function navigateByTo (axis, direction){
 		}
 	}
 
+	// navigationURL(axis, direction);
 	FlowRouter.go(navigationURL(axis, direction));
 }
+
+FlowRouter.triggers.enter([function(context, redirect){
+	if (Session.get('path-status')!=='finished') {
+		redirect(navigationURL(navigationPath.get('axis'), navigationPath.get('direction')));
+	}
+}],{only:['portfolio.back-cover']});
 
 
 Template.registerHelper('dateMY', function(date){
 	return moment(date).format('MMM YYYY');
+});
+
+Template.registerHelper('dateY', function(date){
+	return moment(date).format('YYYY');
 });
 
 
@@ -308,6 +224,8 @@ portfolioHotKeys.add({
 		hideHint();
 		if (!Session.get('active-overlay') || Session.get('active-overlay')==='hint'){
 	        navigateByTo('order','current');
+	        // console.log(navigationOBJ('order','current'));
+	        // console.log(navigationURL('order','current'));
 	        addToExperiencePath('keyEnter');
 	    } 
     }
@@ -325,17 +243,80 @@ Template.portfolio.onCreated(function(){
 
 		// console.log(cat.ready() && prj.ready() && cvr.ready());
 		this.ready.set(cat.ready() && prj.ready() && cvr.ready());
+	});
 
-		if (this.ready.get()) {
-			let navs = [navigationOBJ('order','next'), navigationOBJ('order','prev'), navigationOBJ('time','next'), navigationOBJ('time','prev')];
-			for (var i = 0; i < navs.length; i++) {
-				if (navs[i].project) {
-					AdjacentSubs.subscribe('Project', navs[i].project);
-				}
-				if (navs[i].category) {
-					AdjacentSubs.subscribe('Category', navs[i].category);
-				}
-			}
+
+	this.autorun(()=>{
+		if (this.ready.get()===true && !navigationMap.timeline ) {
+			let current = {
+				category: FlowRouter.current().params.category,
+				project: FlowRouter.current().params.project,
+				page: FlowRouter.current().params.page
+			};
+
+			navigationMap.timeline =['/portfolio'];
+			navigationMap.feed =['/portfolio'];
+			navigationMap.detailedFeed =['/portfolio'];
+
+			Categories.find({}, {sort:{order:1}}).forEach(function (category) {
+				
+				navigationMap.feed.push(FlowRouter.path('portfolio.category', {category: category.slug}));
+
+				navigationMap.detailedFeed.push(FlowRouter.path('portfolio.category', {
+						category: category.slug,
+					}));
+				
+
+
+				Projects.find({primaryCategory: category._id}, {sort:{order:1}}).forEach(function (project) {
+
+					navigationMap.feed.push(FlowRouter.path('portfolio.project',{
+						category: category.slug,
+						project: project.slug,
+					}));
+					navigationMap.detailedFeed.push(FlowRouter.path('portfolio.project', {
+						category: category.slug,
+						project: project.slug,
+					}));
+
+					if (project.pages) {
+						$.each(project.pages, function(index, page) {
+							// console.log(page);
+
+							navigationMap.detailedFeed.push(FlowRouter.path('portfolio.project.page', {
+								category: category.slug,
+								project: project.slug,
+								page: page.slug
+							}));
+
+						});
+					}
+
+				});
+
+			});
+
+			Projects.find({}, {sort:{endDate:-1}}).forEach(function (project) {
+				// navigationMap.timeline.push([project.primaryCategory, project._id]);
+				navigationMap.timeline.push(FlowRouter.path('portfolio.project',{
+					category: Categories.findOne({_id:project.primaryCategory}).slug,
+					project: project.slug
+				}));
+			});
+
+
+
+			navigationMap.timeline.push('/portfolio/thank-you');
+			navigationMap.feed.push('/portfolio/thank-you');
+			navigationMap.detailedFeed.push('/portfolio/thank-you');
+
+			console.log(navigationMap);
+		}
+	});
+
+	this.autorun(()=>{
+		if (this.ready.get()===true) {
+			
 			// init path
 			Projects.find({}).forEach(function (project) {
 				totalPath.set(project._id, true);
@@ -449,7 +430,7 @@ Template.portfolio.onRendered(function(){
 		}, 250);
 	}
 	
-	Tracker.autorun(()=>{
+	this.autorun(()=>{
 		if(this.ready.get()===true){
 			dynamicColor(this);
 
@@ -457,16 +438,24 @@ Template.portfolio.onRendered(function(){
 			let route = FlowRouter.getRouteName();
 			Meteor.clearTimeout(hintTimeout[0]);
 			Meteor.clearTimeout(hintTimeout[1]);
+			let timing = {
+				start: 8000,
+				end: 10000,
+			};
+			if (FlowRouter.getRouteName() === 'portfolio') {
+				timing.start = 16000;
+			}
+			
 			hintTimeout[0] = Meteor.setTimeout(function () {
-				showHint();
+				showHint();	
 				hintTimeout[1] = Meteor.setTimeout(function () {
 					hideHint();
-				}, 10000);
-			}, 8000);
+				}, timing.end);
+			}, timing.start);
 		}
 	});
 
-	Tracker.autorun(()=>{
+	this.autorun(()=>{
 		if (this.ready.get()===true) {
 
 			if(Session.get('current-project')){
@@ -493,23 +482,17 @@ Template.portfolio.onRendered(function(){
 				}
 			}
 
-			if (FlowRouter.getRouteName() === 'portfolio') {
-				let validPath =[];
-				$.each(totalPath.keys, function(index, key) {
-					if (currentPath.keys[index]) {
-						validPath.push(true);
-					}
-				});
-
-				if (validPath.every(elem => elem === true)) {
-					Session.set('path-status', 'finished');
+			let validPath =[];
+			$.each(totalPath.keys, function(index, key) {
+				if (currentPath.keys[index]) {
+					validPath.push(true);
+				}else{
+					validPath.push(false);
 				}
-			}
+			});
 
-			if (navigationPath.get('continuous')===true) {
-				Session.set('show-back-cover', true);
-			}else{
-				Session.set('show-back-cover', false);
+			if (validPath.every(elem => elem === true)) {
+				Session.set('path-status', 'finished');
 			}
 		}
 	});
@@ -529,5 +512,8 @@ Template.portfolio.events({
 	},
 	'click .js_prev_by_order': function () {
 		navigateByTo('order', 'prev');
+	},
+	'click .js_current_by_order': function () {
+		navigateByTo('order', 'current');
 	}
 });

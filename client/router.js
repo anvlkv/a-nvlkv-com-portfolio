@@ -58,18 +58,23 @@ const portfolio = site.group({
 portfolio.route('/', {
     name: 'portfolio',
     action: function() {
-        // front or back cover?
-        let cvr = 'coverPage';
-        if (Session.get('show-back-cover')) {
-            cvr = 'backCover';
-        }
-
         BlazeLayout.render("mainLayout", {
         	content: "portfolio",
-        	pageType: cvr,
+        	pageType: 'coverPage',
         	imagery: "background",
         	textContent: "aboutPortfolio",
 			navContent: "coverNav",
+        });
+    },
+});
+
+portfolio.route('/thank-you',{
+    name: 'portfolio.back-cover',
+    action: function(){
+        BlazeLayout.render("mainLayout", {
+            content: "portfolio",
+            pageType: 'backCover',
+            imagery: "background",
         });
     }
 });
