@@ -310,7 +310,7 @@ Template.portfolio.onCreated(function(){
 			navigationMap.feed.push('/portfolio/thank-you');
 			navigationMap.detailedFeed.push('/portfolio/thank-you');
 
-			console.log(navigationMap);
+			// console.log(navigationMap);
 		}
 	});
 

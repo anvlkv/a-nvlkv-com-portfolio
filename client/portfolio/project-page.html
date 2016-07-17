@@ -1,5 +1,5 @@
 <template name="projectPage">
-{{#if readiness}}
+
 	{{#if project}}
 	<div class="{{#if session 'current-page'}}project-page{{else}}project-cover{{/if}} {{#if screensize 'xs'}}dynamic_color{{/if}}">
 		<!-- <div class="content"> -->
@@ -16,7 +16,11 @@
 	<!-- only show on larger screens -->
 	{{#if screensize 'sm, md, lg'}}
 	<div class="background-container">
-		{{>Template.dynamic template=imagery data=image}}
+		{{#if readiness}}
+			{{>Template.dynamic template=imagery data=image}}
+		{{else}}
+			{{>loadingState}}
+		{{/if}}
 	</div>
 	{{/if}}
 
@@ -24,9 +28,7 @@
 	{{else}}
 		{{> errPage}}
 	{{/if}}
-{{else}}
-	{{>loadingState}}
-{{/if}}
+
 </template>
 
 <template name="projectCoverText">
@@ -57,7 +59,12 @@
 					</div>
 				</div>
 
-				<img src="/cfs/files/images/{{image}}" class="img-responsive" alt="{{title}}">
+				{{#if readiness}}
+					<img src="/cfs/files/images/{{image}}" class="img-responsive" alt="{{title}}">
+				{{else}}
+					{{>loadingState}}
+				{{/if}}
+				
 			</div>
 		{{/if}}
 
@@ -73,7 +80,11 @@
 		<!-- show only on phones -->
 		{{#if screensize 'xs'}}
 			<div class="image-container">
-				<img src="/cfs/files/images/{{image}}" class="img-responsive" alt="{{title}}">
+				{{#if readiness}}
+					<img src="/cfs/files/images/{{image}}" class="img-responsive" alt="{{title}}">
+				{{else}}
+					{{>loadingState}}
+				{{/if}}
 			</div>
 		{{/if}}
 
