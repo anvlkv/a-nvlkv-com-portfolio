@@ -121,6 +121,7 @@ Meteor.publish('ProjectsFeed',()=>{
 			secondaryCategory:1,
 			slug:1,
 			endDate:1,
+			pages:1,
 		}
 	});
 });
