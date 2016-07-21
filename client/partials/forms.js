@@ -1,9 +1,3 @@
-Consent = new ReactiveDict();
-
-
-
-
-
 // email form
 let constraints = {
 	name:{
