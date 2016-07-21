@@ -3,9 +3,14 @@
 .dialog{
 
 	@extend .fg-col-xs-12;
-	@extend .fg-col-sm-6;
-	@extend .fg-off-sm-3;
-	align-self: center;
+	@extend .fg-col-sm-10;
+	@extend .fg-off-sm-1;
+	// @extend .fg-col-lg-8;
+	// @extend .fg-off-lg-2;
+	align-self:flex-start;
+	@media screen and (min-width: $fg-sm) {
+		align-self: center;
+	}
 
 	.dialog-heading{
 
@@ -25,31 +30,6 @@
 
 		}
 	}
-	.dialog-form{
-
-		form{
-			>div{
-
-				width: 100%;
-
-				label{
-
-					width: 100%;
-
-					.label-text{
-
-						width: 100%;
-
-					}
-					input, textarea{
-
-						width: 100%;
-
-					}
-				}
-			}
-		}
-	}
 	.dialog-controls{
 
 		@extend .fg-row;
@@ -65,11 +45,141 @@
 }
 
 .dialog-form{
+
+	form{
+		>div{
+
+			width: 100%;
+
+			label{
+
+				width: 100%;
+
+				.label-text{
+
+					width: 100%;
+
+				}
+				input, textarea{
+
+					width: 100%;
+
+				}
+
+				&.inline-form{
+
+					.label-text{
+						// @extend .fg-col-xs-;
+					}
+					.inline-group{
+						@extend .fg-row;
+						flex-wrap:nowrap;
+						@media screen and (max-width: $fg-sm - 1) {
+							flex-direction: column;
+						}
+						a{
+							// flex-basis:10em;
+							// flex-grow:1;
+							// @extend .fg-row;
+							@extend .fg-col-xs-12;
+							@extend .fg-col-sm-3;
+							// @extend .fg-col-md-2;
+							flex-wrap:nowrap;
+							justify-content:center;
+							align-items:center;
+							
+							// height: 100%;
+							// padding: $space;
+						}
+						input, textarea{
+							@extend .fg-col-xs-12;
+							@extend .fg-col-sm-9;
+							// @extend .fg-col-md-10;
+							// flex-basis: 80%;
+							// flex-grow:1;
+						}
+					}
+				}
+
+				&.checkbox-input-group{
+					
+					@extend .fg-row;
+					align-items: center;
+					
+					.checkbox{
+
+						@extend .fg-col-xs-3;
+						@extend .fg-col-sm-2;
+						// @extend .fg-col-lg-1;
+						order:1;
+
+					}
+
+					.label-text{
+
+						@extend .fg-col-xs-9;
+						@extend .fg-col-sm-10;
+						// @extend .fg-col-lg-11;
+						order:2;
+						
+					}
+				}
+			}
+		}
+	}
+}
+
+// spacing
+
+.dialog-form{
 	
 	label{
 
 		margin-bottom: $space/2;
 		margin-top: $space/2;
+
+		&.textarea-input-group, &.text-input-group, &.email-input-group{
+
+			&.in-use{
+				.label-text{
+					transform: scale(.75) translateY(0);
+				}
+			}
+
+			.label-text{
+				transform: translateY(1em);
+			}
+
+		}
+
+
+		&.inline-form{
+
+			.label-text{
+				@media screen and (min-width: $fg-sm - 1) {
+					transform: translateY(2em);	
+				}
+			}
+			.inline-group{
+				border-color: $white;
+				a{
+					padding-bottom: $space/2;
+					padding-top: $space/2;
+					border: $space/2 solid;
+					border-color: inherit;
+					@media screen and (max-width: $fg-sm) {
+						margin-top: $space/2;
+					}
+					.svg-icon{
+						font-size: .5em;
+					}
+				}
+				input, textarea{
+
+				}
+			}
+		}
+
 
 		.label-text{
 
@@ -78,8 +188,6 @@
 			transform-origin: 0 0;	
 			color: $white;
 			font-family: $headings-font-family;
-			transform: translateY(1em);
-			
 			transition-property: transform;
 			transition-duration: $duration;
 			transition-timing-function: ease-in;
@@ -126,17 +234,6 @@
 				border-color: $cta-background;
 			}
 		}
-		input{
-
-		}
-		textarea{
-
-		}
-		&.in-use{
-			.label-text{
-				transform: scale(.75) translateY(0);
-			}
-		}
 	}
 }
 
@@ -144,7 +241,20 @@
 	
 	padding: $space;
 
+	@media screen and (min-width: $fg-sm) {
+		font-size: 80%;
+	}
+
+	form{
+		legend{
+			font-size: inherit;
+			border: none;
+		}
+	}
+
 	.dialog-heading{
+		border-bottom: $space/8 solid $black-copy;
+		padding-bottom: ($space/8)*7;
 		h4{
 			font-size: 2.5em;
 		}
@@ -158,4 +268,20 @@
 		margin-top: $space;
 		font-size: 2em;
 	}
+}
+
+
+.checkbox-input-group .checkbox{
+	input[type="checkbox"]{
+		position: absolute;
+		top:-2000em;
+		left:-2000em;
+		opacity: 0;
+	}
+
+	svg{
+		width: 3em;
+		height: 3em;
+	}
+
 }

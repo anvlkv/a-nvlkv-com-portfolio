@@ -1,0 +1,54 @@
+.notifications-overlay{
+	
+	@extend .page;
+	@extend .fg-row;
+	position: fixed;
+	top:0;
+	background-color: transparent;
+	z-index: 10;
+	width: auto;
+	width: 100vw;
+	height: 100vh;
+	pointer-events:none;
+
+	justify-content:flex-end;
+	align-items:flex-end;
+
+	.notification{
+
+		// @extend .fg-row;
+		@extend .fg-col-xs-12;
+		@extend .fg-col-sm-6;
+		@extend .fg-off-sm-6;
+		@extend .fg-col-md-4;
+		@extend .fg-off-md-8;
+		@extend .fg-col-lg-3;
+		@extend .fg-off-lg-9;
+
+		margin-bottom: 0;
+		margin-top: auto;
+
+		background-color: $black-copy;
+
+		&>a{
+
+			display: inline-block;
+			font-size: .7em;
+			text-align: right;
+			padding: $space/2;
+
+		}
+
+		a{
+			pointer-events:all;
+			text-decoration: underline;
+			
+		}
+
+		p{
+			color: $white;
+			padding: $space/2;
+		}
+
+	}
+}

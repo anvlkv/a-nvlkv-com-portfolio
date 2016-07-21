@@ -31,32 +31,6 @@
 	</div>
 </template>
 
-<template name="formField">
-	<label>
-		<span class="label-text">
-			{{label_text}}
-		</span>
-		
-		{{#if isTextarea type}}
-		<textarea required="{{isRequired}}" name="{{name}}" placeholder="{{placeholder}}" rows="6">{{value}}</textarea>		
-		{{else}}
-		<input required="{{isRequired}}" type="{{type}}" name="{{name}}" placeholder="{{placeholder}}" value="{{value}}">		
-		{{/if}}
-
-		{{>formError name}}
-	</label>
-</template>
-
-<template name="formError">
-	{{#if errors this}}
-	<span class="error-text">
-		{{#each err in errors this}}
-			{{err}};&emsp;
-		{{/each}}
-	</span>
-	{{/if}}
-</template>
-
 <template name="successDialog">
 	<div class="success-dialog dialog utility-background">
 		<div class="dialog-heading">
@@ -67,7 +41,7 @@
 		</div>
 		<div class="dialog-body">
 			<p>
-			Thank you! I'll be in touch with you soon.			
+			Thank you! I'll be in touch with you soon.
 			</p>
 		</div>
 		<div class="dialog-controls">

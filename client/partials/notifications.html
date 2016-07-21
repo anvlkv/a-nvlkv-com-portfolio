@@ -1,0 +1,20 @@
+<template name="notifications">
+	{{#if notification}}
+		<div class="notifications-overlay">
+			{{>Template.dynamic template=notification}}
+		</div>
+	{{/if}}
+</template>
+
+
+<template name="cookieNotification">
+	<div class="notification">
+		<a href="#" class="js_close">
+			{{>SVGicon name="cross"}}
+		</a>
+		<p>
+			This site uses cookies to ensure best user experience. Unless you choose to <a href="#" class="js_withdraw">withdraw</a> it is assumed that you consent to the use of cookies on this site.
+		</p>
+	</div>
+</template>
+

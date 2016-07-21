@@ -1,0 +1,113 @@
+.vc-bw{
+	.black-border{
+		border: $space/8 solid $black-copy;
+	}
+	.page{
+		.cta-background{
+
+			@extend .black-border;
+			background-color: $white;
+		}
+
+		.cta-color{
+			@extend .cta-background;
+			
+			&,*{
+				color: $cta;
+			} 
+			// @warn lightness($cta);
+			// @warn saturation($cta);
+
+			&:hover, &:active{
+
+				color: $cta;
+
+			}
+		}
+
+		.utility-background{
+			@extend .black-border;
+			background-color: $white;
+		}
+		.secondary-btn{
+			// border: 1px solid $white;
+			@extend .black-border;
+			border-color: rgba($black-copy, .25);
+		}
+
+		.white-background{
+			@extend .black-border;
+			background-color: $white;
+		}
+
+		input, textarea, label, .inline-group{
+			&, >*{
+				color: $utility;
+				border-color: $utility;	
+			}
+		}
+
+		a{
+			&, >*{
+				color: $utility;
+			}
+
+			&[type="button"]{
+				background-color: $white;
+			}
+		}
+
+		.pgn-item{
+			&::after{
+				color: $utility;
+			}
+		}
+
+		.current-level-navigation .item .category-link .category-initial{
+			color: $utility;
+		}
+
+		.dynamic_color{
+			@extend .black-border;
+		}
+
+		.project-page{
+
+			.content-plate.full-height{
+			
+				&::after{
+			
+					display: none;
+
+				}
+
+				.pgn-list {
+
+					&, *{
+
+						&, &::after, &::before{
+
+							color: $utility;
+
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	.hint-overlay{
+		.close-button{
+			h5{
+				color: $white ;
+			}
+		}
+	}
+
+	.page.err-page{
+		a{
+			color: $white;
+		}
+	}
+}

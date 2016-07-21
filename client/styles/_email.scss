@@ -1,14 +1,7 @@
 .email-overlay{
-	@extend .page;
+	@extend .active-overlay;
 	@extend .fg-row;
-	position: absolute;
-	top:0;
-	// left:0;
-	background-color: rgba($black-copy, .75);
-	z-index: 10;
-	width: auto;
-	min-width: 100vw;
-	min-height: 100%;
+	
 }
 
 

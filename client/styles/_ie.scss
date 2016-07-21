@@ -1,0 +1,29 @@
+body[class|=IE]{
+	.svg-graphics{
+		svg{
+			&.orientation-portrait{
+				height: 50vh;
+			}
+
+			&:not(.orientation-portrait){
+				height: 30vh;
+			}
+		}
+	}
+
+	&.IE-11{
+		.page{
+			.project-page, .project-cover, .portfolio-cover{
+				.content, .nav-container{
+					min-height: 100vh;
+				}
+			}
+			.back-cover{
+				min-height: 100vh;
+				>*{
+					min-height: 25vh;
+				}
+			}
+		}
+	}
+}

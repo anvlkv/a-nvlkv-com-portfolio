@@ -1,5 +1,9 @@
 <head>
+  <meta charset="utf-8">
   <title>a.nvlkv</title>
+
+  <meta name="description" content="Walkthrough UX designer portfolio. Contact a.nvlkv">
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -24,15 +28,63 @@
   <meta name="msapplication-square150x150logo" content="/img/favicon/mstile-150x150.png" />
   <meta name="msapplication-wide310x150logo" content="/img/favicon/mstile-310x150.png" />
   <meta name="msapplication-square310x310logo" content="/img/favicon/mstile-310x310.png" />
+
+  <!-- social -->
+  <!-- fb -->
+  <meta property="og:image" content="http://a.nvlkv.com/img/fb.jpg">
+  <meta property="og:title" content="a.nvlkv — portfolio">
+  <meta property="og:description" content="Walkthrough UX designer portfolio. Contact a.nvlkv">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="a.nvlkv">
+  <meta property="og:url" content="http://a.nvlkv.com">
+  <!-- tw -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="a.nvlkv — portfolio">
+  <meta name="twitter:description" content="Walkthrough UX designer portfolio. Contact a.nvlkv">
+  <meta name="twitter:image" content="http://a.nvlkv.com/img/tw.jpg">
+  <meta name="twitter:url" content="http://a.nvlkv.com">
+  <meta name="twitter:domain" content="http://a.nvlkv.com">
+  <!-- /social -->
+
+  <noscript>
+    <style>
+      body {
+        font-size: 32px;
+        text-align: center;
+      }
+      body:after {
+        margin-top: 30%;
+        display: block;
+        content: "Please enable JavaScript \A in your browser \A to view this site.";
+        white-space: pre;
+      }
+    </style>
+  </noscript>
 </head>
 
-<body>
-  {{>SVGsymbols}}
+<body lang="en">
+<!-- browser-update -->
+<script> 
+var $buoop = {c:2}; 
+function $buo_f(){ 
+ var e = document.createElement("script"); 
+ e.src = "//browser-update.org/update.min.js"; 
+ document.body.appendChild(e);
+};
+try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
+catch(e){window.attachEvent("onload", $buo_f)}
+</script> 
 
+<div id="SVG_defs">
+  {{>SVGsymbols}}
+</div>
   
 </body>
 
 
 <template name="mainLayout">
+    {{>notifications}}
+    {{>pageOverlay}}
+
     {{>Template.dynamic template=content}}
 </template>

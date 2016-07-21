@@ -18,7 +18,6 @@ es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 fourseven:scss
-reywood:bootstrap3-sass
 kadira:flow-router
 kadira:blaze-layout
 cfs:standard-packages
@@ -44,10 +43,15 @@ flowkey:hotkeys
 oles:autoprefixer-beta
 hedcet:touch-swipe
 email
-datariot:ganalytics
+# datariot:ganalytics
 froatsnook:valid-email
 awsp:validatejs
 reactive-dict
 meteorhacks:kadira
 meteorhacks:subs-manager
 sunstory:meteor-template-breakpoints
+snapsvg:core
+mrt:cookies
+manuel:abtest
+mystor:device-detection
+mpowaga:autoform-summernote

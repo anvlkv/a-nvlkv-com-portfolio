@@ -5,7 +5,8 @@
 @import "fonts";
 
 // packages
-@import '{reywood:bootstrap3-sass}/bootstrap';
+// @import '{reywood:bootstrap3-sass}/bootstrap';
+@import "bs_custom";
 @import "flex-grid";
 @import "animate-scss/properties";
 @import "animate-scss/sliding-entrances/sliding-entrances";
@@ -19,10 +20,19 @@
 // mijn
 @import "mixins";
 @import "admin";
-@import "partials";
-@import "form";
 @import "portfolio";
+@import "form";
+@import "partials";
 @import "menu";
 @import "email";
+@import "hints";
+@import "consent";
 @import "error";
 @import "landing";
+@import "notifications";
+
+// fixes
+@import "ie";
+
+// experiment
+@import "vc-bw";

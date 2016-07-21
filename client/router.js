@@ -1,18 +1,42 @@
+
+
 // main routing
 // // // // // // // // // // // // // // // // // // // // // // 
 // root
-FlowRouter.route('/', {
+const site = FlowRouter.group({
+    prefix: '',
+    triggersEnter:[function(){
+        
+        GAnalytics.pageview();
+
+        if (Cookie.get('a_nvlkv_consent')) {
+            // Session.set('consent', Cookie.get('a_nvlkv_consent'));
+            if (Cookie.get('a_nvlkv_consent')==='true') {
+                Consent.set('cookies', true);
+            }
+        } else if (Consent.get('cookies')===undefined) {
+            Session.set('active-notification', 'cookieNotification');
+        }else if (Consent.get('cookies') && !Cookie.get('a_nvlkv_consent')){
+            Cookie.set('a_nvlkv_consent', Consent.get('cookies'));
+        }
+    }],
+});
+
+site.route('/', {
     name: 'home',
     action: function() {
         BlazeLayout.render("mainLayout", {content: "landingPage"});
-        GAnalytics.pageview();
-    }
+    },
+    triggersEnter:[function(){
+        Session.set('current-category', null);
+        Session.set('current-project', null);
+    }]
 });
 
 
 // portfolio
 
-const portfolio = FlowRouter.group({
+const portfolio = site.group({
     prefix: "/portfolio",
 });
 
@@ -22,12 +46,22 @@ portfolio.route('/', {
     action: function() {
         BlazeLayout.render("mainLayout", {
         	content: "portfolio",
-        	pageType: "coverPage",
+        	pageType: 'coverPage',
         	imagery: "background",
         	textContent: "aboutPortfolio",
 			navContent: "coverNav",
         });
-        GAnalytics.pageview();
+    },
+});
+
+portfolio.route('/thank-you',{
+    name: 'portfolio.back-cover',
+    action: function(){
+        BlazeLayout.render("mainLayout", {
+            content: "portfolio",
+            pageType: 'backCover',
+            imagery: "background",
+        });
     }
 });
 
@@ -42,7 +76,6 @@ portfolio.route('/:category', {
         	textContent: "categoryCoverText",
 			navContent: "categoryCoverMenu",
         });
-        GAnalytics.pageview();
     }
 });
 
@@ -57,8 +90,7 @@ portfolio.route('/:category/:project', {
 			textContent: "projectCoverText",
 			navContent: "projectNav",
         });
-        GAnalytics.pageview();
-    }
+    },
 });
 
 
@@ -73,27 +105,25 @@ portfolio.route('/:category/:project/:page', {
     			textContent: "projectText",
     			navContent: "projectNav",
             });
-            GAnalytics.pageview();
         }
 });
 
 // back-cover page
-FlowRouter.route('/portfolio/back-cover', {
-    name: 'portfolio.back-cover',
-    action: function() {
-        BlazeLayout.render("mainLayout", {content: "portfolio", pageType: "coverView"});
-        GAnalytics.pageview();
-    }
-});
+// portfolio.route('/portfolio/back-cover', {
+//     name: 'portfolio.back-cover',
+//     action: function() {
+//         BlazeLayout.render("mainLayout", {content: "portfolio", pageType: "coverView"});
+//     }
+// });
 
 
 FlowRouter.notFound = {
     // Subscriptions registered here don't have Fast Render support.
+    name: 'page.notFound',
     subscriptions: function() {
 
     },
     action: function() {
     	BlazeLayout.render("mainLayout", {content: "errPage"});
-    	GAnalytics.pageview();
     }
 };

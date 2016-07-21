@@ -7,7 +7,7 @@ Template.categoryPage.onCreated(function(){
 	    	
 	    	if (category) {
 		    	Session.set('current-category', category._id);
-
+		    	Session.set('current-page-title', category.title);
 		    	// reset 'current-project'
 		    	if (Session.get('current-project') && !req.project) {
 		    		Session.set('current-project', undefined);
@@ -19,29 +19,35 @@ Template.categoryPage.onCreated(function(){
 	};
 
 	this.autorun(()=>{
-		let	cat =  CategorySubs.subscribe('Category', this.getCurrent_Category()),
-			prj = ProjectSubs.subscribe('ProjectsListWithinCategory', this.getCurrent_Category()),
-			att = AttachementSubs.subscribe('AttachementsWithinCategory', this.getCurrent_Category());
+		let	cat = CategorySubs.subscribe('Category', this.getCurrent_Category()),
+			prj = CategorySubs.subscribe('ProjectsListWithinCategory', this.getCurrent_Category()),
+			att = CategorySubs.subscribe('AttachementsWithinCategory', this.getCurrent_Category());
 
 		this.ready.set(cat.ready() && prj.ready() && att.ready());
 	});
 });
 
-// Template.categoryPage.onRendered(function(){
-// 	if (this.ready.get())
-// 		dynamicColor(this);
+Template.categoryPage.onDestroyed(function(){
+	Session.set('current-page-title', null);
+});
 
-// 	Tracker.autorun(function () {
-// 		dynamicColor(this);
-// 	});
-// });
+Template.categoryPage.onRendered(function(){
+	if (this.ready.get()===true)
+		dynamicColor(this);
+
+});
 
 Template.categoryPage.helpers({
 	category: function(){
 		// console.log('category helper called');
 	    // category in portfolio
+	    let category = Categories.findOne(Session.get('current-category'));
 
-	    return Categories.findOne(Session.get('current-category'));
+	    if (visual_code === 'bw') {
+	    	category.color = '#f7f7f7';
+	    }
+
+	    return category;
 	},
 	projects: function(){
 		return Projects.find(
@@ -63,7 +69,10 @@ Template.categoryPage.helpers({
 	},
 	filename: function(fileId){
 		let file = Files.findOne({_id:fileId});
-		return file.original.name;
+		// console.log(file);
+		if (file) {
+			return file.original.name;		
+		}
 	},
 });
 

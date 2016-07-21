@@ -1,4 +1,4 @@
-Meteor.publish('Categories', ()=>{
+Meteor.publish('Categories', function() {
 	return Categories.find({},{
 		sort:{
 			order:1
@@ -6,31 +6,31 @@ Meteor.publish('Categories', ()=>{
 	});
 });
 
-Meteor.publish('Projects', ()=>{
+Meteor.publish('Projects', function() {
 	return Projects.find();
 });
 
-Meteor.publish('Attachements', ()=>{
+Meteor.publish('Attachements', function() {
 	return Attachements.find();
 });
 
-Meteor.publish('Images', ()=>{
+Meteor.publish('Images', function() {
 	return Images.find();
 });
 
-Meteor.publish('Files', ()=>{
+Meteor.publish('Files', function() {
 	return Files.find();
 });
 
-Meteor.publish('Covers', ()=>{
+Meteor.publish('Covers', function() {
 	return Covers.find();
 });
 
-Meteor.publish('ActiveCovers',()=>{
+Meteor.publish('ActiveCovers',function() {
 	return Covers.find({isActive:true});
 });
 
-Meteor.publish('CategoriesList',()=>{
+Meteor.publish('CategoriesList',function() {
 	return Categories.find({},{
 		sort:{
 			order:1
@@ -45,7 +45,8 @@ Meteor.publish('CategoriesList',()=>{
 	});
 });
 
-Meteor.publish('ProjectsListWithinCategory',(catId)=>{
+Meteor.publish('ProjectsListWithinCategory',function(catId) {
+	check(catId, String);
 	return Projects.find({$or:[{primaryCategory: catId},
 		{secondaryCategory: catId},]},{
 			sort:{
@@ -57,12 +58,13 @@ Meteor.publish('ProjectsListWithinCategory',(catId)=>{
 				order:1,
 				image:1,
 				primaryCategory:1,
-				secondaryCategory:1,
+				secondaryCategory:1
 			}
 		});
 });
 
-Meteor.publish('AttachementsWithinCategory',(catId)=>{
+Meteor.publish('AttachementsWithinCategory',function(catId) {
+	check(catId, String);
 	let att = Attachements.find({$or:[{primaryCategory: catId},
 		{secondaryCategory: catId},]},{
 			sort:{
@@ -78,7 +80,7 @@ Meteor.publish('AttachementsWithinCategory',(catId)=>{
 	});
 	let files = Files.find({_id:{$in:fls}}, {
 		fields:{
-			"original.name":1
+			'original.name':1
 		}
 	});
 	
@@ -112,7 +114,7 @@ Meteor.publish('AttachementsWithinCategory',(catId)=>{
 // 	}
 // });
 
-Meteor.publish('ProjectsFeed',()=>{
+Meteor.publish('ProjectsFeed',function() {
 	return Projects.find({},{
 		fields:{
 			order:1,
@@ -121,16 +123,33 @@ Meteor.publish('ProjectsFeed',()=>{
 			secondaryCategory:1,
 			slug:1,
 			endDate:1,
+			'pages.slug':1,
+			'pages.order':1
 		}
 	});
 });
 
-Meteor.publish('Category',(catId)=>{
+Meteor.publish('Category',function(catId){
+	check(catId, String);
 	return Categories.find({_id:catId});
 });
 
-Meteor.publish('Project',(prjId)=>{
-	return Projects.find({_id:prjId});
+Meteor.publish('Project',function (prjId){
+	check(prjId, String);
+
+	let project, project_unpublishedFields;
+
+	project = Projects.find({_id:prjId});
+
+	project_unpublishedFields = Projects.find({_id:prjId},{
+		fields:{
+			pages:1,
+		}
+	});
+
+	Mongo.Collection._publishCursor(project_unpublishedFields, this, 'CC_Projects_unpublishedFields');
+
+	return project;
 });
 
 

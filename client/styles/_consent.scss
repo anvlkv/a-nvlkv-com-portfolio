@@ -1,0 +1,51 @@
+.consent-overlay{
+	@extend .active-overlay;
+	@extend .fg-row;
+	background-color: $black-copy;
+	justify-content: flex-start;
+	align-items:center;
+
+	#consentForm{
+		// @extend .fg-col-xs;
+	}
+
+	.consent-item{
+		@media screen and (max-width: $fg-sm - 1) {
+			margin-bottom: $space*2;
+		}
+		
+		
+		@extend .fg-row;
+		align-items: center;
+		flex-wrap: wrap;
+		
+		.svg-icon{
+
+			@extend .fg-col-xs-12;
+			@extend .fg-col-sm-2;
+			// @extend .fg-col-lg-1;
+			align-items:center;
+
+			font-size: 3em;
+
+		}
+
+		.description{
+			
+			@extend .fg-col-xs-12;
+			@extend .fg-col-sm-10;
+			// @extend .fg-col-lg-9;
+
+		}
+
+		.statement{
+
+			@extend .fg-col-xs-12;
+			@extend .fg-col-sm-10;
+			@extend .fg-off-sm-2;
+			// @extend .fg-col-lg-9;
+			// @extend .fg-off-lg-1;
+
+		}
+	}
+}

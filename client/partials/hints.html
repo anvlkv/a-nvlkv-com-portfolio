@@ -1,0 +1,21 @@
+<template name="hintOverlay">
+{{#with hint}}
+	<div class="hint-overlay">
+		<div class="wrap">
+			<div class="close-btn">
+				<a href="#" class="close-button js_close_hint" title="Close">
+					<h5>{{> SVGicon name="cross"}}</h5>
+				</a>
+			</div>
+			
+			<div class="hint-icon">
+				{{> SVGicon name=name}}
+			</div>
+			<div class="hint-text">
+				{{text}}
+			</div>
+			
+		</div>
+	</div>
+{{/with}}
+</template>
