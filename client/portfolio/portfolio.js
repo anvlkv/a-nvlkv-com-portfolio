@@ -4,61 +4,65 @@ let currentPath = new ReactiveDict();
 let totalPath = new ReactiveDict();
 let navigationMap ={};
 
-
-function slugify (object){
-	// console.log(object);
-	if (object) {
-		return object.slug;
-	} else {
-		return undefined;
-	}
-}
-
-// function navigationOBJ (axis, direction){
-// 	// let current_project = Projects.findOne(Session.get('current-project')),
-// 	// current_category = Categories.findOne(Session.get('current-category')),
-// 	params={
-// 		project:FlowRouter.current().params.project,
-// 		category:FlowRouter.current().params.category,
-// 		page:FlowRouter.current().params.page
-// 	};
-
-// 	// console.log(arguments);
-	
-// }
-
 function navigationURL (axis, direction){
+	let path,
+		current = [navigationMap.feed.indexOf(FlowRouter.current().path), navigationMap.detailedFeed.indexOf(FlowRouter.current().path), navigationMap.timeline.indexOf(FlowRouter.current().path)];
 
-	// let params = navigationOBJ(axis, direction);
-	// console.log(params);
+		if ((current[0] < 0 || current[2] < 0) && current[1] >= 0) {
+			let closest;
+			if (FlowRouter.current().params.project) {
+				closest =  FlowRouter.path('portfolio.project', {
+					project: FlowRouter.current().params.project,
+					category: FlowRouter.current().params.category,
+				});
+			} else {
+				let i = 0,
+					cat = FlowRouter.current().params.category;
+				do{
+					let path = navigationMap.timeline[i];
 
+					if (path.indexOf(cat) >= 0) {
+						closest = path;
+					}
 
-	// params = {
-	// 	project: slugify(Projects.findOne({_id:params.project})),
-	// 	category: slugify(Categories.findOne({_id:params.category})),
-	// 	page: params.page
-	// };
+					i++;
 
-	// console.log(FlowRouter.current().path);
-	let path;
+				}while (i <= navigationMap.timeline.length && !closest);
+			}
+
+			if (closest) {
+				if (current[0]<0) {
+					current[0]=navigationMap.feed.indexOf(closest);
+				}
+
+				if (current[2]<0) {
+					current[2]=navigationMap.timeline.indexOf(closest);
+				}
+
+			}
+
+			// console.log(navigationMap.feed, navigationMap.timeline, closest);
+			
+		}
+
+	// console.log(current);
 
 	switch (axis){
 		case 'time':
-			let now = navigationMap.timeline.indexOf(FlowRouter.current().path);
 			// console.log(now);
 			switch (direction){
 				case 'next':
 					
-					if (now >= 0 && navigationMap.timeline[now+1]) {
-						path = navigationMap.timeline[now+1];
-					} else if (!navigationMap.timeline[now+1] || !now){
+					if (current[2] >= 0 && navigationMap.timeline[current[2]+1]) {
+						path = navigationMap.timeline[current[2]+1];
+					} else if (!navigationMap.timeline[current[2]+1] || !current[2]){
 						path = navigationMap.timeline[0];
 					}
 					break;
 				case 'prev':
-					if (now >= 0 && navigationMap.timeline[now-1]) {
-						path = navigationMap.timeline[now-1];
-					} else if (!navigationMap.timeline[now-1] || !now){
+					if (current[2] >= 0 && navigationMap.timeline[current[2]-1]) {
+						path = navigationMap.timeline[current[2]-1];
+					} else if (!navigationMap.timeline[current[2]-1] || !now){
 						path = navigationMap.timeline[navigationMap.timeline.length - 1];
 					}
 					break;
@@ -67,7 +71,6 @@ function navigationURL (axis, direction){
 			}
 			break;
 		case 'order':
-			let current = [navigationMap.feed.indexOf(FlowRouter.current().path), navigationMap.detailedFeed.indexOf(FlowRouter.current().path)];
 			// console.log(current);
 			switch (direction){
 				case 'next':
@@ -85,6 +88,7 @@ function navigationURL (axis, direction){
 					}
 					break;
 				case 'current':
+					// console.log(navigationMap.detailedFeed[current[1]]);
 					if (current[1] >= 0 && navigationMap.detailedFeed[current[1]+1]) {
 						path = navigationMap.detailedFeed[current[1]+1];
 					} else if (!navigationMap.detailedFeed[current[1]+1] || !current[1]){
@@ -136,7 +140,7 @@ function navigateByTo (axis, direction){
 		}
 	}
 
-	// navigationURL(axis, direction);
+	// console.log(navigationURL(axis, direction));
 	FlowRouter.go(navigationURL(axis, direction));
 }
 
@@ -224,8 +228,6 @@ portfolioHotKeys.add({
 		hideHint();
 		if (!Session.get('active-overlay') || Session.get('active-overlay')==='hint'){
 	        navigateByTo('order','current');
-	        // console.log(navigationOBJ('order','current'));
-	        // console.log(navigationURL('order','current'));
 	        addToExperiencePath('keyEnter');
 	    } 
     }
@@ -235,13 +237,10 @@ Template.portfolio.onCreated(function(){
 
 	this.autorun(()=>{
 		
-		let cat = CategorySubs.subscribe('CategoriesList'),
-			prj = ProjectSubs.subscribe('ProjectsFeed'),
-			cvr = CoverSubs.subscribe('ActiveCovers');
+		let cat = PortfolioSubs.subscribe('CategoriesList'),
+			prj = PortfolioSubs.subscribe('ProjectsFeed'),
+			cvr = PortfolioSubs.subscribe('ActiveCovers');
 
-		
-
-		// console.log(cat.ready() && prj.ready() && cvr.ready());
 		this.ready.set(cat.ready() && prj.ready() && cvr.ready());
 	});
 

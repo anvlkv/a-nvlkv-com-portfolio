@@ -22,6 +22,7 @@ Template.registerHelper('log',(item)=>{
 
 Template.registerHelper('session',(varName, val)=>{
 	if (!val) {
+		console.log(Session.get(varName));
 		return Session.get(varName);
 	} else {
 		return Session.get(varName) === val;
@@ -30,6 +31,31 @@ Template.registerHelper('session',(varName, val)=>{
 
 Template.registerHelper('readiness',()=>{
 	return Template.instance().ready.get();
+});
+
+Template.registerHelper('responsiveImage', (image, size)=>{
+	if (image && typeof image === 'object') {
+		let img;
+		$.each(image, function(index, val) {
+			 if (!size && val.targetSize == Session.get('screensize')) {
+			 	img = val.file;
+			 } else if (val.targetSize == size){
+			 	img = val.file;
+			 }
+		});
+
+		if (!img) {
+			$.each(image, function(index, val) {
+				if (val.targetSize=='any') {
+					img = val.file;
+				}
+			});
+		}
+		return img;
+	} else if (typeof image === 'string'){
+		return image;
+	}
+	
 });
 
 

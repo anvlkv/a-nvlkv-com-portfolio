@@ -2,7 +2,7 @@
 	.black-border{
 		border: $space/8 solid $black-copy;
 	}
-	.page:not(.err-page){
+	.page{
 		.cta-background{
 
 			@extend .black-border;
@@ -71,6 +71,30 @@
 			@extend .black-border;
 		}
 
+		.project-page{
+
+			.content-plate.full-height{
+			
+				&::after{
+			
+					display: none;
+
+				}
+
+				.pgn-list {
+
+					&, *{
+
+						&, &::after, &::before{
+
+							color: $utility;
+
+						}
+					}
+				}
+			}
+		}
+
 	}
 
 	.hint-overlay{
@@ -78,6 +102,12 @@
 			h5{
 				color: $white ;
 			}
+		}
+	}
+
+	.page.err-page{
+		a{
+			color: $white;
 		}
 	}
 }

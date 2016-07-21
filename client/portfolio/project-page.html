@@ -1,7 +1,7 @@
 <template name="projectPage">
 
 	{{#if project}}
-	<div class="{{#if session 'current-page'}}project-page{{else}}project-cover{{/if}} {{#if screensize 'xs'}}dynamic_color{{/if}}">
+	<div class="{{#if isProjectPageView}}project-page{{else}}project-cover{{/if}} {{#if screensize 'xs'}}dynamic_color{{/if}}">
 		<!-- <div class="content"> -->
 			{{#momentum plugin='animate-css' sKlass='content' timeout=120}}
 				{{>Template.dynamic template=textContent data=project}}
@@ -17,7 +17,7 @@
 	{{#if screensize 'sm, md, lg'}}
 	<div class="background-container">
 		{{#if readiness}}
-			{{>Template.dynamic template=imagery data=image}}
+			{{>Template.dynamic data=image template=imagery}}
 		{{else}}
 			{{>loadingState}}
 		{{/if}}
@@ -59,17 +59,17 @@
 					</div>
 				</div>
 
-				{{#if readiness}}
-					<img src="/cfs/files/images/{{image}}" class="img-responsive" alt="{{title}}">
-				{{else}}
+				<!-- {{#if readiness}} -->
+					<img src="/cfs/files/images/{{responsiveImage image}}" class="img-responsive" alt="{{title}}">
+<!-- 				{{else}}
 					{{>loadingState}}
-				{{/if}}
-				
+				{{/if}} -->
+
 			</div>
 		{{/if}}
 
 		<div class="text">
-			{{description}}
+			{{{description}}}
 		</div>
 		{{>projectPagination}}
 	</div>
@@ -80,16 +80,16 @@
 		<!-- show only on phones -->
 		{{#if screensize 'xs'}}
 			<div class="image-container">
-				{{#if readiness}}
-					<img src="/cfs/files/images/{{image}}" class="img-responsive" alt="{{title}}">
-				{{else}}
+				<!-- {{#if readiness}} -->
+					<img src="/cfs/files/images/{{responsiveImage image}}" class="img-responsive" alt="{{title}}">
+<!-- 				{{else}}
 					{{>loadingState}}
-				{{/if}}
+				{{/if}} -->
 			</div>
 		{{/if}}
 
 		<div class="text">
-			{{description}}
+			{{{description}}}
 		</div>
 		{{>projectPagination}}
 	</div>

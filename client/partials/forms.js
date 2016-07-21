@@ -189,6 +189,7 @@ Template.composeEmail.events({
     			}else{
     				email_pre_form.delete('message');
     				Session.set('email-sent', true);
+    				GAnalytics.event('email', 'sent');
     			}
     		});
     	} else {
@@ -240,6 +241,7 @@ Template.backCover.events({
     			}else{
     				t.$('.keep-in-touch').html('<p>Thank you! I\'ll be in touch with you soon.</p>');
     				t.$('.keep-in-touch').removeClass('animate-sent').addClass('animate-in');
+    				GAnalytics.event('back-cover-form', 'sent');
     			}
     		});
     	} else {

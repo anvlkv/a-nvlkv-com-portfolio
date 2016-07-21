@@ -19,9 +19,9 @@ Template.categoryPage.onCreated(function(){
 	};
 
 	this.autorun(()=>{
-		let	cat =  CategorySubs.subscribe('Category', this.getCurrent_Category()),
-			prj = ProjectSubs.subscribe('ProjectsListWithinCategory', this.getCurrent_Category()),
-			att = AttachementSubs.subscribe('AttachementsWithinCategory', this.getCurrent_Category());
+		let	cat = CategorySubs.subscribe('Category', this.getCurrent_Category()),
+			prj = CategorySubs.subscribe('ProjectsListWithinCategory', this.getCurrent_Category()),
+			att = CategorySubs.subscribe('AttachementsWithinCategory', this.getCurrent_Category());
 
 		this.ready.set(cat.ready() && prj.ready() && att.ready());
 	});
@@ -69,7 +69,10 @@ Template.categoryPage.helpers({
 	},
 	filename: function(fileId){
 		let file = Files.findOne({_id:fileId});
-		return file.original.name;
+		// console.log(file);
+		if (file) {
+			return file.original.name;		
+		}
 	},
 });
 

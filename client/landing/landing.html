@@ -1,4 +1,6 @@
 <template name="landingPage">
+{{#if readiness}}
+
     <div class="page landing-page" style="background-color:{{currentSlide.backgroundColor}};">
 
         {{>topLevelMenu color=globalPallet.utility}}
@@ -48,5 +50,9 @@
                 {{/each}}
             </ul>    
         </div>
-    </div>    
+    </div>
+
+{{else}}
+    {{>loadingState}}
+{{/if}}
 </template>

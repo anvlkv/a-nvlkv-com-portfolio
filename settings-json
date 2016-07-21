@@ -1,0 +1,23 @@
+{
+  "public" : {
+    "ga": {
+      "account":"UA-XXXXXXXX-X"
+    }
+  },
+  "kadira": { 
+    "appId": "ID", 
+    "appSecret": "S-E-C-R-E-T" 
+   },
+   "admin": {
+   	"mailUrl": "smtp://path/:port",
+   	"user":"adminname",
+   	"email":"email@domain.com",
+   	"password":"PASSWORD",
+   	"googleAPI": {
+      "viewID":"##########",
+      "privateKey":{
+        // service account key fields here
+      }
+   	}
+   }
+}

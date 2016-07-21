@@ -364,6 +364,13 @@
 						z-index: -1;
 
 					}
+
+					.text{
+						// @extend .fg-col-xs;
+						// justify-content: center;
+						// align-items:
+					}
+
 					.more{
 
 						flex-shrink:1;
@@ -451,11 +458,18 @@
 					order:2;
 					flex-grow:2;
 					align-self: flex-end;
+
 				}
+				@media screen and (min-width: $fg-sm) {
+					display: flex;
+					align-items:flex-end;
+				}
+
 				.title-plate{
 					@extend .fg-col-xs-12;
 					@extend .fg-col-sm-8;
 					@extend .fg-off-sm-4;
+
 
 				}
 			}
@@ -464,9 +478,8 @@
 	.project-page{
 		&+.background-container{
 			.background{
-				@media screen and (max-width: $fg-sm - 1) {
-					background-size: 200% auto;
-				}
+					background-size: 50% auto;
+					background-position: right center;
 			}
 		}
 	}
@@ -585,6 +598,10 @@
 
 	}
 
+	// .summary .text p{
+	// 	white-space: pre;
+	// }
+
 	.gallery{
 
 		@media screen and (max-width: $fg-sm - 1)  {
@@ -597,6 +614,14 @@
 		.svg-icon{
 			font-size: .6em;
 			// line-height: 50%;
+		}
+	}
+
+	.title-plate{
+		h3{
+			@media screen and (min-width: $fg-sm) {
+				font-size: 150%;
+			}
 		}
 	}
 }
@@ -625,6 +650,11 @@
 
 		margin: $space;
 		padding-bottom: $space;
+
+		
+		p{
+			margin-bottom: 0;
+		}
 
 	}
 
@@ -663,6 +693,7 @@
 	.category-cover{
 		.content{
 			margin-top: $space;
+
 		}
 		.nav-container{
 			@media only screen and (min-width: $fg-sm){
@@ -746,22 +777,35 @@
 		}
 		.more{
 
+			@media screen and(min-width: $fg-sm) {
+				margin-bottom: $space/2;
+				padding-bottom: .1em
+			}
+
 			@media screen and(max-width: $fg-sm - 1) {
 			    margin-bottom: 2rem;
 			}
+
+			
 
 		}
 		.content-plate.full-height{
 			.more{
 
-				margin-left: -.5rem;
-				margin-right: -.5rem;
+				margin-left: -$space/4;
+				margin-right: -$space/4;
 
+				.pgn-list{
+				
+					padding-bottom: $space;
+					margin-bottom: $space/2;
+
+				}
 			}
 		}
 		.pgn-list{
 
-			padding-bottom: $space;
+			padding-bottom: $space/3;
 			padding-right: $space;
 
 		}
@@ -803,7 +847,7 @@
 	.cta-color{
 		@extend .cta-background;
 		
-		color: lighten($cta, 20%);
+		color: $white;
 		// @warn lightness($cta);
 		// @warn saturation($cta);
 

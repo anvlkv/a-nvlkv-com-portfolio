@@ -54,6 +54,7 @@
 
 			@extend .fg-col-xs;
 			flex-grow:1;
+			flex-shrink:0;
 			justify-content: flex-end;
 			max-height: 70%;
 
@@ -134,6 +135,7 @@
 				h3{
 
 					// align-self: baseline;
+					text-align: right;
 
 				}
 
@@ -316,6 +318,12 @@
 				margin-left: $space;
 				margin-right: $space;
 			}
+
+			.slide-link-btn{
+				svg{
+					margin-left: $space;
+				}
+			}
 		}
 
 	}
@@ -327,7 +335,9 @@
 	background-color: $body-bg;
 
 	#replay_button{
-		cursor: pointer;
+		&, #button{
+			cursor: pointer;
+		}
 	}
 
 	.slide-pagination {

@@ -41,18 +41,18 @@ Template.registerHelper('genUrlFromTitle', function(){
 	let title = AutoForm.getFieldValue("title");
 	if (title) {
 		title = title.replace(/\ /g, '-');
-		return title.toLowerCase()
+		return title.toLowerCase();
 	}
-})
+});
 
 Template.registerHelper('genUrlFromDate', function(){
 	let date = AutoForm.getFieldValue("dateOfIssue");
 	if (date) {
 		date = moment(date).format('MMM-YYYY');
 		// date = date.replace(/\ /g, '-');
-		return date.toLowerCase()
+		return date.toLowerCase();
 	}
-})
+});
 
 
 
@@ -60,14 +60,14 @@ Template.portfolioDashboard.helpers({
 	categories: ()=>{
 		let categories = Categories.find();
 
-		return categories
+		return categories;
 	},
 	currentCategoryEditor: (category)=>{
-		let id = FlowRouter.getParam("category_id")
+		let id = FlowRouter.getParam("category_id");
 		if (id == category._id) {
-			return true
+			return true;
 		} else {
-			return false
+			return false;
 		}
 	},
 	projects: (category)=>{
@@ -78,14 +78,14 @@ Template.portfolioDashboard.helpers({
 			projects = Projects.find({primaryCategory:category._id});
 			console.log(projects.count() + ' projects within ' + category.title);
 		}
-		return projects
+		return projects;
 	},
 	currentProjectEditor: (project)=>{
-		let id = FlowRouter.getParam("project_id")
+		let id = FlowRouter.getParam("project_id");
 		if (id == project._id) {
-			return true
+			return true;
 		} else {
-			return false
+			return false;
 		}
 	},
 	attachements: (category)=>{
@@ -96,27 +96,27 @@ Template.portfolioDashboard.helpers({
 			attachements = Attachements.find({primaryCategory:category._id});
 			console.log(attachements.count() + ' attachements within ' + category.title);
 		}
-		return attachements
+		return attachements;
 	},
 	currentAttachementEditor: (attachement)=>{
-		let id = FlowRouter.getParam("attachement_id")
+		let id = FlowRouter.getParam("attachement_id");
 		if (id == attachement._id) {
-			return true
+			return true;
 		} else {
-			return false
+			return false;
 		}
 	},
 	covers: ()=>{
 		let covers = Covers.find();
 
-		return covers
+		return covers;
 	},
 	currentCoverEditor: (cover)=>{
-		let id = FlowRouter.getParam("cover_id")
+		let id = FlowRouter.getParam("cover_id");
 		if (id == cover._id) {
-			return true
+			return true;
 		} else {
-			return false
+			return false;
 		}
 	},
 });
@@ -125,7 +125,7 @@ Template.navPanelAdmin.helpers({
 	isCurrentPage: function (page) {
 		let path = FlowRouter.current().path;
 		if (path.indexOf(page) >= 0 ) {
-			return true
+			return true;
 		}
 	}
 });
@@ -135,7 +135,7 @@ Template.attachementEditor.helpers({
 		return [
           {label: "File", value: 'File'},
           {label: "Link", value: 'Link'}
-        ]
+        ];
 	}
 });
 
@@ -144,11 +144,11 @@ Template.preView.helpers({
 		switch(type){
 			case 'project':
 				let catSlug = Categories.findOne({_id:page.primaryCategory}).slug;
-				return '/portfolio/'+catSlug+'/'+page.slug
+				return '/portfolio/'+catSlug+'/'+page.slug;
 			case 'category':
-				return '/portfolio/'+page.slug
+				return '/portfolio/'+page.slug;
 			default:
-				return '/cfs/files/images/'+page.image
+				return '/cfs/files/images/'+page.image;
 		}
 	}
 });
@@ -157,25 +157,25 @@ Template.preView.helpers({
 
 Template.newObjectPanel.events({
 	'click .js_add_category': (event, template) => {
-		console.log('attempting to create new category');
+		// console.log('attempting to create new category');
 		// console.log(event);
 		// console.log(template);
 		FlowRouter.go('/admin/portfolio/new-category');
 	},
 	'click .js_add_project': (event, template) => {
-		console.log('attempting to create new project');
+		// console.log('attempting to create new project');
 		// console.log(event);
 		// console.log(template);
 		FlowRouter.go('/admin/portfolio/new-project');
 	},
 	'click .js_add_cover': (event, template) => {
-		console.log('attempting to create new cover');
+		// console.log('attempting to create new cover');
 		// console.log(event);
 		// console.log(template);
 		FlowRouter.go('/admin/portfolio/new-cover');
 	},
 	'click .js_add_attachement': (event, template) => {
-		console.log('attempting to create new attachement');
+		// console.log('attempting to create new attachement');
 		// console.log(event);
 		// console.log(template);
 		FlowRouter.go('/admin/portfolio/new-attachement');
@@ -184,9 +184,9 @@ Template.newObjectPanel.events({
 
 Template.preView.events({
 	'click .js_edit_page': (event, template) =>{
-		console.log('attempting to edit object');
-		console.log(event);
-		console.log(template);
+		// console.log('attempting to edit object');
+		// console.log(event);
+		// console.log(template);
 		let type = $(event.target).data('type');
 		let id = $(event.target).data('id');
 		FlowRouter.go('/admin/portfolio/edit-' + type + '/' + id);
@@ -195,7 +195,7 @@ Template.preView.events({
 
 Template.categoryEditor.events({
 	'click .js_cancel_add': (event, template) => {
-		console.log('cancell add or edit attemp');
+		// console.log('cancell add or edit attemp');
 		FlowRouter.go('/admin/portfolio');
 	},
 });
@@ -213,7 +213,7 @@ AutoForm.hooks({
 			// console.log(result);
 			// console.log(this.docId);
 			// console.log(Session.get('saveIntent'));
-			crudRedirect (Session.get('saveIntent'), 'project', 'projectForm', this.docId)
+			crudRedirect (Session.get('saveIntent'), 'project', 'projectForm', this.docId);
 		}
 	},
 	caetgoryForm: {
@@ -222,7 +222,7 @@ AutoForm.hooks({
 			// console.log(result);
 			// console.log(this.docId);
 			// console.log(Session.get('saveIntent'));
-			crudRedirect (Session.get('saveIntent'), 'category', 'caetgoryForm', this.docId)
+			crudRedirect (Session.get('saveIntent'), 'category', 'caetgoryForm', this.docId);
 		}
 	},
 	coverForm: {
@@ -231,7 +231,7 @@ AutoForm.hooks({
 			// console.log(result);
 			// console.log(this.docId);
 			// console.log(Session.get('saveIntent'));
-			crudRedirect (Session.get('saveIntent'), 'cover', 'coverForm', this.docId)
+			crudRedirect (Session.get('saveIntent'), 'cover', 'coverForm', this.docId);
 		}
 	},
 	attachementForm: {
@@ -240,7 +240,7 @@ AutoForm.hooks({
 			// console.log(result);
 			// console.log(this.docId);
 			// console.log(Session.get('saveIntent'));
-			crudRedirect (Session.get('saveIntent'), 'attachement', 'attachementForm', this.docId)
+			crudRedirect (Session.get('saveIntent'), 'attachement', 'attachementForm', this.docId);
 		}
 	},
 })

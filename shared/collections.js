@@ -38,9 +38,10 @@ Schemas.Categories = new SimpleSchema({
 		max: 500,
 		autoform: {
 			afFieldInput: {
-				type: 'textarea'
+				type: 'summernote',
+				class: 'editor' // optional
 			}
-		},
+	    },
 		optional: true,
 	},
 	summary: {
@@ -50,9 +51,10 @@ Schemas.Categories = new SimpleSchema({
 		optional: true,
 		autoform: {
 			afFieldInput: {
-				type: 'textarea'
+				type: 'summernote',
+				class: 'editor' // optional
 			}
-		}
+	    },
 	},
 	color: {
 		type: String,
@@ -63,16 +65,31 @@ Schemas.Categories = new SimpleSchema({
 	    optional: true,
 	},
 	image: {
-	    type: String,
-	    label: "Background image",
-	    autoform:{
-	    	afFieldInput:{
-	    		type: "fileUpload",
-	    		collection: "Images"
-	    	},
-	    },
+	    type: [Object],
+	    label: "Responsive images",
 	    optional: true,
+	    // maxCount: 3,
 	},
+	'image.$.targetSize':{
+		type: String,
+		label: "Target screensize",
+		optional: true,
+		allowedValues: ['xs','sm','md','lg', 'any'],
+		autoform:{
+			type: "select2"
+		}
+	},
+	'image.$.file':{
+		type: String,
+		label: "Image file",
+		optional: true,
+		autoform:{
+			afFieldInput:{
+				type: "fileUpload",
+				collection: "Images"
+			},
+		},
+	}
 });
 
 Schemas.Projects = new SimpleSchema({
@@ -99,24 +116,62 @@ Schemas.Projects = new SimpleSchema({
 	description: {
 		type: String,
 		label: "Description",
-		max: 500,
+		// max: 300,
 		autoform: {
 			afFieldInput: {
-				type: 'textarea'
+				type: 'summernote',
+				class: 'editor', // optional
+				settings:{
+					callbacks:{
+						onKeyup:function(e) {
+							let editor = $( this ).parent().find( '.note-editor .note-editable' ),
+								text = editor.text();
+							// set recomended length here
+							if (text.length < 300) {
+								editor.css({
+									'background-color': ''
+								});
+								return e;
+
+							}else{
+								e.preventDefault();
+								e.stopPropagation();
+								editor.css({
+									'background-color': '#f7688c'
+								});
+							}
+						}
+					}
+				}
 			}
-		},
+	    },
 		optional: true,
 	},
 	image: {
-	    type: String,
-	    label: "Background image",
-	    autoform:{
-	    	afFieldInput:{
-	    		type: "fileUpload",
-	    		collection: "Images"
-	    	},
-	    },
+	    type: [Object],
+	    label: "Responsive images",
 	    optional: true,
+	    // maxCount: 3,
+	},
+	'image.$.targetSize':{
+		type: String,
+		label: "Target screensize",
+		optional: true,
+		allowedValues: ['xs','sm','md','lg', 'any'],
+		autoform:{
+			type: "select2"
+		}
+	},
+	'image.$.file':{
+		type: String,
+		label: "Image file",
+		optional: true,
+		autoform:{
+			afFieldInput:{
+				type: "fileUpload",
+				collection: "Images"
+			},
+		},
 	},
 	primaryCategory:{
 		type: String,
@@ -197,29 +252,81 @@ Schemas.Projects = new SimpleSchema({
 		optional: true,
 		autoform: {
 			afFieldInput: {
-				type: 'textarea'
+				type: 'summernote',
+				class: 'editor', // optional
+				settings:{
+					callbacks:{
+						onKeyup:function(e) {
+							let editor = $( this ).parent().find( '.note-editor .note-editable' ),
+								text = editor.text();
+							// set recomended length here
+							if (text.length < 500) {
+								editor.css({
+									'background-color': ''
+								});
+								return e;
+
+							}else{
+								e.preventDefault();
+								e.stopPropagation();
+								editor.css({
+									'background-color': '#f7688c'
+								});
+							}
+						}
+					}
+				}
 			}
-		},
-		max: 500
+	    },
+		// max: 700
 	},
-	"pages.$.image":{
+	"pages.$.image": {
+	    type: [Object],
+	    label: "Responsive images",
+	    optional: true,
+	    // maxCount: 3,
+	},
+	'pages.$.image.$.targetSize':{
 		type: String,
-		label: "Background image",
+		label: "Target screensize",
+		optional: true,
+		allowedValues: ['xs','sm','md','lg', 'any'],
+		autoform:{
+			type: "select2"
+		}
+	},
+	'pages.$.image.$.file':{
+		type: String,
+		label: "Image file",
+		optional: true,
 		autoform:{
 			afFieldInput:{
 				type: "fileUpload",
 				collection: "Images"
 			},
 		},
-		optional: true,
-	},
+	}
 
 });
 
 Schemas.Covers = new SimpleSchema({
-	image:{
+	image: {
+	    type: [Object],
+	    label: "Responsive images",
+	},
+	'image.$.targetSize':{
 		type: String,
-		label: "Background image",
+		label: "Target screensize",
+		optional: true,
+		allowedValues: ['xs','sm','md','lg', 'any'],
+		autoform:{
+			type: "select2"
+		}
+	},
+	'image.$.file':{
+		type: String,
+		label: "Image file",
+		optional: true,
 		autoform:{
 			afFieldInput:{
 				type: "fileUpload",
@@ -372,8 +479,6 @@ Categories.attachSchema(Schemas.Categories);
 Projects = new Mongo.Collection('projects');
 
 Projects.attachSchema(Schemas.Projects);
-
-// ProjectsTimeline = new Mongo.Collection('projects');
 
 
 // collection of attachements

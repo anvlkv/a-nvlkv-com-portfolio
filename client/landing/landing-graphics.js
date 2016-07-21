@@ -163,6 +163,8 @@ Template.graphics_teamCollaborationSideFront.onRendered(function(){
 	};
 
 
+	swap_faces('salesman', 'programmer');
+
 	intervals.push(Meteor.setInterval(function(){
 		$.each(seq, function(index, val) {
 			timeouts.push(Meteor.setTimeout(function(){
@@ -170,6 +172,39 @@ Template.graphics_teamCollaborationSideFront.onRendered(function(){
 			}, tu*4*index));
 		});
 	}, tu*4*seq.length+80));
+});
+
+Template.graphics_iterativeImprovement.onRendered(function(){
+	let iterative_process = Snap('#iterative_process path'),
+		iteration_state = Snap('#iteration_state'),
+		len = iterative_process.getTotalLength();
+
+	// console.log(iterative_process,iteration_state,len);
+
+	Snap.animate(0, len, function(value){
+		movePoint = iterative_process.getPointAtLength( value );
+		iteration_state.attr({ cx: movePoint.x, cy: movePoint.y });
+	}, tu*20, mina.easeinout, function(){
+		iteration_state2 = iteration_state.clone();
+		// iteration_state.remove();
+		Snap.animate(0, len, function(value){
+			movePoint = iterative_process.getPointAtLength( value );
+			iteration_state2.attr({ cx: movePoint.x, cy: movePoint.y });
+		}, tu*20, mina.easeinout, function(){
+			iteration_state2.remove();
+		});
+		Meteor.setInterval(()=>{
+			iteration_state3 = iteration_state.clone();
+			Snap.animate(0, len, function(value){
+				movePoint = iterative_process.getPointAtLength( value );
+				iteration_state3.attr({ cx: movePoint.x, cy: movePoint.y });
+			}, tu*20, mina.easeinout, function(){
+				iteration_state3.remove();
+			});
+		}, tu*20+150);
+	});
+
+
 });
 
 Template.graphics_empoweredIndividual.onRendered(function(){
@@ -205,7 +240,7 @@ Template.graphics_betterWorld.onRendered(function(){
 		el = Snap(el);
 		timeouts.push(Meteor.setTimeout(function(){
 			el.animate({opacity:1}, tu*2, mina.easein, function(){
-				blink_1up();
+				// blink_1up();
 
 				// further animations
 				if (index == uses.length - 1) {

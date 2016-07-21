@@ -11,7 +11,7 @@
 		</div>
 	</div>
 	<div class="background-container" style="background:{{category.color}}">
-		{{>Template.dynamic template=imagery data=category.image}}
+		{{>Template.dynamic data=category.image template=imagery}}
 	</div>
 	<div class="gallery">
 		<div class="grid">
@@ -19,7 +19,7 @@
 			<div class="item">
 				<a href="{{url item}}" title="{{item.title}}">
 					<h4>{{item.title}}</h4>
-					<img src="/cfs/files/images/{{item.image}}" class="img-responsive" alt="">
+					<img src="/cfs/files/images/{{responsiveImage item.image 'xs'}}" class="img-responsive" alt="">
 				</a>
 			</div>
 			{{/each}}
@@ -61,12 +61,12 @@
 	</div>
 	<div class="content-plate">
 		<div class="text">
-			{{description}}
+			{{{description}}}
 		</div>
 	</div>
 	<div class="content-plate summary">
 		<div class="text">
-			{{summary}}
+			{{{summary}}}
 		</div>
 	</div>
 	

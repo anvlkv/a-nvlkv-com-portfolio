@@ -4,7 +4,7 @@ const slides = [
 		title: 'Hi!',
 		text: 'I\'m Aleksandr,\n user experience\n designer',
 		button: {
-			text:'What\'s UX?',
+			text:'What\'s design?',
 		},
 	},{
 		graphics: 'graphics_userResearchSides',
@@ -17,9 +17,17 @@ const slides = [
 
 	},{
 		graphics: 'graphics_teamCollaborationSideFront',
-		title:'The FUN',
+		title:'The fun',
 		text:'of collaboration\n with team in\n design-thinking',
 		layout:'wide-image',
+		delay: 1500,
+		button: {
+			text:'When to stop?',
+		},
+	},{
+		graphics: 'graphics_iterativeImprovement',
+		title:'Improvement',
+		text:'gained through iterations',
 		button: {
 			text:'What\'s success?',
 		},
@@ -41,13 +49,13 @@ const slides = [
 		layout:'text-first',
 		delay: 1500,
 		button: {
-			text:'Good to know!',
+			text:'What you\'ve done?',
 		},
 	},{
 		graphics:'graphics_goAhead',
 		layout:'single-image',
 		button: {
-			text:'See my portfolio',
+			text:'See portfolio',
 			link:'/portfolio'
 		},
 	}
@@ -62,6 +70,11 @@ Template.landingPage.onCreated(function(){
 			Session.set('replay-slides', false);
 		}
 	});
+	this.autorun(()=>{
+		
+		this.ready.set(true);
+		
+	});
 });
 
 Template.landingPage.onRendered(function(){
@@ -69,7 +82,12 @@ Template.landingPage.onRendered(function(){
 	// Session.set('current-project', null);
 	this.autorun(()=>{
 		if (activeSlide.get() >= 0 && activeSlide.get() < slides.length - 1) {
-			let slideTimeOut = Number.parseInt(ABTest.start("Slide timeout", ['6000', '8000', '10000']));
+			let slideTimeOut = Number.parseInt(ABTest.start("Slide timeout", ['8000', '12000', '16000', '18000']));
+
+			// remove previous
+			if (this.$('.js_slide_link svg').length > 0) {
+				this.$('.js_slide_link svg').remove();
+			}
 
 			let s = Snap(this.$('.js_slide_link')[0]),
 				canvasSize = 20,
@@ -85,21 +103,20 @@ Template.landingPage.onRendered(function(){
 
 			progress.appendTo(s);
 
-			s.click(function(event) {
-				
-				slide.find('.js_slide_link svg').remove();
-
-			});
 
 			// this.$('.js_slide_link').mouseenter(function() {
 				
 			// });
 
+			// console.log(s);
+
 			if (slides[activeSlide.get()].delay) {
 				slideTimeOut += slides[activeSlide.get()].delay;
 			}
 
-			let prog_bar = Snap.animate(0, 359.9, function(val){
+			// console.log(slideTimeOut);
+
+			let prog_bar = Snap.animate(0, 359.99999, function(val){
 				
 				arc.remove();
 
@@ -126,8 +143,10 @@ Template.landingPage.onRendered(function(){
 			},slideTimeOut, mina.easeinout, function () {
 				if (startSLide === activeSlide.get()) {		
 					slide.addClass('animate-out');
+					// console.log('timeout');
 					Meteor.setTimeout(function () {
 						
+
 						slide.find('.js_slide_link svg').remove();
 						slide.find('.js_slide_link').click();
 
@@ -135,15 +154,34 @@ Template.landingPage.onRendered(function(){
 				}
 			});
 
+
 			s.hover(function() {
-				// console.log('hovering');
 				prog_bar.stop();
+				slide.find('.js_slide_link svg').remove();
+			});
+
+			s.click(function() {
+				prog_bar.stop();
+				slide.addClass('animate-out');
+				slide.find('.js_slide_link svg').remove();
+			});
+
+			this.$('.js_slide').click(function() {
+				prog_bar.stop();
+				slide.addClass('animate-out');
 				slide.find('.js_slide_link svg').remove();
 			});
 
 
 		} else {
 			this.$('.slide').removeClass('animate-out');
+			
+			// remove previous
+			if (this.$('.js_slide_link svg').length > 0) {
+				this.$('.js_slide_link svg').remove();
+			}
+
+			GAnalytics.event('landing', 'seen-last-slide');
 		}
 	});
 });
@@ -187,10 +225,11 @@ Template.landingPage.helpers({
 
 Template.landingPage.events({
 	'click .js_slide': function (e,t) {
+		ABTest.finish("Slide timeout");
 		activeSlide.set($(e.currentTarget).data('slide'));
 	},
 	'click .js_slide_link': function (e, t){
-		ABTest.start("Slide timeout");
+		ABTest.finish("Slide timeout");
 		GAnalytics.event('landing', 'slide-link');
 		if (!slides[activeSlide.get()].button.link) {
 			

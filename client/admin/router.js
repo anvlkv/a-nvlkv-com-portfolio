@@ -18,13 +18,13 @@ const adminSection = FlowRouter.group({
     prefix: "/admin",
     name:"admin-routes",
     triggersEnter:[function(){
-        console.log('entering admin path');
+        // console.log('entering admin path');
         let route = FlowRouter.current();
         if (!Meteor.user()) {
-            console.log('no active user at the moment');
+            // console.log('no active user at the moment');
             if (!Meteor.loggingIn()) {
-                console.log('neither they are trying to log in');
-                console.log('redirecting to sign-in');
+                // console.log('neither they are trying to log in');
+                // console.log('redirecting to sign-in');
                 Session.set('redirectAfterLogin', route.path);
                 FlowRouter.go('/sign-in');
             }
@@ -46,6 +46,32 @@ adminSection.route('/abtests',{
         BlazeLayout.render("adminLayout", {content: "abtests", navigation:"navPanelAdmin"});
     }
 });
+
+gaSection = adminSection.group({
+    name:'ga',
+    prefix:'/ga'
+});
+
+gaSection.route('/auth',{
+    name:'gaAuth',
+    action: function(){
+       
+    }
+});
+
+gaSection.route('/',{
+    name:'gaHome',
+    action: function(params, queryParams){
+        BlazeLayout.render("adminLayout", {content: "dashboard", navigation:"navPanelAdmin"});
+        // console.log(queryParams);
+        // let redirect = 'http://'+window.location.hostname+(window.location.port?':'+window.location.port:'')+'/admin/ga';
+        // Meteor.call('manageOAuthToken', queryParams.code, redirect, function (error, result) {
+        //     console.log(error, result);
+        // });
+    }
+});
+
+
 
 const portfolioSection = adminSection.group({
     name: 'admin-portfolio-routes',

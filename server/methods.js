@@ -20,5 +20,6 @@ Meteor.methods({
 		});
 
 		return EmailMessages.insert(msg);
-	}
+	},
+	
 });

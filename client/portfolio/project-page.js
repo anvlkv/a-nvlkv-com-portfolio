@@ -45,6 +45,7 @@ Template.projectPage.onCreated(function(){
 		if (FlowRouter.getParam('page')) {
 		    const req = FlowRouter.current().params;
 		    let project = Projects.findOne(this.getCurrent_Project());
+		    // console.log(project);
 		    if (project.pages) {
 		    	project.pages.forEach(function (page) {
 		    		if (req.page == page.slug) {
@@ -57,12 +58,22 @@ Template.projectPage.onCreated(function(){
 
 	this.autorun(()=>{
 		let prj = ProjectSubs.subscribe('Project', this.getCurrent_Project()),
-			cat = CategorySubs.subscribe('Category', this.getCurrent_Category());
+			cat = ProjectSubs.subscribe('Category', this.getCurrent_Category());
 
 		this.ready.set(prj.ready() && cat.ready());
 
-		if (this.getCurrent_ProjectPage()) {
-			Session.set('current-page',this.getCurrent_ProjectPage().slug);
+
+		// console.log(this.getCurrent_Project(), this.getCurrent_Category());
+
+	});
+
+	this.autorun(()=>{
+		if (this.ready.get()===true) {
+			if (this.getCurrent_ProjectPage()) {
+				Session.set('current-page',this.getCurrent_ProjectPage().slug);
+			}
+
+			// console.log(Projects.find({_id:this.getCurrent_Project()}).fetch()[0].pages);
 		}
 	});
 });
@@ -83,6 +94,7 @@ Template.projectPage.helpers({
 		let project = Projects.findOne(Session.get('current-project'));
 		if (Session.get('current-page') && project.pages) {
 			let current_image;
+			project = CC_Projects_unpublishedFields.findOne(Session.get('current-project'));
 			project.pages.forEach(function (page) {
 				// console.log(page);
 				if (Session.get('current-page') == page.slug) {
@@ -92,6 +104,11 @@ Template.projectPage.helpers({
 			return current_image;
 		} else {
 			return project.image;
+		}
+	},
+	isProjectPageView: function(){
+		if (Session.get('current-page')) {
+			return true;
 		}
 	}
 });
@@ -140,10 +157,10 @@ Template.projectText.helpers({
 	description: function () {
 		if (FlowRouter.getParam('page')) {
 			// console.log(FlowRouter.getParam("page"));
-			Session.set('current-page', FlowRouter.getParam('page'));
+			// Session.set('current-page', FlowRouter.getParam('page'));
 
-			let project = Projects.findOne(Session.get('current-project'));
-			if (project.pages) {
+			let project = CC_Projects_unpublishedFields.findOne(Session.get('current-project'));
+			if (project && project.pages) {
 				let description;
 				project.pages.forEach(function (page) {
 					// console.log(page);
@@ -157,14 +174,16 @@ Template.projectText.helpers({
 		}
 	},
 	image: function(){
-		let templateInstance = Template.instance();
+
+		// console.log(FlowRouter.getParam("page"));
 
 		if (FlowRouter.getParam('page')) {
-			// console.log(FlowRouter.getParam("page"));
-			Session.set('current-page', FlowRouter.getParam('page'));
+			
+			// Session.set('current-page', FlowRouter.getParam('page'));
 
-			let project = Projects.findOne(Session.get('current-project'));
-			if (project.pages) {
+			let project = CC_Projects_unpublishedFields.findOne(Session.get('current-project'));
+			// console.log(project);
+			if (project && project.pages) {
 				let image;
 				project.pages.forEach(function (page) {
 					// console.log(page);
