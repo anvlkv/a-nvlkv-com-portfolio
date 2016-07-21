@@ -1,5 +1,3 @@
-Consent = new ReactiveDict();
-
 // main routing
 // // // // // // // // // // // // // // // // // // // // // // 
 // root
