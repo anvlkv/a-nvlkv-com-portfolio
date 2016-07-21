@@ -5,6 +5,10 @@ let totalPath = new ReactiveDict();
 let navigationMap ={};
 
 function navigationURL (axis, direction){
+	// if (!navigationMap.feed || !navigationMap.detailedFeed || !!navigationMap.timeline) {
+	// 	return;
+	// }
+	// console.log(navigationMap);
 	let path,
 		current = [navigationMap.feed.indexOf(FlowRouter.current().path), navigationMap.detailedFeed.indexOf(FlowRouter.current().path), navigationMap.timeline.indexOf(FlowRouter.current().path)];
 
@@ -45,7 +49,7 @@ function navigationURL (axis, direction){
 			
 		}
 
-	// console.log(current);
+	console.log(current);
 
 	switch (axis){
 		case 'time':
@@ -146,7 +150,17 @@ function navigateByTo (axis, direction){
 
 FlowRouter.triggers.enter([function(context, redirect){
 	if (Session.get('path-status')!=='finished') {
-		redirect(navigationURL(navigationPath.get('axis'), navigationPath.get('direction')));
+		let url = navigationURL(navigationPath.get('axis'), navigationPath.get('direction'));
+
+		if (!url) {
+			if (navigationMap.feed) {
+				url = navigationMap.feed[0];
+			} else {
+				url = '/portfolio';
+			}
+		}
+
+		redirect(url);
 	}
 }],{only:['portfolio.back-cover']});
 
@@ -437,12 +451,13 @@ Template.portfolio.onRendered(function(){
 			let route = FlowRouter.getRouteName();
 			Meteor.clearTimeout(hintTimeout[0]);
 			Meteor.clearTimeout(hintTimeout[1]);
+			let timing_variation = Number.parseInt(ABTest.start("Hint timing", ['4000','8000','16000']));
 			let timing = {
-				start: 8000,
-				end: 10000,
+				start: timing_variation,
+				end: timing_variation*2,
 			};
 			if (FlowRouter.getRouteName() === 'portfolio') {
-				timing.start = 16000;
+				timing.start = timing_variation*2;
 			}
 			
 			hintTimeout[0] = Meteor.setTimeout(function () {

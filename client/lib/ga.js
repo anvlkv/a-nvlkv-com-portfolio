@@ -47,6 +47,7 @@ load = function(i,s,o,g,r,a,m) {
 if(Meteor.settings && Meteor.settings.public !== undefined && Meteor.settings.public.ga !== undefined && Meteor.settings.public.ga.account !== undefined) {
 
   load(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  // load(window,document,'script','https://www.google-analytics.com/cx/api.js','cxApi');
 
   var gaSettings = Meteor.settings.public.ga,
       gaConfig = {};

@@ -40,36 +40,36 @@ adminSection.route('/', {
     }
 });
 
-adminSection.route('/abtests',{
-    name:'abtests',
-    action: function(){
-        BlazeLayout.render("adminLayout", {content: "abtests", navigation:"navPanelAdmin"});
-    }
-});
+// adminSection.route('/abtests',{
+//     name:'abtests',
+//     action: function(){
+//         // BlazeLayout.render("adminLayout", {content: "abtests", navigation:"navPanelAdmin"});
+//     }
+// });
 
-gaSection = adminSection.group({
-    name:'ga',
-    prefix:'/ga'
-});
+// gaSection = adminSection.group({
+//     name:'ga',
+//     prefix:'/ga'
+// });
 
-gaSection.route('/auth',{
-    name:'gaAuth',
-    action: function(){
+// gaSection.route('/auth',{
+//     name:'gaAuth',
+//     action: function(){
        
-    }
-});
+//     }
+// });
 
-gaSection.route('/',{
-    name:'gaHome',
-    action: function(params, queryParams){
-        BlazeLayout.render("adminLayout", {content: "dashboard", navigation:"navPanelAdmin"});
-        // console.log(queryParams);
-        // let redirect = 'http://'+window.location.hostname+(window.location.port?':'+window.location.port:'')+'/admin/ga';
-        // Meteor.call('manageOAuthToken', queryParams.code, redirect, function (error, result) {
-        //     console.log(error, result);
-        // });
-    }
-});
+// gaSection.route('/',{
+//     name:'gaHome',
+//     action: function(params, queryParams){
+//         BlazeLayout.render("adminLayout", {content: "dashboard", navigation:"navPanelAdmin"});
+//         // console.log(queryParams);
+//         // let redirect = 'http://'+window.location.hostname+(window.location.port?':'+window.location.port:'')+'/admin/ga';
+//         // Meteor.call('manageOAuthToken', queryParams.code, redirect, function (error, result) {
+//         //     console.log(error, result);
+//         // });
+//     }
+// });
 
 
 

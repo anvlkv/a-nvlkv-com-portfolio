@@ -9,34 +9,16 @@ const site = FlowRouter.group({
         
         GAnalytics.pageview();
 
-        this._startViewingRoute = new Date();
-
         if (Cookie.get('a_nvlkv_consent')) {
             // Session.set('consent', Cookie.get('a_nvlkv_consent'));
-            
-            $.each(Cookie.get('a_nvlkv_consent').split('|'), function(index, val) {
-                 if (index === 0) {
-                    Consent.set('experiment', val==='true' ? true : false);
-                    Consent.set('cookies', val==='true' ? true : false);
-                 }
-            });
-        } else if (Consent.get('cookies')===undefined || Consent.get('experiment')===undefined) {
-            Session.set('active-overlay', 'consent');
-            
-            let route = FlowRouter.current();
-
-            if (Object.keys(FlowRouter.current().queryParams).length > 0) {
-                Session.set('consent-redirect', route.path);
-
-                FlowRouter.setQueryParams({email:null, menu:null});
+            if (Cookie.get('a_nvlkv_consent')==='true') {
+                Consent.set('cookies', true);
             }
-        }else if (Consent.get('cookies')){
-            // console.log(Consent.get('cookies'), Consent.get('experiment'));
-            Cookie.set('a_nvlkv_consent', Consent.get('cookies') + '|' + Consent.get('experiment'));
+        } else if (Consent.get('cookies')===undefined) {
+            Session.set('active-notification', 'cookieNotification');
+        }else if (Consent.get('cookies') && !Cookie.get('a_nvlkv_consent')){
+            Cookie.set('a_nvlkv_consent', Consent.get('cookies'));
         }
-    }],
-    triggersExit:[function(){
-        GAnalytics.timing('time-on-page', FlowRouter.current().path, new Date() - this._startViewingRoute, visual_code);
     }],
 });
 

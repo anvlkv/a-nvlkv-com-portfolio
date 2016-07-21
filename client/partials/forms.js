@@ -1,52 +1,5 @@
 Consent = new ReactiveDict();
 
-function redirect(){
-	if (Session.get('consent-redirect')) {
-		FlowRouter.go(Session.get('consent-redirect'));
-		Session.set('consent-redirect', false);
-	}
-}
-
-// consent form
-Template.consentOverlay.onCreated(function(){
-	this.autorun(()=>{
-		this.consent_test = ABTest.start("Consent", ['prepopulated', 'puzzled']);
-	});
-});
-
-Template.consentOverlay.helpers({
-	experimentValue: function () {
-		return true;
-	},
-	cookiesValue: function () {
-		if (Template.instance().consent_test === 'puzzled') {
-			return false;
-		}else{
-			return true;
-		}
-	},
-});
-
-Template.consentOverlay.events({
-	'click .js_withdraw': function () {
-		// optOut();
-		Consent.set('cookies', false);
-		Consent.set('experiment', false);
-		Session.set('active-overlay', false);
-		redirect();
-
-		return false;
-	},
-	'click .js_consent, submit form': function(e, t){
-		Consent.set('cookies', t.$('[name=cookies]').prop('checked'));
-		Consent.set('experiment', t.$('[name=experiment]').prop('checked'));
-
-		Session.set('active-overlay', false);
-		redirect();
-
-		return false;
-	}
-});
 
 
 

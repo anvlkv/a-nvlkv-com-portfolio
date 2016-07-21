@@ -33,6 +33,7 @@ const hints = [
 ];
 
 experiencePath = new ReactiveDict();
+expectedExperience = new ReactiveVar();
 // requestedHint = new ReactiveVar();
 
 
@@ -50,7 +51,7 @@ startExperienceController = function(){
 addToExperiencePath = function(name){
 	if (!experiencePath.get(name)) {
 		experiencePath.set(name, true);
-		if (Consent.get('experiment')) {
+		if (Consent.get('cookies')) {
 			if (Cookie.get('a_nvlkv_exp')) {
 				Cookie.set('a_nvlkv_exp', Cookie.get('a_nvlkv_exp') + ' ' + name);	
 			}else{
@@ -58,6 +59,10 @@ addToExperiencePath = function(name){
 			}
 			
 		}
+	}
+	
+	if (expectedExperience.get() == name) {
+		ABTest.finish("Hint timing");
 	}
 };
 
@@ -94,6 +99,7 @@ Template.hintOverlay.helpers({
 						if (FlowRouter.current().route.name == route) {
 							if (device == Meteor.Device._type) {
 								hint = val;
+								expectedExperience.set(val.name);
 								GAnalytics.event(FlowRouter.current().path, 'hint-shown', hint.name);
 							}
 						}

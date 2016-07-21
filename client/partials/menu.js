@@ -32,13 +32,6 @@ Template.navMenu.helpers({
 			return category.shortCut;
 		}
 		return 'Menu';
-	},
-	showMetrics: function(){
-		if (Consent.get('experiment') && Session.get('path-status') === 'finished') {
-			return true;
-		}else{
-			return false;
-		}
 	}
 });
 

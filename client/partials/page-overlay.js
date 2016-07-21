@@ -7,11 +7,7 @@ Template.pageOverlay.helpers({
 			FlowRouter.go(route.route.name, route.params);
 		}
 		// manage overlays
-		if (overlay==='consent') {
-			// consent for cookies and experiment
-			return 'consentOverlay';
-
-		}else if (route.queryParams.menu || overlay==='menu') {
+		if (route.queryParams.menu || overlay==='menu') {
 			if (route.route.name == 'home') {
 				FlowRouter.setQueryParams({menu:null});
 			} else {
