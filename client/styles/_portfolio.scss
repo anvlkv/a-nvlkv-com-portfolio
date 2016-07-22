@@ -963,6 +963,19 @@
 			}
 		}
 	}
+
+	.gallery{
+		.item{
+			&:hover{
+				box-shadow: 0 0 $space rgba($black-copy, .5);
+				transform: scale(1.05);
+			}
+
+			h4{
+				text-shadow: $space/8 $space/8 $space*2 $black-copy;
+			}
+		}
+	}
 }
 
 
@@ -995,6 +1008,12 @@ a{
 		transition-duration: $duration;
 		transition-timing-function: ease-in-out;
 	}
+}
+
+.gallery .item{
+	transition-property: transform, box-shadow;
+	transition-duration: $duration/2;
+	transition-timing-function: ease-in-out;
 }
 
 
