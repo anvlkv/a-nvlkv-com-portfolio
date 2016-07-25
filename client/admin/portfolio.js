@@ -40,7 +40,9 @@ Template.dashboard.onCreated(function(){
 Template.registerHelper('genUrlFromTitle', function(){
 	let title = AutoForm.getFieldValue("title");
 	if (title) {
-		title = title.replace(/\ /g, '-');
+		title = title.replace(/[\ .,;+=()*&<>%:']/g,'-');
+
+		console.log(title);
 		return title.toLowerCase();
 	}
 });
