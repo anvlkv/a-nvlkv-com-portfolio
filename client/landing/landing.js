@@ -10,7 +10,7 @@ const slides = [
 		graphics: 'graphics_userResearchSides',
 		title:'It starts',
 		text:'with\n acknowledging\n a problem',
-		layout: 'text-first',
+		// layout: 'text-first',
 		button: {
 			text:'What\'s next?',
 		},
@@ -46,14 +46,14 @@ const slides = [
 		text:'is to contribute\n into making\n world a better\n place for\n everyone',
 		backgroundColor: '#0C1B2C',
 		textColor:'#ffffff',
-		layout:'text-first',
+		// layout:'text-first',
 		delay: 1500,
 		button: {
 			text:'What you\'ve done?',
 		},
 	},{
 		graphics:'graphics_goAhead',
-		layout:'single-image',
+		// layout:'single-image',
 		button: {
 			text:'See portfolio',
 			link:'/portfolio'
