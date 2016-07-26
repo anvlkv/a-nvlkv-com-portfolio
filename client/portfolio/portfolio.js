@@ -49,7 +49,7 @@ function navigationURL (axis, direction){
 			
 		}
 
-	console.log(current);
+	// console.log(current);
 
 	switch (axis){
 		case 'time':

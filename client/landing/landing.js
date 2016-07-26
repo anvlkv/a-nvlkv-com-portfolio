@@ -1,3 +1,4 @@
+//  fullpage = require('fullpage.js'),
 const slides = [
 	{
 		graphics: 'graphics_uxDesignerFront',
@@ -80,6 +81,7 @@ Template.landingPage.onCreated(function(){
 Template.landingPage.onRendered(function(){
 	// Session.set('current-category', null);
 	// Session.set('current-project', null);
+	
 	this.autorun(()=>{
 		if (activeSlide.get() >= 0 && activeSlide.get() < slides.length - 1) {
 			let slideTimeOut = Number.parseInt(ABTest.start("Slide timeout", ['8000', '12000', '16000', '18000']));
