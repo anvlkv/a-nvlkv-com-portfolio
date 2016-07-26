@@ -4,11 +4,13 @@
 // }
 
 // Template.graphicsContainer.onRendered(function (){
-// 	let fitable = this.$('.js_fit_height');
-// 	fitHeight(fitable);
-// 	$(window).resize(function(event) {
-// 		fitHeight(fitable);
-// 	});
+// 	// let fitable = this.$('.js_fit_height');
+// 	// fitHeight(fitable);
+// 	// $(window).resize(function(event) {
+// 	// 	fitHeight(fitable);
+// 	// });
+
+// 	console.log(this);
 // });
 
 const tu = 250,
