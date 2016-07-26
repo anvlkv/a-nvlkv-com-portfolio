@@ -11,11 +11,15 @@
                 <div class="slide {{slide.layout}}" style="color:{{slide.textColor}};">
 
                     <!-- graphic content -->
-                    {{#graphicsContainer graphics=slide.graphics patchColor=slide.backgroundColor }}
-                        <!-- {{log slide}} -->
-                        <!-- {{log this}} -->
-                        {{>Template.dynamic template=graphics}}
-                    {{/graphicsContainer}}
+                    {{#if currentSlide slide}}
+
+                        {{#graphicsContainer graphics=slide.graphics patchColor=slide.backgroundColor }}
+                            {{>Template.dynamic template=graphics}}
+                        {{/graphicsContainer}}
+                    {{else}}
+                        {{>graphicsContainer}}
+                    {{/if}}
+
 
                     <!-- text content -->
                     <div class="slide-text">

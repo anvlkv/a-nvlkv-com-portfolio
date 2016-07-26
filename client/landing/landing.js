@@ -237,12 +237,15 @@ Template.landingPage.helpers({
 		if (!activeSlide.get()) {
 			activeSlide.set(0);
 		}
+		
 		if (!slide) {
 			return slides[activeSlide.get()];
 		} else {
 			let keys = [],
 				obj = slides[activeSlide.get()],
 				objKeys = Object.keys(obj);
+
+
 			for (let j = 0; j < objKeys.length; j++) {
 				let key = objKeys[j];
 				if (slide[key] == obj[key]){

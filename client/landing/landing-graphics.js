@@ -10,7 +10,6 @@ Template.graphicsContainer.onRendered(function (){
 	// 	fitHeight(fitable);
 	// });
 
-	// console.log(this);
 });
 
 const tu = 250,
@@ -74,7 +73,6 @@ Template.graphics_uxDesignerFront.onRendered(function(){
 });
 
 Template.graphics_userResearchSides.onRendered(function(){
-	// console.log(this.$('#ux-designer-features'));
 
 	const questions = [],
 		responses = [],
