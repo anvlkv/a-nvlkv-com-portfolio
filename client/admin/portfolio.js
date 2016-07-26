@@ -150,7 +150,7 @@ Template.preView.helpers({
 			case 'category':
 				return '/portfolio/'+page.slug;
 			default:
-				return '/cfs/files/images/'+page.image;
+				return '/cfs/files/images/'+ (typeof page.image == 'object' ? page.image[0].file : page.image);
 		}
 	}
 });

@@ -48,7 +48,7 @@ function navigationURL (axis, direction){
 			
 		}
 
-	console.log(current);
+	// console.log(current);
 
 	switch (axis){
 		case 'time':
@@ -528,5 +528,11 @@ Template.portfolio.events({
 	},
 	'click .js_current_by_order': function () {
 		navigateByTo('order', 'current');
-	}
+	},
+	'click .js_next_by_time': function () {
+		navigateByTo('time', 'next');
+	},
+	'click .js_prev_by_time': function () {
+		navigateByTo('time', 'prev');
+	},
 });

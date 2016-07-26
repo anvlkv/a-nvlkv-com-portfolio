@@ -2,10 +2,10 @@ Template.CRUDpanel.helpers({
 	beforeRemove: function () {
       return function (collection, id) {
         var doc = collection.findOne(id);
-        bootbox.confirm('Really delete "' + doc.title + '"?',(result)=>{
-			console.log(result);
-			// this.remove();
-        })
+        bootbox.confirm('Really delete "' + (doc.title ? doc.title : doc._id) + '"?',(result)=>{
+			// console.log(result);
+			this.remove();
+        });
       };
     }
 });
