@@ -19,7 +19,7 @@ Momentum.registerPlugin('animate-css', function(options) {
   
   if (_.isString(options.extra)) {
     var extra = options.extra;
-    options.extra = function() { return extra; }
+    options.extra = function() { return extra; };
   }
   check(options.extra, Match.Optional(Function));
   
@@ -37,7 +37,7 @@ Momentum.registerPlugin('animate-css', function(options) {
   
       Deps.afterFlush(function() {
         // call width to force the browser to draw before we do anything
-        $(node).width()
+        $(node).width();
         
         var finish = _.once(function() {
           $(node).removeClass(klass);
@@ -56,11 +56,14 @@ Momentum.registerPlugin('animate-css', function(options) {
         // the node. This seems a pretty reasonable workaround.
         //
         // If the parent itself is "removed".. well then we'll have a problem.
+
+        console.log(node);
+
         $(node).parent()
           .on(EVENTS, function(e) {
             if (e.target === node) {
               $(this).off(e);
-              finish()
+              finish();
             }
           });
         
@@ -105,5 +108,5 @@ Momentum.registerPlugin('animate-css', function(options) {
       if (options.timeout)
         Meteor.setTimeout(finish, options.timeout);
     }
-  }
+  };
 });

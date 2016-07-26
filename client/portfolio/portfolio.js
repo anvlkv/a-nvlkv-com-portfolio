@@ -143,7 +143,7 @@ function navigateByTo (axis, direction){
 		}
 	}
 
-	console.log(navigationURL(axis, direction));
+	// console.log(navigationURL(axis, direction));
 	FlowRouter.go(navigationURL(axis, direction));
 }
 
