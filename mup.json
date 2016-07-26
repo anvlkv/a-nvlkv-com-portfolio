@@ -17,6 +17,6 @@
     "PORT": 5020,
     "HTTP_FORWARDED_COUNT": 2
   },
-  "deployCheckWaitTime": 60,
+  "deployCheckWaitTime": 90,
   "enableUploadProgressBar": true
 }
