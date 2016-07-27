@@ -114,8 +114,8 @@ Template.landingPage.onRendered(function(){
 		if (activeSlide.get() >= 0 && activeSlide.get() < slides.length - 1) {
 			let slideTimeOut = Number.parseInt(ABTest.start("Slide timeout", ['8000', '12000', '16000', '18000']));
 			// remove previous
-			if (active_sld.find('.js_slide_link svg').length > 0) {
-				active_sld.find('.js_slide_link svg').remove();
+			if (this.$('.js_slide_link svg').length > 0) {
+				this.$('.js_slide_link svg').remove();
 			}
 
 			let s = Snap(active_sld.find('.js_slide_link')[0]),
@@ -193,14 +193,21 @@ Template.landingPage.onRendered(function(){
 
 			s.click(function() {
 				prog_bar.stop();
-				slide.addClass('animate-out');
+				// slide.addClass('animate-out');
 				slide.find('.js_slide_link svg').remove();
 			});
 
-			this.$('.js_slide').click(function() {
+			slide.find('.js_slide').click(function() {
 				prog_bar.stop();
-				slide.addClass('animate-out');
+				// slide.addClass('animate-out');
 				slide.find('.js_slide_link svg').remove();
+			});
+
+			Deps.autorun(function(){
+				if (activeSlide.get()!=startSLide) {
+					prog_bar.stop();
+					slide.find('.js_slide_link svg').remove();
+				}
 			});
 
 
@@ -237,7 +244,7 @@ Template.landingPage.helpers({
 		if (!activeSlide.get()) {
 			activeSlide.set(0);
 		}
-		
+
 		if (!slide) {
 			return slides[activeSlide.get()];
 		} else {

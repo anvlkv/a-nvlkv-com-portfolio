@@ -202,29 +202,4 @@
       }
     }
   }
-  
-
-}
-
-// animations
-.page-overlay{
-  .menu-overlay{
-    &.animate-in{
-      @include fadeInRight($duration:$duration);
-    }
-    &.animate-out{
-      @include fadeOutLeft($duration:$duration);
-    }
-  }
-  .top-level-navigation{
-    &.animate-in{
-      @include slideInDown($duration:$duration);
-    }
-    &.animate-out{
-      @include slideOutUp($duration:$duration);
-    }
-  }
-  .current-level-navigation{
-
-  }
 }

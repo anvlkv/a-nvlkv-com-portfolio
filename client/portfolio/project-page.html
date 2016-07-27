@@ -3,9 +3,7 @@
 	{{#if project}}
 	<div class="{{#if isProjectPageView}}project-page{{else}}project-cover{{/if}} {{#if screensize 'xs'}}dynamic_color{{/if}}">
 		<div class="content">
-			<!-- {{#momentum plugin='animate-css' sKlass='content' timeout=120}} -->
-				{{>Template.dynamic template=textContent data=project}}
-			<!-- {{/momentum}} -->
+			{{>Template.dynamic template=textContent data=project}}
 		</div>
 
 		<div class="nav-container">
