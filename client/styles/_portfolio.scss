@@ -81,6 +81,10 @@
 				order:1;
 			}
 
+			.category-level-navigation{
+				overflow-y: hidden;
+			}
+
 			nav{
 
 				margin-right: -0.5rem;
@@ -196,7 +200,7 @@
 
 					@extend .fg-off-xs-1;
 					@extend .fg-off-sm-0;
-					@extend .fg-off-lg-0;
+					@extend .fg-off-lg-1;
 					// @extend .fg-off-xs-1;
 					// margin-left: 0;
 					// margin-right: auto;
@@ -874,7 +878,7 @@
 			}
 		}
 		.copy-right{
-
+			margin-bottom: $space;
 			.svg-icon{
 				margin-right: $space/2;
 			}
@@ -1027,156 +1031,6 @@
 				// text-shadow: $space/8 $space/8 $space*2 $black-copy;
 				background-color: rgba($black-copy, .5);
 				// transform-origin: ;
-			}
-		}
-	}
-}
-
-
-// animation and transitions
-
-.dynamic_color, .background-container{
-	transition-property: background-color;
-	transition-duration: $duration*2;
-	transition-timing-function: ease-out;
-}
-
-.background{
-	transition-property: background-position;
-	transition-duration: $duration/2;
-	transition-timing-function: ease-out;
-}
-
-.page-overlay{
-	transition-property: width, height;
-	transition-duration: $duration/2;
-	transition-timing-function: ease-out;
-}
-
-a{
-	transition-property: color, transform, box-shadow;
-	transition-duration: $duration/2;
-	transition-timing-function: ease-in-out;
-	&.dynamic_color{
-		transition-property: background-color, color, transform;;
-		transition-duration: $duration;
-		transition-timing-function: ease-in-out;
-	}
-}
-
-.gallery .item a{
-	&, *{
-		transition-property: transform, box-shadow, width;
-		transition-duration: $duration/2;
-		transition-timing-function: ease-in-out;
-	}
-}
-
-
-
-.page{
-	// .content-plate, .category-title{
-	// 	@include slideInLeft($duration:$duration);
-	// }
-	.animate-off-screen:not(.animate-in-progress){
-		display: none;
-	}
-	.gallery{
-		&, &.animate-in{
-			@include fadeIn($duration:$duration);		
-		}
-		&.animate-out{
-			@include fadeOut($duration:$duration);		
-		}
-	}
-	.project-cover, .project-page{
-		.content-plate{
-			&, &.animate-in{
-				@include slideInUp($duration:$duration);
-				&.full-height{
-					@include duration($duration*2);
-				}
-			}
-			&.animate-out{
-				@include slideOutDown($duration:$duration);
-				&.full-height{
-					@include duration($duration*2);
-				}
-			}
-		}
-		.date-container{
-			&, &.animate-in{
-				@include slideInDown($duration:$duration);
-			}
-			&.animate-out{
-				@include slideOutUp($duration:$duration);
-			}
-		}
-		.nav-container{
-			.mini-nav-btn{
-				@include slideInRight($delay:$delay/2, $duration:$duration);
-			}
-			.nav-plate{
-				@include slideInRight($duration:$duration);
-				@for $i from 0 through 2 {
-					&:nth-child(1n+#{$i}){
-						@media screen and (min-width: $fg-sm) {
-							@include delay($delay + $delay/2 * $i);
-						}
-					}
-				}
-			}
-			.title-plate{
-				@include slideInRight($delay:$delay*2, $duration:$duration);
-				@media screen and (min-width: $fg-sm) {
-					@include delay($delay);
-				}
-			}
-
-			
-			.title-plate, .nav-plate, .mini-nav-btn{
-				@media screen and (max-width: $fg-sm - 1) {
-					@include animation-name(slideInDown);
-				}
-			}
-		}
-	}
-	.category-cover{
-		.item-list{
-			.item{
-				@include slideInRight($delay:$delay, $duration:$duration);
-				@for $i from 1 through 10 {
-					&:nth-child(1n+#{$i}){
-						@include delay($delay/2 * $i);
-					}
-				}
-			}
-		}
-		.mini-nav-btn{
-			@include slideInRight($delay:$delay, $duration:$duration);
-			@media screen and (max-width: $fg-sm - 1) {
-				@include animation-name(slideInDown);
-			}
-		}
-	}
-	.background{
-		&, &.animate-in{
-			@include fadeIn($duration:$duration, $delay:$delay);
-		}
-		&.animate-out{
-			@include fadeOut($duration:$duration, $delay:$delay);
-		}
-	}
-	.back-cover{
-		.keep-in-touch{
-			&.animate-sent{
-				@include lightSpeedOut($duration:$duration);
-				&.animate-error{
-					@include bounceInRight($duration:$duration);		
-				}
-			}
-			&.animate-error{
-				@include shake($duration:$duration*2, $delay:$duration);
 			}
 		}
 	}

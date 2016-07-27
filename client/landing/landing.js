@@ -1,4 +1,5 @@
-//  fullpage = require('fullpage.js'),
+let fullpage = require('fullpage.js');
+
 const slides = [
 	{
 		graphics: 'graphics_uxDesignerFront',
@@ -37,7 +38,7 @@ const slides = [
 		title:'Success',
 		text:'to be measured\n in individuals\n empowered\n to achieve their\n own goals',
 		backgroundColor: '#0C1B2C',
-		textColor:'#ffffff',
+		textColor:'#f7f7f7',
 		button: {
 			text:'Why succeed?',
 		},
@@ -46,7 +47,7 @@ const slides = [
 		title:'The goal',
 		text:'is to contribute\n into making\n world a better\n place for\n everyone',
 		backgroundColor: '#0C1B2C',
-		textColor:'#ffffff',
+		textColor:'#f7f7f7',
 		// layout:'text-first',
 		delay: 1500,
 		button: {
@@ -81,17 +82,43 @@ Template.landingPage.onCreated(function(){
 Template.landingPage.onRendered(function(){
 	// Session.set('current-category', null);
 	// Session.set('current-project', null);
-	
+	let anchors = [],
+		backgrounds = [];
+	$.each(slides, function(index, val) {
+		// console.log(val.title);
+		anchors[index]= 'slide-' + val.graphics.replace(/graphics_/g,'').toLowerCase();
+		backgrounds[index]=val.backgroundColor ? val.backgroundColor : '#f7f7f7';
+	});
+
+	this.$('#fullpage').fullpage({
+		slideSelector: '.fp-slide',
+		sectionSelector: '.fp-section',
+		anchors: anchors,
+		sectionsColor: backgrounds,
+		afterLoad: function(anchorLink, index){
+			// let loadedSection = $(this);
+			activeSlide.set(index-1);
+
+		},
+	});
+
+
 	this.autorun(()=>{
+		if (activeSlide.get()>=0) {
+			$.fn.fullpage.moveTo(activeSlide.get()+1);
+		}
+	});
+
+	this.autorun(()=>{
+		let active_sld = this.$('.fp-section.active');
 		if (activeSlide.get() >= 0 && activeSlide.get() < slides.length - 1) {
 			let slideTimeOut = Number.parseInt(ABTest.start("Slide timeout", ['8000', '12000', '16000', '18000']));
-
 			// remove previous
 			if (this.$('.js_slide_link svg').length > 0) {
 				this.$('.js_slide_link svg').remove();
 			}
 
-			let s = Snap(this.$('.js_slide_link')[0]),
+			let s = Snap(active_sld.find('.js_slide_link')[0]),
 				canvasSize = 20,
 				progress = Snap(canvasSize, canvasSize),
 				centre = canvasSize/2,
@@ -99,8 +126,8 @@ Template.landingPage.onRendered(function(){
 				path = '',
 				arc = progress.path(path),
 				startY = centre - radius,
-				color = this.$('.js_slide_link').css('color'),
-				slide = this.$('.slide').removeClass('animate-out'),
+				color = active_sld.find('.js_slide_link').css('color'),
+				slide = active_sld.find('.slide'),
 				startSLide = activeSlide.get();
 
 			progress.appendTo(s);
@@ -115,6 +142,9 @@ Template.landingPage.onRendered(function(){
 			if (slides[activeSlide.get()].delay) {
 				slideTimeOut += slides[activeSlide.get()].delay;
 			}
+	
+
+			// console.log(slide);
 
 			// console.log(slideTimeOut);
 
@@ -144,18 +174,17 @@ Template.landingPage.onRendered(function(){
 
 			},slideTimeOut, mina.easeinout, function () {
 				if (startSLide === activeSlide.get()) {		
-					slide.addClass('animate-out');
-					// console.log('timeout');
-					Meteor.setTimeout(function () {
+					// slide.addClass('animate-out');
+					// Meteor.setTimeout(function () {
 						
+						// console.log(slide.find('.js_slide_link'));
 
 						slide.find('.js_slide_link svg').remove();
 						slide.find('.js_slide_link').click();
 
-					}, 250);
+					// }, 250);
 				}
 			});
-
 
 			s.hover(function() {
 				prog_bar.stop();
@@ -164,28 +193,39 @@ Template.landingPage.onRendered(function(){
 
 			s.click(function() {
 				prog_bar.stop();
-				slide.addClass('animate-out');
+				// slide.addClass('animate-out');
 				slide.find('.js_slide_link svg').remove();
 			});
 
-			this.$('.js_slide').click(function() {
+			slide.find('.js_slide').click(function() {
 				prog_bar.stop();
-				slide.addClass('animate-out');
+				// slide.addClass('animate-out');
 				slide.find('.js_slide_link svg').remove();
+			});
+
+			Deps.autorun(function(){
+				if (activeSlide.get()!=startSLide) {
+					prog_bar.stop();
+					slide.find('.js_slide_link svg').remove();
+				}
 			});
 
 
 		} else {
-			this.$('.slide').removeClass('animate-out');
+			// this.$('.slide').removeClass('animate-out');
 			
 			// remove previous
-			if (this.$('.js_slide_link svg').length > 0) {
-				this.$('.js_slide_link svg').remove();
+			if (active_sld.find('.js_slide_link svg').length > 0) {
+				active_sld.find('.js_slide_link svg').remove();
 			}
 
 			GAnalytics.event('landing', 'seen-last-slide');
 		}
 	});
+});
+
+Template.landingPage.onDestroyed(function(){
+	$.fn.fullpage.destroy('all');
 });
 
 // let activeSlide = new ReactiveVar(0);
@@ -204,12 +244,15 @@ Template.landingPage.helpers({
 		if (!activeSlide.get()) {
 			activeSlide.set(0);
 		}
+
 		if (!slide) {
 			return slides[activeSlide.get()];
 		} else {
 			let keys = [],
 				obj = slides[activeSlide.get()],
 				objKeys = Object.keys(obj);
+
+
 			for (let j = 0; j < objKeys.length; j++) {
 				let key = objKeys[j];
 				if (slide[key] == obj[key]){

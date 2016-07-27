@@ -1,7 +1,7 @@
 <template name="emailOverlay">
-	{{#momentum plugin='animate-css' sKlass='email-overlay' timeout=5000}}
-		{{> Template.dynamic template=dialog}}
-	{{/momentum}}
+	<div class="email-overlay">
+		{{> Template.dynamic template=dialog}}		
+	</div>
 </template>
 
 <template name="composeEmail">

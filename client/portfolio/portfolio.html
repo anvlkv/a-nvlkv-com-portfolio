@@ -1,7 +1,6 @@
 <template name="portfolio">
 	<!-- page wrapper -->
-	{{#momentum plugin='animate-css' sKlass='page' timeout=2500}}
-	<!-- <div class="page"> -->
+	<div class="page">
 	{{#if readiness}}
 
 		{{>Template.dynamic template=pageType}}
@@ -9,7 +8,6 @@
 	{{else}}
 		{{>loadingState}}
 	{{/if}}
-	<!-- </div> -->
-	{{/momentum}}
+	</div>
 	
 </template>

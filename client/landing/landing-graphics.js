@@ -3,15 +3,14 @@
 
 // }
 
-// Template.graphicsContainer.onRendered(function (){
-// 	// let fitable = this.$('.js_fit_height');
-// 	// fitHeight(fitable);
-// 	// $(window).resize(function(event) {
-// 	// 	fitHeight(fitable);
-// 	// });
+Template.graphicsContainer.onRendered(function (){
+	// let fitable = this.$('.js_fit_height');
+	// fitHeight(fitable);
+	// $(window).resize(function(event) {
+	// 	fitHeight(fitable);
+	// });
 
-// 	console.log(this);
-// });
+});
 
 const tu = 250,
 	timeouts = [],
@@ -74,7 +73,6 @@ Template.graphics_uxDesignerFront.onRendered(function(){
 });
 
 Template.graphics_userResearchSides.onRendered(function(){
-	// console.log(this.$('#ux-designer-features'));
 
 	const questions = [],
 		responses = [],
