@@ -90,16 +90,22 @@ Template.landingPage.onRendered(function(){
 		backgrounds[index]=val.backgroundColor ? val.backgroundColor : '#f7f7f7';
 	});
 
-	this.$('#fullpage').fullpage({
-		slideSelector: '.fp-slide',
-		sectionSelector: '.fp-section',
-		anchors: anchors,
-		sectionsColor: backgrounds,
-		afterLoad: function(anchorLink, index){
-			// let loadedSection = $(this);
-			activeSlide.set(index-1);
+	
 
-		},
+	this.autorun(()=>{
+		if (this.ready.get()) {
+			this.$('#fullpage').fullpage({
+				slideSelector: '.fp-slide',
+				sectionSelector: '.fp-section',
+				anchors: anchors,
+				sectionsColor: backgrounds,
+				afterLoad: function(anchorLink, index){
+					// let loadedSection = $(this);
+					activeSlide.set(index-1);
+
+				},
+			});
+		}
 	});
 
 
