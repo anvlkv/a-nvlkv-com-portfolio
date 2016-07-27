@@ -24,7 +24,6 @@ cfs:standard-packages
 cfs:gridfs
 mizzao:bootboxjs
 session@1.1.6
-meteortoys:allthings
 aldeed:collection2
 aldeed:autoform
 hausor:autoform-bs-minicolors
@@ -43,7 +42,6 @@ flowkey:hotkeys
 oles:autoprefixer-beta
 hedcet:touch-swipe
 email@1.1.16
-# datariot:ganalytics
 froatsnook:valid-email
 awsp:validatejs
 reactive-dict@1.1.8
