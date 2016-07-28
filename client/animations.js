@@ -145,14 +145,14 @@ Template.topLevelMenu.animations({
 	}
 });
 
-Template.loadingState.animations({
-	'.loading':{
-		insert:{
-			class: 'animate-in'
-		},
-		remove:{
-			class: 'animate-out'	
-		},
-		animateInitial: true,
-	}
-});
+// Template.loadingState.animations({
+// 	'.loading':{
+// 		insert:{
+// 			class: 'animate-in'
+// 		},
+// 		remove:{
+// 			class: 'animate-out'	
+// 		},
+// 		animateInitial: true,
+// 	}
+// });
