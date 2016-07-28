@@ -1,3 +1,8 @@
+let hasPages = function(){
+	let prj = Projects.findOne({_id:Session.get('current-project')});
+	return prj.pages ? true : false;
+}
+
 const hints = [
 	{
 		name:'swipeVertical',
@@ -14,6 +19,7 @@ const hints = [
 		text: 'Tap twice to learn more',
 		devices: ['phone', 'tablet'],
 		routes: ['portfolio.project'],
+		requirement: hasPages,
 	},{
 		name:'keysHorizontal',
 		text:'Use left or right arrow keys to explore projects by order',
@@ -28,7 +34,8 @@ const hints = [
 		name:'keyEnter',
 		text:'Hit enter to learn more',
 		devices: ['desktop', 'tv'],
-		routes: ['portfolio.project']
+		routes: ['portfolio.project'],
+		requirement: hasPages,
 	}
 ];
 
@@ -98,9 +105,17 @@ Template.hintOverlay.helpers({
 					$.each(val.routes, function(index, route) {
 						if (FlowRouter.current().route.name == route) {
 							if (device == Meteor.Device._type) {
-								hint = val;
-								expectedExperience.set(val.name);
-								GAnalytics.event(FlowRouter.current().path, 'hint-shown', hint.name);
+								if (val.requirement && val.requirement()) {
+									hint = val;
+								} else if (!val.requirement){
+									hint = val;
+								}
+
+
+								if (hint) {
+									expectedExperience.set(val.name);
+									GAnalytics.event(FlowRouter.current().path, 'hint-shown', hint.name);
+								}
 							}
 						}
 					});

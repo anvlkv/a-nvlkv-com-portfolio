@@ -23,8 +23,7 @@ function navigationURL (axis, direction){
 				let i = 0,
 					cat = FlowRouter.current().params.category;
 				do{
-					let path = navigationMap.timeline[i];
-
+					let path = navigationMap.feed[i];
 					if (path.indexOf(cat) >= 0) {
 						closest = path;
 					}
@@ -49,7 +48,7 @@ function navigationURL (axis, direction){
 			
 		}
 
-	console.log(current);
+	// console.log(current);
 
 	switch (axis){
 		case 'time':
@@ -59,14 +58,14 @@ function navigationURL (axis, direction){
 					
 					if (current[2] >= 0 && navigationMap.timeline[current[2]+1]) {
 						path = navigationMap.timeline[current[2]+1];
-					} else if (!navigationMap.timeline[current[2]+1] || !current[2]){
+					} else if (!navigationMap.timeline[current[2]+1] || !current[2] || current[2] < 0){
 						path = navigationMap.timeline[0];
 					}
 					break;
 				case 'prev':
 					if (current[2] >= 0 && navigationMap.timeline[current[2]-1]) {
 						path = navigationMap.timeline[current[2]-1];
-					} else if (!navigationMap.timeline[current[2]-1] || !now){
+					} else if (!navigationMap.timeline[current[2]-1] || !current[2] || current[2] < 0){
 						path = navigationMap.timeline[navigationMap.timeline.length - 1];
 					}
 					break;
@@ -529,5 +528,11 @@ Template.portfolio.events({
 	},
 	'click .js_current_by_order': function () {
 		navigateByTo('order', 'current');
-	}
+	},
+	'click .js_next_by_time': function () {
+		navigateByTo('time', 'next');
+	},
+	'click .js_prev_by_time': function () {
+		navigateByTo('time', 'prev');
+	},
 });

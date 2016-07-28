@@ -14,7 +14,7 @@
 		{{>Template.dynamic data=category.image template=imagery}}
 	</div>
 	<div class="gallery">
-		<div class="grid">
+		{{#galleryGrid}}
 			{{#each item in projects}}
 			<div class="item">
 				<a href="{{url item}}" title="{{item.title}}">
@@ -44,7 +44,7 @@
 			{{/if}}
 			</div>
 			{{/each}}
-		</div>
+		{{/galleryGrid}}
 	</div>
 	{{else}}
 		{{> errPage}}
@@ -53,7 +53,6 @@
 	{{>loadingState}}
 {{/if}}
 </template>
-
 
 <template name="categoryCoverText">
 	<div class="category-title">
@@ -86,4 +85,10 @@
 		{{>navMenu icon="true" color=globalPallet.utility}}
 	</nav>
 
+</template>
+
+<template name="galleryGrid">
+	<div class="grid">
+		{{> Template.contentBlock}}
+	</div>
 </template>

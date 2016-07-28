@@ -1,0 +1,22 @@
+{
+  "servers": [
+    {
+      "host": "188.166.129.211",
+      "username": "root",
+      "pem": "~/.ssh/id_rsa"
+    }
+  ],
+  "setupMongo": true,
+  "setupNode": true,
+  "nodeVersion": "4.4.3",
+  "setupPhantom": true,
+  "appName": "a-nvlk-com",
+  "app": ".",
+  "env": {
+    "ROOT_URL": "http://proto.a.nvlkv.com",
+    "PORT": 5020,
+    "HTTP_FORWARDED_COUNT": 2
+  },
+  "deployCheckWaitTime": 90,
+  "enableUploadProgressBar": true
+}

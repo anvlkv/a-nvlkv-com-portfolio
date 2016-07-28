@@ -3,212 +3,23 @@
 
 	@extend .fg-col-xs;
 	justify-content:flex-start;
-	
+	padding: 0;
+	// overflow-y:scroll;
+
 	.top-level-navigation{
 		flex-grow:0;
 		flex-shrink:0;
-
-	}
-
-	.slide{
-
-		@extend .fg-col-xs;
-		flex-grow:1;
-		align-items: center;
-		justify-content: center;
-		@media screen and (max-width: $fg-md - 1) {
-			flex-basis: 100%;
-		}
-		@media screen and (min-width: $fg-md) {
-			flex-wrap: wrap;
-			max-height: calc(100vh - #{$space*10});
-		}
-		// overflow: hidden;
-
-		.svg-graphics, .slide-text{
-
-			@extend .fg-col-xs-12;
-			@extend .fg-col-sm-6;
-			@media screen and (max-width: $fg-md - 1) {
-				max-height: calc(70vh - #{$space*10});
-				flex-basis: auto;
-			}
-
-		}
-
-		.svg-graphics{
-
-			justify-content: center;
-			flex-grow:2;
-			@media screen and (min-width: $fg-md) {
-				max-height: calc(100vh - #{$space*10});
-				flex-basis: 100vh;
-				flex-shrink:0;
-				
-			}
-
-
-		}
-
-		.slide-text{
-
-			@extend .fg-col-xs;
-			flex-grow:1;
-			flex-shrink:0;
-			justify-content: flex-end;
-			max-height: 70%;
-
-		}
-
-		.slide-btn{
-
-			@extend .fg-col-xs-12;
-			@extend .fg-col-lg-6;
-			flex-shrink:0;
-			flex-grow:1;
-			align-self:center;
-			text-align: center;
-			max-height: 3em;
-			@media screen and (max-width: $fg-lg - 1) {
-				align-self: stretch;
-			}
-			@media screen and (max-width: $fg-md - 1) {
-				max-height: 6em;
-			}
-
-			.slide-link-btn{
-				display: inline-flex;
-				justify-content:space-between;
-				align-items:center;
-			}
-
-			
-		}
-
-		&.wide-image{
-			flex-wrap: wrap;
-			
-			.svg-graphics, .slide-text{
-				
-				@extend .fg-col-xs-12;
-				flex-basis: 50%;
-				max-height: 40%;
-				max-height: calc(40vh - #{$space*6});
-
-				@media screen and (max-width: $fg-md - 1) and (orientation: landscape) {
-					max-height: 60%;
-					max-height: calc(60vh - #{$space*6});
-				}
-				
-
-			}
-
-			.svg-graphics {
-
-				flex-grow:2;
-
-			}
-
-			.slide-text, .slide-btn {
-
-				flex-grow:1;
-
-			}
-
-			.slide-text{
-
-				align-items: center;
-				flex-direction:row;
-				flex-wrap: wrap;
-				@media screen and (max-height: 530px) {
-					max-height: calc(40vh - #{$space*2})
-				}
-
-				// justify-content: center;
-				>*{
-
-					@extend .fg-col-xs-12;
-					@extend .fg-col-sm-6;
-
-				}
-				
-				h3{
-
-					// align-self: baseline;
-					text-align: right;
-
-				}
-
-
-			}
-
-			.slide-btn{
-
-				@extend .fg-col-sm-6;
-
-
-			}
-		}
-
-		&.text-first{
-
-			.slide-text{
-
-				order:1;
-
-			}
-			.slide-btn{
-
-				order:2;
-
-			}
-
-			.svg-graphics{
-
-				order:3;
-
-			}
-
-			@media screen and (max-width: $fg-md - 1) {
-				.svg-graphics{
-
-					order:2;
-
-				}
-
-				.slide-btn{
-
-					order:3;
-
-				}
-			}
-
-		}
-
-		&.single-image{
-
-			@media screen and (max-width: $fg-md -1) {
-				justify-content: flex-start;			
-			}
-
-			.svg-graphics{
-
-				order:1;
-				max-height: 80%;
-				max-height: calc(90vh - #{$space*10});
-
-			}
-
-			.slide-btn{
-
-				order:2;
-
-			}
-
-		}
+		z-index: 10;
+		position: fixed;
+		width: 100vw;
+		margin: 0 auto;
+		// right: 0;
+		// left: 0;
 	}
 	.slide-pagination{
-
+		position: fixed;
+		bottom: 0;
+		width: 100%;
 		@extend .fg-col-sm-12;
 		flex-shrink:0;
 		@media screen and (min-width: $fg-md - 1) {
@@ -236,7 +47,246 @@
 
 			}
 		}
-	}	
+	}
+
+	.fp-tableCell{
+		display: flex;
+		align-items:flex-end;
+		padding-bottom: $space*1.5;
+	}
+
+	.slide{
+
+		@extend .fg-row;
+		// @extend .fg-col-xs;
+		flex-grow:1;
+		align-items: center;
+		justify-content: center;
+		@media screen and (max-width: $fg-md - 1) {
+			flex-basis: 100%;
+		}
+		@media screen and (min-width: $fg-md) {
+			flex-wrap: wrap;
+			max-height: calc(100vh - #{$space*10});
+		}
+		// overflow: hidden;
+
+		.svg-graphics, .slide-text{
+
+			@extend .fg-col-xs-12;
+			@extend .fg-col-sm-6;
+			@media screen and (max-width: $fg-md - 1) {
+				// max-height: calc(70vh - #{$space*10});
+				flex-basis: auto;
+			}
+
+		}
+
+		.svg-graphics{
+
+			justify-content: center;
+			flex-grow:2;
+			min-width: 50%;
+			@media screen and (min-width: $fg-md) {
+				max-height: calc(100vh - #{$space*10});
+				// flex-basis: 100vh;
+				flex-shrink:0;
+			}
+			@media screen and (max-width: $fg-sm - 1) {
+				max-height: calc(60vh - #{$space*10});
+				min-width: 100%;
+				
+			}
+
+
+		}
+
+		.slide-text{
+
+			@extend .fg-col-xs;
+			flex-grow:1;
+			flex-shrink:0;
+			justify-content: flex-end;
+			max-height: 70%;
+
+			>*{
+				@media screen and (max-width: $fg-sm) {
+					text-align: center;
+				}
+			}
+			
+
+		}
+
+		.slide-btn{
+
+			@extend .fg-col-xs-12;
+			@extend .fg-col-lg-6;
+			flex-shrink:0;
+			flex-grow:1;
+			align-self:center;
+			text-align: center;
+			max-height: 3em;
+			flex-basis:3em;
+			display: flex;
+			min-width: 100%;
+			// @media screen and (max-width: $fg-lg - 1) {
+				align-self: stretch;
+			// }
+			@media screen and (max-width: $fg-md - 1) {
+				max-height: 6em;
+				flex-basis:6em;
+			}
+
+			.slide-link-btn{
+				display: inline-flex;
+				justify-content:space-between;
+				align-items:center;
+				align-self: stretch;
+				// flex-direction:row;
+				// flex-wrap: nowrap;
+
+				span{
+					white-space: nowrap;
+
+				}
+			}
+
+			
+		}
+
+		&.wide-image{
+			flex-wrap: wrap;
+			
+			.svg-graphics{
+				
+				@extend .fg-col-xs-12;
+				// flex-basis: 50%;
+				max-height: 40%;
+				max-height: calc(40vh - #{$space*6});
+
+				@media screen and (max-width: $fg-md - 1) and (orientation: landscape) {
+					max-height: 60%;
+					max-height: calc(60vh - #{$space*6});
+				}
+				
+
+			}
+
+			.svg-graphics {
+
+				flex-grow:2;
+
+			}
+
+			.slide-text {
+
+				flex-grow:1;
+				@extend .fg-col-xs-12;
+
+
+
+			}
+
+			.slide-text{
+
+				align-items: center;
+				justify-content: center;
+				flex-direction:row;
+				flex-wrap: wrap;
+				@media screen and (max-height: 530px) {
+					max-height: calc(40vh - #{$space*2})
+				}
+
+				// justify-content: center;
+				>*{
+
+					@extend .fg-col-xs-12;
+					@extend .fg-col-sm-6;
+
+				}
+				
+				h3{
+
+					// align-self: baseline;
+					@media screen and (min-width: $fg-sm) {
+						text-align: right;	
+					}
+
+				}
+
+
+			}
+
+			.slide-btn{
+				
+				min-width: 0;
+
+				@extend .fg-col-xs-12;
+				@extend .fg-col-sm-6;
+				// @extend .fg-off-sm-3;
+				// align-self: center;
+
+			}
+		}
+
+		&.text-first{
+
+			.slide-text{
+
+				order:1;
+
+			}
+			// .slide-btn{
+
+			// 	order:2;
+
+			// }
+
+			.svg-graphics{
+
+				order:3;
+
+			}
+
+			@media screen and (max-width: $fg-md - 1) {
+				.svg-graphics{
+
+					order:2;
+
+				}
+
+				// .slide-btn{
+
+				// 	order:3;
+
+				// }
+			}
+
+		}
+
+		&.single-image{
+
+			@media screen and (max-width: $fg-md -1) {
+				justify-content: flex-start;			
+			}
+
+			.svg-graphics{
+
+				order:1;
+				max-height: 80%;
+				max-height: calc(90vh - #{$space*10});
+
+			}
+
+			// .slide-btn{
+
+			// 	order:2;
+
+			// }
+
+		}
+	}
 }
 
 // font- and sizing
@@ -263,8 +313,8 @@
 
 			h3 {
 			
-				font-family: $font-family-serif;
-				font-weight: bold;
+				font-family: $font-family-base;
+				font-weight: 900;
 
 			}
 
@@ -273,7 +323,7 @@
 		.slide-link-btn{
 
 			font-weight: bold;
-			letter-spacing: .1em;
+			// letter-spacing: .1em;
 			word-spacing: .1em;
 
 		}
@@ -315,8 +365,8 @@
 			// }
 
 			@media screen and (min-width: $fg-md) {
-				margin-left: $space;
-				margin-right: $space;
+				// margin-left: $space;
+				// margin-right: $space;
 			}
 
 			.slide-link-btn{
@@ -361,56 +411,6 @@
 
 					}
 				}
-			}
-		}
-	}
-}
-
-// animations and transitions
-.landing-page{
-
-	transition-property: background-color;
-	transition-duration: $duration*2;
-	transition-timing-function: ease-out;
-
-	.slide-text, .slide-link{
-
-		transition-property: color;
-		transition-duration: $duration*2;
-		transition-timing-function: ease-out;
-
-	}
-
-	.slide{
-		.svg-graphics{
-			@include slideInLeft ($duration:$duration);
-			// @include count (infinite);
-		}
-
-		.slide-text{
-			@include slideInDown ($duration:$duration);
-			// @include count (infinite);
-		}
-
-		.slide-btn{
-			@include slideInUp ($duration:$duration);
-			// @include count (infinite);
-		}
-
-		&.animate-out{
-			.svg-graphics{
-				@include slideOutLeft ($duration:$duration);
-				// @include count (infinite);
-			}
-
-			.slide-text{
-				@include slideOutUp ($duration:$duration);
-				// @include count (infinite);
-			}
-
-			.slide-btn{
-				@include slideOutDown ($duration:$duration);
-				// @include count (infinite);
 			}
 		}
 	}

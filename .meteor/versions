@@ -61,6 +61,9 @@ fortawesome:fontawesome@4.5.0
 fourseven:scss@3.8.0_1
 froatsnook:valid-email@1.0.0
 geojson-utils@1.0.9
+gwendall:jquery-animation-callback@0.1.2
+gwendall:template-animations@0.2.2
+gwendall:ui-hooks@0.1.7
 hausor:autoform-bs-minicolors@1.0.0
 hedcet:touch-swipe@1.6.6
 hot-code-push@1.0.4
@@ -125,8 +128,6 @@ npm-mongo@1.4.45
 observe-sequence@1.0.12
 oles:autoprefixer-beta@0.5.0
 ordered-dict@1.0.8
-percolate:momentum@0.7.2
-percolate:velocityjs@1.1.0
 promise@0.7.3
 raix:eventemitter@0.1.3
 random@1.0.10

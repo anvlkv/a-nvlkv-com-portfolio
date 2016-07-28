@@ -113,16 +113,6 @@
 
 		}
 	}
-	&.animate-in, &{
-
-		@include fadeIn(.4s);
-
-	}
-	&.animate-out{
-
-		@include slideOutUp(.4s);
-
-	}
 }
 
 // loading state animation

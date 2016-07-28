@@ -105,6 +105,7 @@
 
 //internal navigation spacing
 .current-level-navigation {
+  margin-top: $space*2;
   padding: $space;
 
   .item {
@@ -115,7 +116,7 @@
         padding: $space / 2;
       }
       .category-name {
-        margin-left: -.6em;
+        margin-left: -.1em;
       }
     }
     .item-list{
@@ -200,30 +201,5 @@
         // font-size: 2.5em;
       }
     }
-  }
-  
-
-}
-
-// animations
-.page-overlay{
-  .menu-overlay{
-    &.animate-in{
-      @include fadeInRight($duration:$duration);
-    }
-    &.animate-out{
-      @include fadeOutLeft($duration:$duration);
-    }
-  }
-  .top-level-navigation{
-    &.animate-in{
-      @include slideInDown($duration:$duration);
-    }
-    &.animate-out{
-      @include slideOutUp($duration:$duration);
-    }
-  }
-  .current-level-navigation{
-
   }
 }

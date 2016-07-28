@@ -81,6 +81,10 @@
 				order:1;
 			}
 
+			.category-level-navigation{
+				overflow-y: hidden;
+			}
+
 			nav{
 
 				margin-right: -0.5rem;
@@ -117,6 +121,34 @@
 		@media screen and (max-width: $fg-sm - 1) {
 			flex-direction:column;
 		}
+
+		.relative-nav{
+
+			@extend .fg-col-xs;
+			flex-basis: 50%;
+			flex-grow:1;
+			@media screen and (min-width: $fg-sm) and (max-width: $fg-lg - 1) {
+				justify-content: flex-end;
+				align-items: flex-end;
+			}
+			@media screen and (min-width: $fg-lg) {
+				justify-content: flex-end;
+				align-items: flex-start;
+			}
+
+			.nav-plate{
+
+				@extend .fg-col-xs-10;
+				@extend .fg-off-xs-1;
+				@extend .fg-col-sm-8;
+				@extend .fg-off-sm-4;
+				@extend .fg-col-lg-10;
+				@extend .fg-off-lg-1;
+				flex-basis: auto;
+				width: 100%;
+			}
+		}
+
 		.content, .nav-container{
 			@media screen and (max-width: $fg-sm - 1) {
 				flex-basis: 50%;
@@ -163,6 +195,18 @@
 					flex-basis: auto;
 					flex-grow:0;
 				}
+
+				.nav-plate{
+
+					@extend .fg-off-xs-1;
+					@extend .fg-off-sm-0;
+					@extend .fg-off-lg-1;
+					// @extend .fg-off-xs-1;
+					// margin-left: 0;
+					// margin-right: auto;
+					align-self:flex-start;
+
+				}
 			}
 		}
 
@@ -184,30 +228,6 @@
 				justify-content:center;
 				flex-wrap: nowrap;
 
-				.relative-nav{
-
-					@extend .fg-col-xs;
-					@media screen and (min-width: $fg-sm) and (max-width: $fg-lg - 1) {
-						justify-content: flex-end;
-						align-items: flex-end;
-					}
-					@media screen and (min-width: $fg-lg) {
-						justify-content: flex-end;
-						align-items: flex-start;
-					}
-
-					.nav-plate{
-
-						@extend .fg-col-xs-10;
-						@extend .fg-off-xs-1;
-						@extend .fg-col-sm-8;
-						@extend .fg-off-sm-4;
-						@extend .fg-col-lg-10;
-						@extend .fg-off-lg-1;
-						flex-basis: auto;
-						width: 100%;
-					}
-				}
 				.nav-hint{
 					@extend .fg-col-xs-10;
 					@extend .fg-off-xs-1;
@@ -223,16 +243,8 @@
 					
 				}
 
-				.relative-nav{
-
-					flex-basis: 50%;
-					flex-grow:1;
-
-				}
 			}
-			// align-self: flex-end;
-			// flex-grow:0;
-		// 
+
 		}
 	}
 
@@ -244,13 +256,20 @@
 
 
 		.nav-container{
+			@extend .fg-col-xs-12;
+			@extend .fg-col-sm-6;
+			width: 100%;
 			flex-grow:1;
+			flex-shrink:0;
 			align-self: flex-end;
-			align-items:flex-start;
+			align-items:flex-end;
 			@media screen and (max-width: $fg-sm - 1) {
 				flex-basis: 100%;
 				align-self:stretch;
 				align-items:stretch;
+			}
+			.mini-nav{
+				width: 100%;
 			}
 			// @media screen and (min-width: $fg-md - 1) {
 			// 	align-self: stretch;
@@ -493,7 +512,9 @@
 			
 			@extend .fg-col-xs-5;
 			@extend .fg-col-sm-3;
-			position: relative;
+			a{
+				position: relative;
+			}
 
 			&:nth-child(even){
 
@@ -578,6 +599,7 @@
 
 		}
 	}
+
 	.nav-hint{
 
 		font-size: 150%;
@@ -635,6 +657,8 @@
 
 		margin: 0;
 		padding: 0;
+
+		font-weight: 300;
 
 	}
 
@@ -725,12 +749,27 @@
 		padding: $space;
 		.item{
 			margin-bottom: $space;
-			h4{
-				margin-left: -$fg-gutter;
-				margin-bottom: 0;
-				margin-top: $space;
-				text-align: center;
+			
+			
+			a{
+
+				overflow: hidden;
+				display: block;
+				width: 100%;
+
+				h4{
+					// margin-right: $fg-gutter;
+					// margin-left: $fg-gutter;
+					// margin-bottom: 0;
+					padding-top: $space;
+					text-align: center;
+					// width: 100%;
+					// display: inline-block;
+					// width: calc(100% - #{$space/2});
+					// max-width: 100%;
+				}
 			}
+			
 		}
 	}
 	.portfolio-cover{
@@ -754,6 +793,15 @@
 
 			}
 
+			.relative-nav{
+				padding-left: 0;
+			}
+
+			.nav-plate{
+				margin-left: -$space;
+				margin-bottom: $space;
+			}
+
 			.date-container{
 				// margin: $space;
 				// padding-bottom: $space*2;
@@ -762,8 +810,10 @@
 			}
 		}
 		.navigation-plate{
-			.nav-hint{
-
+			.relative-nav{
+				@media screen and (max-width: $fg-sm - 1) {
+					margin-top: $space;
+				}
 			}
 		}
 	}
@@ -828,7 +878,7 @@
 			}
 		}
 		.copy-right{
-
+			margin-bottom: $space;
 			.svg-icon{
 				margin-right: $space/2;
 			}
@@ -963,145 +1013,24 @@
 			}
 		}
 	}
-}
 
-
-// animation and transitions
-
-.dynamic_color, .background-container{
-	transition-property: background-color;
-	transition-duration: $duration*2;
-	transition-timing-function: ease-out;
-}
-
-.background{
-	transition-property: background-position;
-	transition-duration: $duration/2;
-	transition-timing-function: ease-out;
-}
-
-.page-overlay{
-	transition-property: width, height;
-	transition-duration: $duration/2;
-	transition-timing-function: ease-out;
-}
-
-a{
-	transition-property: color, transform, box-shadow;
-	transition-duration: $duration/2;
-	transition-timing-function: ease-in-out;
-	&.dynamic_color{
-		transition-property: background-color, color, transform;;
-		transition-duration: $duration;
-		transition-timing-function: ease-in-out;
-	}
-}
-
-
-
-.page{
-	// .content-plate, .category-title{
-	// 	@include slideInLeft($duration:$duration);
-	// }
-	.animate-off-screen:not(.animate-in-progress){
-		display: none;
-	}
 	.gallery{
-		&, &.animate-in{
-			@include fadeIn($duration:$duration);		
-		}
-		&.animate-out{
-			@include fadeOut($duration:$duration);		
-		}
-	}
-	.project-cover, .project-page{
-		.content-plate{
-			&, &.animate-in{
-				@include slideInUp($duration:$duration);
-				&.full-height{
-					@include duration($duration*2);
-				}
-			}
-			&.animate-out{
-				@include slideOutDown($duration:$duration);
-				&.full-height{
-					@include duration($duration*2);
-				}
-			}
-		}
-		.date-container{
-			&, &.animate-in{
-				@include slideInDown($duration:$duration);
-			}
-			&.animate-out{
-				@include slideOutUp($duration:$duration);
-			}
-		}
-		.nav-container{
-			.mini-nav-btn{
-				@include slideInRight($delay:$delay/2, $duration:$duration);
-			}
-			.nav-plate{
-				@include slideInRight($duration:$duration);
-				@for $i from 0 through 2 {
-					&:nth-child(1n+#{$i}){
-						@media screen and (min-width: $fg-sm) {
-							@include delay($delay + $delay/2 * $i);
-						}
-					}
-				}
-			}
-			.title-plate{
-				@include slideInRight($delay:$delay*2, $duration:$duration);
-				@media screen and (min-width: $fg-sm) {
-					@include delay($delay);
-				}
+		.item{
+			a:hover {
+				box-shadow: 0 0 $space rgba($black-copy, .5);
+				// &, >*{
+					transform: translate(-$space/4, -$space/4) scale(1.05);
+					// h4{
+						// width: 100%;
+					// }
+				// }
+
 			}
 
-			
-			.title-plate, .nav-plate, .mini-nav-btn{
-				@media screen and (max-width: $fg-sm - 1) {
-					@include animation-name(slideInDown);
-				}
-			}
-		}
-	}
-	.category-cover{
-		.item-list{
-			.item{
-				@include slideInRight($delay:$delay, $duration:$duration);
-				@for $i from 1 through 10 {
-					&:nth-child(1n+#{$i}){
-						@include delay($delay/2 * $i);
-					}
-				}
-			}
-		}
-		.mini-nav-btn{
-			@include slideInRight($delay:$delay, $duration:$duration);
-			@media screen and (max-width: $fg-sm - 1) {
-				@include animation-name(slideInDown);
-			}
-		}
-	}
-	.background{
-		&, &.animate-in{
-			@include fadeIn($duration:$duration, $delay:$delay);
-		}
-		&.animate-out{
-			@include fadeOut($duration:$duration, $delay:$delay);
-		}
-	}
-	.back-cover{
-		.keep-in-touch{
-			&.animate-sent{
-				@include lightSpeedOut($duration:$duration);
-				&.animate-error{
-					@include bounceInRight($duration:$duration);		
-				}
-			}
-			&.animate-error{
-				@include shake($duration:$duration*2, $delay:$duration);
+			h4{
+				// text-shadow: $space/8 $space/8 $space*2 $black-copy;
+				background-color: rgba($black-copy, .5);
+				// transform-origin: ;
 			}
 		}
 	}

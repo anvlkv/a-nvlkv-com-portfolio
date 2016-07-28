@@ -1,35 +1,48 @@
 <template name="landingPage">
 {{#if readiness}}
 
-    <div class="page landing-page" style="background-color:{{currentSlide.backgroundColor}};">
+    <div class="page landing-page">
 
-        {{>topLevelMenu color=globalPallet.utility}}
+        {{>topLevelMenu}}
         
-        {{#with currentSlide}}
-        <div class="slide {{layout}}" style="color:{{textColor}};">
+        <div id="fullpage">
+            {{#each slide in slides}}
+            <div class="fp-section">
+                <div class="slide {{slide.layout}}" style="color:{{slide.textColor}};">
 
-            <!-- graphic content -->
-            {{#graphicsContainer patchColor=backgroundColor}}
-                {{>Template.dynamic template=currentSlide.graphics}}
-            {{/graphicsContainer}}
+                    <!-- graphic content -->
+                    {{#if currentSlide slide}}
 
-            <!-- text content -->
-            <div class="slide-text">
-                <h3>{{title}}</h3>
-                <p>{{text}}</p>
-            </div>
+                        {{#graphicsContainer graphics=slide.graphics patchColor=slide.backgroundColor }}
+                            {{>Template.dynamic template=graphics}}
+                        {{/graphicsContainer}}
+                    {{else}}
+                        {{>graphicsContainer}}
+                    {{/if}}
 
-            <!-- button content -->
-            {{#if button}}
-                <div class="slide-btn">
-                    <a class="slide-link-btn cta-color js_slide_link" type="button" href="{{#if button.link}}{{button.link}}{{else}}#{{/if}}" title="{{button.text}}">
-                        <span>{{button.text}}</span>
-                    </a>
+
+                    <!-- text content -->
+                    <div class="slide-text">
+                        <h3>{{slide.title}}</h3>
+                        <p>{{slide.text}}</p>
+
+                        <!-- button content -->
+                        {{#if slide.button}}
+                            <div class="slide-btn">
+                                <a class="slide-link-btn cta-color js_slide_link" type="button" href="{{#if slide.button.link}}{{slide.button.link}}{{else}}#{{/if}}" title="{{slide.button.text}}">
+                                    <span>{{slide.button.text}}</span>
+                                </a>
+                            </div>
+                        {{/if}}
+                    </div>
                 </div>
-            {{/if}}
-
+            </div>
+            {{/each}}
         </div>
-        {{/with}}
+
+<!--         {{#with currentSlide}}
+        
+        {{/with}} -->
 
         <div class="slide-pagination">
             <ul class="item-list pgn-list">

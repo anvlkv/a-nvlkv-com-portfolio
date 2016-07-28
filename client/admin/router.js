@@ -40,12 +40,12 @@ adminSection.route('/', {
     }
 });
 
-// adminSection.route('/abtests',{
-//     name:'abtests',
-//     action: function(){
-//         // BlazeLayout.render("adminLayout", {content: "abtests", navigation:"navPanelAdmin"});
-//     }
-// });
+adminSection.route('/abtests',{
+    name:'abtests',
+    action: function(){
+        BlazeLayout.render("adminLayout", {content: "abtests", navigation:"navPanelAdmin"});
+    }
+});
 
 // gaSection = adminSection.group({
 //     name:'ga',

@@ -16,6 +16,8 @@
 @import "animate-scss/lightspeed/lightspeed";
 @import "animate-scss/bouncing-entrances/bouncing-entrances";
 @import "animate-scss/attention-seekers/attention-seekers";
+@import "animate-scss/zooming-entrances/zooming-entrances";
+@import "animate-scss/zooming-exits/zooming-exits";
 
 // mijn
 @import "mixins";
@@ -24,12 +26,12 @@
 @import "form";
 @import "partials";
 @import "menu";
-@import "email";
 @import "hints";
 @import "consent";
 @import "error";
 @import "landing";
 @import "notifications";
+@import "animations";
 
 // fixes
 @import "ie";

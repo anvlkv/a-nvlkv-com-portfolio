@@ -22,7 +22,7 @@ Template.registerHelper('log',(item)=>{
 
 Template.registerHelper('session',(varName, val)=>{
 	if (!val) {
-		console.log(Session.get(varName));
+		// console.log(Session.get(varName));
 		return Session.get(varName);
 	} else {
 		return Session.get(varName) === val;
