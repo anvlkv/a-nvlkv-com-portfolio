@@ -263,14 +263,14 @@ a{
 
 
 .loading{
-	&.animate-in, &{
+	&.animate-in{
 
 		@include fadeIn($duration);
 
 	}
 	&.animate-out{
 
-		@include slideOutUp($duration);
+		@include fadeOutDown($duration);
 
 	}
 }

@@ -47,7 +47,7 @@ Template.categoryCoverMenu.animations({
 		},
 		animateInitial: true,
 		animateInitialStep: 200,
-		animateInitialDelay: 450,
+		animateInitialDelay: 550,
 	}
 });
 
