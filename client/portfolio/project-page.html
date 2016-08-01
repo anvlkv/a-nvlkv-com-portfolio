@@ -37,7 +37,11 @@
 			<div class="date">
 				<h4>
 				{{>SVGicon name='timeStamp'}}
-				{{#if dateMY startDate dateMY endDate}}
+				<!-- {{dateMY startDate}} -->
+				<!-- {{dateMY endDate}} -->
+
+
+				{{#if sameDateMY startDate endDate}}
 				<span>{{dateMY endDate}}</span>
 				{{else}}
 				<span>{{dateMY startDate}} - {{dateMY endDate}}</span>

@@ -168,6 +168,10 @@ Template.registerHelper('dateMY', function(date){
 	return moment(date).format('MMM YYYY');
 });
 
+Template.registerHelper('sameDateMY', function(date1, date2){
+	return moment(date1).format('MMM YYYY') === moment(date2).format('MMM YYYY');
+});
+
 Template.registerHelper('dateY', function(date){
 	return moment(date).format('YYYY');
 });
