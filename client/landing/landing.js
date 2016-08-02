@@ -14,7 +14,7 @@ const slides = [
 		text:'with\n acknowledging\n a problem',
 		// layout: 'text-first',
 		button: {
-			text:'What\'s next?',
+			text:'How to solve?',
 		},
 
 	},{
@@ -24,7 +24,7 @@ const slides = [
 		layout:'wide-image',
 		delay: 1500,
 		button: {
-			text:'When to stop?',
+			text:'When it\'s done?',
 		},
 	},{
 		graphics: 'graphics_iterativeImprovement',
