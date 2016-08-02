@@ -14,7 +14,7 @@ const slides = [
 		text:'with\n acknowledging\n a problem',
 		// layout: 'text-first',
 		button: {
-			text:'How to solve?',
+			text:'How to solve one?',
 		},
 
 	},{
