@@ -36,8 +36,9 @@
   @extend .fg-row;
 
   .item-list{
-    // @extend .fg-col-xs-12;
     @extend .fg-row;
+    // @extend .fg-col-xs-12;    
+    // @extend .fg-off-lg-1;
     flex-grow:1;
     @media screen and (max-width: $fg-sm - 1 ) {
       justify-content: center;
@@ -143,6 +144,14 @@
       @media screen and (max-width: $fg-sm - 1) {
         padding: $space/2;
       }
+
+      &:first-child{
+        @media screen and (min-width: $fg-lg) {
+          margin-left: 4.166665%;
+          padding-left: $space/2;      
+        }
+      }
+      
     }
   }
   .close-button{

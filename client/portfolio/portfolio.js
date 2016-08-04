@@ -200,7 +200,7 @@ portfolioHotKeys.add({
 		GAnalytics.event('portfolio','key-press', 'right');
 		hideHint();
 		if (!Session.get('active-overlay') || Session.get('active-overlay')==='hint'){
-	        navigateByTo('order','next');
+	        navigateByTo('time','next');
 	        addToExperiencePath('keysHorizontal');
 	    }
     }
@@ -211,7 +211,7 @@ portfolioHotKeys.add({
 		GAnalytics.event('portfolio','key-press', 'left');
 		hideHint();
 		if (!Session.get('active-overlay') || Session.get('active-overlay')==='hint'){
-	        navigateByTo('order','prev');
+	        navigateByTo('time','prev');
 	        addToExperiencePath('keysHorizontal');
 	    } 
     }
@@ -222,7 +222,7 @@ portfolioHotKeys.add({
 		GAnalytics.event('portfolio','key-press', 'down');
 		hideHint();
 		if (!Session.get('active-overlay') || Session.get('active-overlay')==='hint'){
-	        navigateByTo('time','next');
+	        navigateByTo('order','next');
 	        addToExperiencePath('keysVertical');
 	    } 
     }
@@ -233,7 +233,7 @@ portfolioHotKeys.add({
 		GAnalytics.event('portfolio','key-press', 'up');
 		hideHint();
 		if (!Session.get('active-overlay') || Session.get('active-overlay')==='hint'){
-	        navigateByTo('time','prev');
+	        navigateByTo('order','prev');
 	        addToExperiencePath('keysVertical');
 	    } 
     }
@@ -365,7 +365,7 @@ Template.portfolio.onRendered(function(){
 				GAnalytics.event('portfolio', 'swipe', direction);
 				hideHint();
 				if (!Session.get('active-overlay') || Session.get('active-overlay')==='hint') {
-					navigateByTo('order','next');
+					navigateByTo('time','next');
 					addToExperiencePath('swipeHorizontal');
 				}
 			},
@@ -373,7 +373,7 @@ Template.portfolio.onRendered(function(){
 				GAnalytics.event('portfolio', 'swipe', direction);
 				hideHint();
 				if (!Session.get('active-overlay') || Session.get('active-overlay')==='hint') {
-					navigateByTo('order','prev');
+					navigateByTo('time','prev');
 					addToExperiencePath('swipeHorizontal');
 				}
 			},

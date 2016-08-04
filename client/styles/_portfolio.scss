@@ -1,3 +1,5 @@
+$fold-height:70vh;
+
 // configure layout
 .page{
 
@@ -29,7 +31,12 @@
 	.background-container{
 		position: absolute;
 		width: 100vw;
-		min-height: 100vh;
+		// @media screen and (min-width: $fg-sm) {
+			// height: $fold-height;		
+		// }
+		// @media screen and (max-width: $fg-sm - 1) {
+			min-height: 100vh;
+		// }
 		height: 100%;
 		overflow: hidden;
 		z-index: -1;
@@ -116,10 +123,13 @@
 
 	.portfolio-cover{
 		@extend .fg-row;
-		min-height: 100vh;
+		@media screen and (min-width: $fg-sm) {
+			height: 100vh;
+		}
 		position: relative;
 		@media screen and (max-width: $fg-sm - 1) {
 			flex-direction:column;
+			min-height: 100vh;			
 		}
 
 		.relative-nav{
@@ -146,6 +156,21 @@
 				@extend .fg-off-lg-1;
 				flex-basis: auto;
 				width: 100%;
+
+				h3{
+					@media screen and (max-width: $fg-sm - 1) {
+						text-align: center;
+					}
+				}
+
+			}
+		}
+
+		.nav-hint{
+			p{
+				@media screen and (max-width: $fg-sm - 1) {
+					text-align: center;
+				}
 			}
 		}
 
@@ -161,12 +186,12 @@
 				flex-grow:2;
 			}
 			.cover-title{
-
+				@extend .fg-off-lg-1;
 			}
 			.issue-plate{
 
 				@media screen and (min-width: $fg-sm) {
-					min-height: 50vh;				
+					min-height: 50vh;
 				}
 				@media screen and (max-width: $fg-sm - 1) {
 					flex-grow:1;
@@ -180,8 +205,10 @@
 				.date-container, .nav-hint{
 
 					@extend .fg-col-xs-10;
-					@extend .fg-off-xs-1;
+					@extend .fg-off-lg-1;
+					// @extend .fg-off-xs-1;
 					width: 100%;
+
 				}
 
 				.date-container{
@@ -206,6 +233,12 @@
 					// margin-right: auto;
 					align-self:flex-start;
 
+					h3{
+						@media screen and (min-width: $fg-sm) {
+							// text-align: right;
+						}
+					}
+
 				}
 			}
 		}
@@ -213,7 +246,7 @@
 		.nav-container{
 			@extend .fg-col-xs;
 			@media screen and (min-width: $fg-sm) {
-				justify-content: space-between;
+				justify-content: flex-end;
 			}
 
 			.navigation-plate{
@@ -227,7 +260,6 @@
 				flex-direction:column;
 				justify-content:center;
 				flex-wrap: nowrap;
-
 				.nav-hint{
 					@extend .fg-col-xs-10;
 					@extend .fg-off-xs-1;
@@ -557,6 +589,29 @@
 			}
 		}
 	}
+
+
+	// .portfolio-feed{
+	// 	.background-container{
+	// 		min-height: $fold-height;
+	// 		height: $fold-height;
+	// 	}
+
+	// 	.portfolio-cover, .category-cover{
+	// 		height: $fold-height;
+	// 	}
+
+	// 	.portfolio-cover{
+	// 		.issue-plate, .navigation-plate{
+	// 			min-height: $fold-height/2;
+	// 			max-height: $fold-height/2;
+	// 		}
+	// 	}
+
+	// 	.section-container{
+
+	// 	}
+	// }
 }
 
 
@@ -688,6 +743,22 @@
 
 	}
 
+	.date-container{
+		@media screen and (max-width: $fg-lg - 1) {
+			margin-left: $space;
+			.icon-use{
+				margin-left: -$space/2;	
+			}
+		}
+
+		@media screen and (min-width: $fg-lg) {
+			.icon-use{
+				margin-left: $space/2;
+			}
+		}
+		
+	}
+
 	.nav-container{
 
 		@media only screen and (min-width: $fg-sm){
@@ -703,10 +774,9 @@
 			padding-top: $space;
 			padding-bottom: $space;
 
-			@media only screen and (min-width: $fg-sm){
-				text-indent: $space;
-			}
 		}
+
+
 		// }
 	}
 	.mini-nav-btn, .category-level-navigation .item-list .item a{
@@ -790,29 +860,50 @@
 			.nav-hint{
 
 				margin-left: $space;
+				p{
+					@media screen and (min-width: $fg-sm) and (max-width: $fg-lg - 1) {
+						margin-left: -$space/2;
+					}
+
+					@media screen and (min-width: $fg-lg) {
+						margin-left: $space/2;
+					}
+				}
 
 			}
 
 			.relative-nav{
 				padding-left: 0;
-			}
+				.nav-plate{
+					// margin-left: -$space;
+					margin-bottom: $space;
+					padding-left: $space;
+					padding-right: $space;
 
-			.nav-plate{
-				margin-left: -$space;
-				margin-bottom: $space;
-			}
-
-			.date-container{
-				// margin: $space;
-				// padding-bottom: $space*2;
-				// margin-bottom: $space/2;
-				// margin-top: 0;
+					h3{
+						@media screen and (min-width: $fg-sm) {
+							margin-left: $space/4;
+						}
+					}
+				}
 			}
 		}
 		.navigation-plate{
+			.nav-hint{
+				p{
+					@media screen and (min-width: $fg-sm) {
+						margin-left: $space/2;
+					}
+				}
+			}
 			.relative-nav{
 				@media screen and (max-width: $fg-sm - 1) {
 					margin-top: $space;
+				}
+
+				.nav-plate{
+					padding-left: $space;
+					padding-right: $space;
 				}
 			}
 		}
@@ -858,6 +949,24 @@
 			padding-bottom: $space/3;
 			padding-right: $space;
 
+		}
+
+		.nav-container{
+			.title-container{
+				.title-plate{
+					@media screen and (min-width: $fg-sm) {
+						padding-left: $space;
+					}
+				}
+			}
+			
+			.relative-nav{
+				.nav-plate{
+					@media screen and (min-width: $fg-sm) {
+						padding-left: $space;
+					}
+				}
+			}
 		}
 	}
 
