@@ -74,7 +74,7 @@ Template.dropdown.onRendered(function(){
 			if (!this.$('.dropdown_content').hasClass('collapsed')) {
 				this.collapsDropdown();
 			}
-			// return false;
+			
 		});
 	});
 
@@ -97,11 +97,9 @@ Template.dropdown.events({
 		}
 	},
 	'mouseleave .dropdown': function(e,t){
-		Meteor.setTimeout(function(){
-			if (Template.instance()) {
-				Template.instance().collapsDropdown();
-			}
-		}, 300);
+
+		Template.instance().collapsDropdown();
+
 	},
 	'click .dropdown_trigger': function(e,t){
 
@@ -118,7 +116,7 @@ Template.dropdown.events({
 			if ($(e.target).attr('href')) {
 				FlowRouter.go($(e.target).attr('href'));
 			}
-			console.log(e);
+			// console.log(e);
 			return e;
 		}
 		return false;

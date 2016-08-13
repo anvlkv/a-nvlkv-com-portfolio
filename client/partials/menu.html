@@ -184,13 +184,13 @@
 		{{#each year in years}}
 			{{#if isCurrentYear year.year}}
 				{{#dropdownTrigerItem}}
-					<a class="menu-item-link" href="/portfolio/year/{{year.year}}" title="{{year.year}}">
+					<a class="menu-item-link" href="/portfolio/year/{{year.year}}" style="background-color:{{year.color}};" title="{{year.year}}">
 						<h5><span class="tab-name">{{year.year}}</span></h5>
 					</a>
 				{{/dropdownTrigerItem}}
 			{{else}}
 				{{#dropdownItem}}
-					<a class="menu-item-link" href="/portfolio/year/{{year.year}}" title="{{year.year}}">
+					<a class="menu-item-link" href="/portfolio/year/{{year.year}}" style="background-color:{{year.color}};" title="{{year.year}}">
 						<h5><span class="tab-name">{{year.year}}</span></h5>
 					</a>
 				{{/dropdownItem}}
@@ -204,13 +204,13 @@
 		{{#each category in categories}}
 			{{#if isCurrentCategory category.slug}}
 				{{#dropdownTrigerItem}}
-					<a class="menu-item-link" href="/portfolio/{{category.slug}}" title="{{category.title}}">
+					<a class="menu-item-link" href="/portfolio/{{category.slug}}" style="background-color:{{category.color}};" title="{{category.title}}">
 						<h5><span class="tab-name">{{category.title}}</span></h5>
 					</a>
 				{{/dropdownTrigerItem}}
 			{{else}}
 				{{#dropdownItem}}
-					<a class="menu-item-link" href="/portfolio/{{category.slug}}" title="{{category.title}}">
+					<a class="menu-item-link" href="/portfolio/{{category.slug}}" style="background-color:{{category.color}};" title="{{category.title}}">
 						<h5><span class="tab-name">{{category.title}}</span></h5>
 					</a>
 				{{/dropdownItem}}

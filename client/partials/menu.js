@@ -196,13 +196,15 @@ Template.topLevelMenu.events({
 
 
 Template.navigationWrap.onRendered(function(){
-	this.$('.dropdown').on('dropdownclosed', (event)=> {
-		this.$('.navigation-wrap').removeClass('menu-open');
-		console.log(event);
-	});
-	
-	this.$('.dropdown').on('dropdownopen', (event)=> {
-		this.$('.navigation-wrap').addClass('menu-open');
-		console.log(event);
-	});
+	if (Meteor.Device.isPhone() || Meteor.Device.isTablet()) {
+		this.$('.dropdown').on('dropdownclosed', (event)=> {
+			this.$('.navigation-wrap').removeClass('menu-open');
+			// console.log(event);
+		});
+		
+		this.$('.dropdown').on('dropdownopen', (event)=> {
+			this.$('.navigation-wrap').addClass('menu-open');
+			// console.log(event);
+		});
+	}
 });

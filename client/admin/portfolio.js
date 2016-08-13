@@ -42,7 +42,7 @@ Template.registerHelper('genUrlFromTitle', function(){
 	if (title) {
 		title = title.replace(/[\ .,;+=()*&<>%:']/g,'-');
 
-		console.log(title);
+		// console.log(title);
 		return title.toLowerCase();
 	}
 });
@@ -78,7 +78,7 @@ Template.portfolioDashboard.helpers({
 			projects = Projects.find();
 		} else {
 			projects = Projects.find({primaryCategory:category._id});
-			console.log(projects.count() + ' projects within ' + category.title);
+			// console.log(projects.count() + ' projects within ' + category.title);
 		}
 		return projects;
 	},
@@ -96,7 +96,7 @@ Template.portfolioDashboard.helpers({
 			attachements = Attachements.find();
 		} else {
 			attachements = Attachements.find({primaryCategory:category._id});
-			console.log(attachements.count() + ' attachements within ' + category.title);
+			// console.log(attachements.count() + ' attachements within ' + category.title);
 		}
 		return attachements;
 	},
