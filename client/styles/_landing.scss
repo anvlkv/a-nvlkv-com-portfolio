@@ -5,17 +5,6 @@
 	justify-content:flex-start;
 	padding: 0;
 	// overflow-y:scroll;
-
-	.top-level-navigation{
-		flex-grow:0;
-		flex-shrink:0;
-		z-index: 10;
-		position: fixed;
-		width: 100vw;
-		margin: 0 auto;
-		// right: 0;
-		// left: 0;
-	}
 	.slide-pagination{
 		position: fixed;
 		bottom: 0;
@@ -62,12 +51,13 @@
 		flex-grow:1;
 		align-items: center;
 		justify-content: center;
+		max-height: 100%;
 		@media screen and (max-width: $fg-md - 1) {
 			flex-basis: 100%;
 		}
 		@media screen and (min-width: $fg-md) {
 			flex-wrap: wrap;
-			max-height: calc(100vh - #{$space*10});
+			// max-height: calc(100vh - #{$space*10});
 		}
 		// overflow: hidden;
 
@@ -87,15 +77,19 @@
 			justify-content: center;
 			flex-grow:2;
 			min-width: 50%;
+			// max-height: 100%;
+			flex-shrink:0;
+
 			@media screen and (min-width: $fg-md) {
 				max-height: calc(100vh - #{$space*10});
-				// flex-basis: 100vh;
-				flex-shrink:0;
+			}
+			@media screen and (max-width: $fg-md - 1) {
+				max-height: calc(100vh - #{$space*10});
 			}
 			@media screen and (max-width: $fg-sm - 1) {
 				max-height: calc(60vh - #{$space*10});
 				min-width: 100%;
-				
+				flex-shrink: initial;
 			}
 
 

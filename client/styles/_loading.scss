@@ -1,0 +1,46 @@
+.preloading{
+	background-color: black;
+}
+
+.loading{
+
+	$cube-side: 10vh;
+	$cube-gutter: $cube-side/10;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	display: block;
+	position: relative;
+
+	.loader-container{
+
+		$size: $cube-side*3 + $cube-gutter*6;
+		width: $size;
+		height: $size;
+		// position: absolute;
+		margin: 0 auto;
+		margin-top: 30%;
+		// @media screen and (min-height: $size*6) {
+		margin-top: 50vh - $size/2;
+		// }
+		@include animation-name (loading);
+		@include count(infinite);
+		@include duration(1.1s);
+		@include function(linear);
+
+		.cube{
+
+			background-color: gray;
+			width: $cube-side;
+			height: $cube-side;
+			margin: $cube-gutter;
+			float: left;
+			@include animation-name (loading);
+			@include count(infinite);
+			@include duration(1s);
+			@include function(linear);
+			@include animation-direction(reverse);
+
+		}
+	}
+}

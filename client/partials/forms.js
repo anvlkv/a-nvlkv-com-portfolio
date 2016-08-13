@@ -38,39 +38,31 @@ let form_errors = new ReactiveDict();
 
 Template.emailOverlay.onRendered(function(){
 	Session.set('email-sent', false);
-});
-
-emailHotKeys = new Hotkeys({
-	autoLoad:false
-});
-
-emailHotKeys.add({
-	combo:'esc',
-	callback : function(){
-		GAnalytics.event('email', 'key-press', 'esc');
-		email_pre_form.clear();
-		Session.set('active-overlay', false);
-		FlowRouter.setQueryParams({email: null});
-    }
-});
-
-emailHotKeys.add({
-	combo:'ctrl+enter',
-	callback : function(){
-		GAnalytics.event('email', 'key-press', 'ctrl+enter');
-		$('#emailForm').submit();
-    }
+	this.autorun(()=>{
+		Session.set('email-sent', false);
+		this.emailHotKeys.load();
+		GAnalytics.event('email','open');
+		if(this.$('input, textarea').length > 0){
+			this.$('input, textarea')[0].focus();
+		}
+	});
 });
 
 Template.emailOverlay.onCreated(function(){
+	this.emailHotKeys = new Hotkeys({
+		autoLoad:false
+	});
 
-	this.autorun(()=>{
-		emailHotKeys.load();
-		GAnalytics.event('email','open');
+	this.emailHotKeys.add({
+		combo:'ctrl+enter',
+		callback : function(){
+			GAnalytics.event('email', 'key-press', 'ctrl+enter');
+			$('#emailForm').submit();
+	    }
 	});
 });
 Template.emailOverlay.onDestroyed(function(){
-	emailHotKeys.unload();
+	this.emailHotKeys.unload();
 });
 
 Template.emailOverlay.helpers({
@@ -95,10 +87,10 @@ Template.composeEmail.helpers({
 	subject: function () {
 		if (email_pre_form.get('subject')) {
 			return email_pre_form.get('subject');
-		} else if (Session.get('current-project')) {
-			return Projects.findOne({_id:Session.get('current-project')}).title;
-		} else if (Session.get('current-category')){
-			return Categories.findOne({_id:Session.get('current-category')}).title;
+		} else if (currentState.get('project-id')) {
+			return Projects.findOne({_id:currentState.get('project-id')}).title;
+		} else if (currentState.get('category-id')){
+			return Categories.findOne({_id:currentState.get('category-id')}).title;
 		} else {
 			return 'Contact from a.nvlkv.com';
 		}
@@ -149,22 +141,9 @@ Template.composeEmail.events({
     	}
 		return false;
 	},
-	'click .js_close_dialog': function () {
-		GAnalytics.event('email', 'close');
-		Session.set('active-overlay', false);
-		FlowRouter.setQueryParams({email: null});
-	},
 	'blur input, blur textarea, change input, change textarea': function(e,t){
 		email_pre_form.set($(e.target).attr('name'), $(e.target).val());
 	}
-});
-
-Template.successDialog.events({
-	'click .js_close_dialog': function () {
-		GAnalytics.event('email', 'close', 'success');
-		Session.set('active-overlay', false);
-		FlowRouter.setQueryParams({email: null});
-	},
 });
 
 
@@ -207,9 +186,11 @@ Template.backCover.events({
 // forms basic
 
 Template.formField.onRendered(function(){
-	if (this.data.value) {
-		this.$('label').addClass('in-use');
-	}
+	this.autorun(()=>{
+		if (this.data.value) {
+			this.$('label').addClass('in-use');
+		}
+	})
 });
 
 Template.formField.helpers({
@@ -234,6 +215,8 @@ Template.formField.events({
 		// email_pre_form.set($(e.target).attr('name'), $(e.target).val());
 		if (!$(e.target).val()) {
 			$(e.target).closest('label').removeClass('in-use');
+		}else{
+			$(e.target).closest('label').addClass('in-use');
 		}
 	},
 	'blur input, blur textarea, keyup .invalid-field': function (e,t) {

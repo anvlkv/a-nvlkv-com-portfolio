@@ -1,41 +1,20 @@
-visual_code ='';
-visual_code = ABTest.start("Visual Code", ['color', 'bw']);
+// from https://www.sitepoint.com/javascript-generate-lighter-darker-color/
+colorLuminance = function (hex, lum) {
 
-dynamicColor=(self)=>{
-	self.$('.dynamic_color').each(function(index, el) {
-		if (visual_code === 'bw') {
-			$(el).css('background', '#f7f7f7');
-			return;
-		}
+	// validate hex string
+	hex = String(hex).replace(/[^0-9a-f]/gi, '');
+	if (hex.length < 6) {
+		hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+	}
+	lum = lum || 0;
 
-		const current_category = Session.get('current-category');
+	// convert to decimal and change luminosity
+	var rgb = "#", c, i;
+	for (i = 0; i < 3; i++) {
+		c = parseInt(hex.substr(i*2,2), 16);
+		c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+		rgb += ("00"+c).substr(c.length);
+	}
 
-		if ($(el).data('color')) {
-			$(el).css('background', $(el).data('color'));
-		} else if(current_category) {
-			let category = Categories.findOne(current_category);
-			if (category) {
-				$(el).css('background', category.color);
-			}
-		} else {
-			$(el).css('background', '');
-		}
-		
-	});
+	return rgb;
 };
-
-// Template.registerHelper('globalPallet',()=>{
-// 	return {
-// 		utility: '#9067f7',
-// 		cta: '#67a8f7',
-// 		history: '#d555ac',
-// 		interactive:'#c4e059',
-// 	};
-// });
-
-Template.onRendered(function(){
-	dynamicColor(this);
-	Tracker.autorun(function () {
-		dynamicColor(this);
-	});
-});

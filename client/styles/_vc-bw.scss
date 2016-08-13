@@ -2,7 +2,7 @@
 	.black-border{
 		border: $space/8 solid $black-copy;
 	}
-	.page{
+	.main-layout{
 		.cta-background{
 
 			@extend .black-border;
@@ -18,11 +18,15 @@
 			// @warn lightness($cta);
 			// @warn saturation($cta);
 
-			&:hover, &:active{
+			&:hover, &:active, &:focus{
 
 				color: $cta;
 
 			}
+		}
+
+		.dropdown .dropdown-item::after{
+			color: $utility;
 		}
 
 		.utility-background{

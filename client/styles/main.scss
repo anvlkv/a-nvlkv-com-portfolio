@@ -19,12 +19,19 @@
 @import "animate-scss/zooming-entrances/zooming-entrances";
 @import "animate-scss/zooming-exits/zooming-exits";
 
-// mijn
+
+@import "main-layout";
 @import "mixins";
-@import "admin";
-@import "portfolio";
-@import "form";
 @import "partials";
+@import "dropdown";
+@import "loading";
+@import "cover-slide";
+@import "category-slide";
+@import "year-slide";
+@import "project-slide";
+@import "back-cover";
+@import "form";
+@import "gallery";
 @import "menu";
 @import "hints";
 @import "consent";
@@ -32,9 +39,13 @@
 @import "landing";
 @import "notifications";
 @import "animations";
+@import "admin";
+
 
 // fixes
 @import "ie";
+@import "fp-js";
 
-// experiment
-@import "vc-bw";
+// color versions
+@import "vc-color";
+// @import "vc-bw";

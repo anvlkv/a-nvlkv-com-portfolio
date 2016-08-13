@@ -1,0 +1,9 @@
+.year-slide{
+	@extend .category-cover;
+
+	.year-title{
+		@extend .category-title;
+
+		font-size: 300%;
+	}
+}

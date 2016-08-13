@@ -1,0 +1,47 @@
+<template name="searchOverlay">
+{{#if readiness}}
+	<div class="search-overlay">
+		<div class="wrap">
+			<div class="close-btn">
+				<a href="#" class="close-button js_close_overlay" title="Close">
+					{{> SVGicon name="cross"}}
+				</a>
+			</div>
+			<div class="search-dialog dialog">
+				<div class="dialog-form">
+					<form id="search_form" accept-charset="utf-8">
+						{{>formField label_text="Search projects" value=query name="search" placeholder="Try 'sass', 'bloobls' or '2015' " type="text" isRequired=true}}
+					</form>
+				</div>
+
+			</div>
+			<div class="search-results">
+			{{#if loading}}
+				{{>loadingState}}
+			{{else}}
+				{{#if projects}}
+				<div class="gallery">
+					{{#galleryGrid}}
+						{{#each item in projects}}
+						<div class="item">
+							<a href="{{url item}}" title="{{item.title}}">
+								<h4>{{item.title}}</h4>
+								<img src="/cfs/files/images/{{responsiveImage item.image 'xs'}}" class="img-responsive" alt="">
+							</a>
+						</div>
+						{{/each}}
+					{{/galleryGrid}}
+				</div>
+				{{else}}
+				<div class="empty-state">
+					НИЧЕГО НЕ НАЙДЕНО
+				</div>
+				{{/if}}
+			{{/if}}
+			</div>
+		</div>
+	</div>
+{{else}}
+{{> loadingState}}
+{{/if}}
+</template>

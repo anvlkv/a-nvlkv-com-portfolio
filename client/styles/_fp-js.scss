@@ -1,0 +1,11 @@
+.fp-slidesContainer, .fp-slides{
+	max-height: 100%;
+	overflow: hidden;
+}
+
+.fp-slidesContainer{
+	.fp-slide{
+		// display: inline-block;
+		float: left;
+	}
+}

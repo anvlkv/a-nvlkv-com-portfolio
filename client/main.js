@@ -1,11 +1,8 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Session } from 'meteor/session';
-// import { jQery } from 'meteor/jquery';
+import { jQery } from 'meteor/jquery';
 import 'jquery-selectorator';
-
-// import { EJSON } from 'meteor/ejson';
-
 
 import './main.html';
 
@@ -27,6 +24,10 @@ Template.registerHelper('session',(varName, val)=>{
 	} else {
 		return Session.get(varName) === val;
 	}
+});
+
+Template.registerHelper('pagetitle',function(){
+	return Session.get('current-page-title');
 });
 
 Template.registerHelper('readiness',()=>{
@@ -84,12 +85,12 @@ Template.mainLayout.onRendered(function(){
 });
 
 Template.mainLayout.events({
-	'click .item': function (e) {
-		let intended_target = $(e.target).children('a');
-		if (intended_target.length === 1) {
-			intended_target[0].click();
-		}
-	},
+	// 'click .item': function (e) {
+	// 	let intended_target = $(e.target).children('a');
+	// 	if (intended_target.length === 1) {
+	// 		intended_target[0].click();
+	// 	}
+	// },
 	'click': function(e){
 		GAnalytics.event(FlowRouter.current().route.name, 'click', $(e.target).getSelector().toString());
 		return e;

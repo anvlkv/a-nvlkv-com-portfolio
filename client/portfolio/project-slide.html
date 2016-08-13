@@ -1,0 +1,112 @@
+<template name="projectSlide">
+
+	{{#if project}}
+	{{#page}}
+		<div class="animate_page project-slide {{#if isProjectPageView}}project-page{{else}}project-cover{{/if}}" style="{{#if screensize 'xs'}}background-color:{{color}}{{/if}}">
+			<div class="content">
+				<!-- dates container -->
+				<!-- only on larger screens -->
+				{{#if screensize 'sm, md, lg'}}
+					{{#unless currentPage}}
+						{{>date date1=project.startDate date2=project.endDate}}
+					{{/unless}}
+				{{/if}}
+
+				<!-- content container -->
+				<div class="content-plate dynamic_color {{#if currentPage}}full-height{{/if}}" style="background-color:{{color}}">
+					<!-- show only on phones -->
+					{{#if screensize 'xs'}}
+						<div class="image-container">
+								<img src="/cfs/files/images/{{responsiveImage currentPage.image}}" class="img-responsive" alt="{{title}}">
+								{{#unless currentPage}}
+									{{>date date1=project.startDate date2=project.endDate}}
+								{{/unless}}
+						</div>
+					{{/if}}
+
+					<div class="text">
+						{{#if currentPage}}
+							{{currentPage.text}}
+						{{else}}
+							{{{project.description}}}
+						{{/if}}
+					</div>
+
+					{{>projectPagination pages=project.pages}}
+				</div>
+			</div>
+
+			<div class="nav-container">
+				<nav class="relative-nav">
+					<a tabindex="2" type="button" href="#" class="js_prev_by_{{iconDirection.prev.name}} nav-plate dynamic_color" title="Previous" style="background-color:{{color}}">
+						{{>SVGicon name="arrowBase" transform=iconDirection.prev.transform}}
+					</a>
+					<a tabindex="3" type="button" href="#" class="js_next_by_{{iconDirection.next.name}} nav-plate dynamic_color" title="Next" style="background-color:{{color}}">
+						{{>SVGicon name="arrowBase" transform=iconDirection.next.transform}}
+					</a>
+				</nav>
+
+				<div class="title-container">
+					<div class="title-plate dynamic_color" style="background-color:{{color}}">
+						<h3>{{project.title}}</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- only show on larger screens -->
+		{{#if screensize 'sm, md, lg'}}
+		<div class="background-container">
+			{{#if readiness}}
+				{{#if currentPage}}
+					{{>background currentPage.image}}
+				{{else}}
+					{{>background project.image}}
+				{{/if}}
+			{{else}}
+				{{>loadingState}}
+			{{/if}}
+		</div>
+		{{/if}}
+
+
+	{{/page}}
+
+	{{else}}
+		{{> errPage}}
+	{{/if}}
+
+</template>
+
+
+<template name="projectPagination">
+	<div class="more">
+
+		<ul class="item-list pgn-list">
+			{{#if pages}}
+				<li class="pgn-item {{#if isCurrentProjectPage}} active {{/if}}">
+					<a href="{{projectCoverUrl}}" title="Cover">
+						<h6>0</h6>
+					</a>
+				</li>
+				{{#each page in pages}}
+				<li class="pgn-item {{#if isCurrentProjectPage page.slug}} active {{/if}}">
+					<a href="{{projectPageUrl page.slug}}" title="Page {{page.order}}">
+						<h6>{{page.order}}</h6>
+					</a>
+				</li>
+				{{/each}}
+			{{/if}}
+		</ul>
+
+
+		{{#if pages}}
+			<a tabindex="1" class="learn-more-btn {{#unless button.text}}placeholder-element{{/unless}}" type="button" href="{{button.link}}" title="{{button.text}}">{{button.text}}</a>
+		{{/if}}
+	</div>
+</template>
+
+
+<template name="keepWidth">
+	{{>Template.contentBlock}}
+</template>

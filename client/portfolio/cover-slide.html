@@ -1,17 +1,44 @@
-<template name="coverPage">
+<template name="coverSlide">
 {{#if readiness}}
 	{{#if cover}}
-	<div class="background-container">
-		{{>Template.dynamic data=cover.image template=imagery}}	
-	</div>
-	<div class="portfolio-cover">
-		<div class="content" >
-			{{>Template.dynamic template=textContent}}
-		</div>
-		<div class="nav-container">
-			{{>Template.dynamic template=navContent}}
-		</div>
-	</div>
+		{{#page}}
+			<div class="animate_page cover-slide">
+				<div class="cover-title">
+					<h1>Portfolio</h1>
+					<hr>
+					<h2>a.nvlkv</h2>
+				</div>
+
+				<div class="background-container">
+					{{>background cover.image}}
+				</div>
+
+				<div class="cover-entrances">
+
+					{{#each entrance in entrances}}
+						<div class="entrance navigation-direction-{{entrance.direction.name}}">
+							<a href="{{entrance.link}}" class="entrance-link entrance_link" data-direction="{{entrance.direction.name}}" title="{{entrance.title}}">
+								<div class="entrance-direction">
+									{{>SVGicon name="arrowBase" transform=entrance.direction.transform}}
+								</div>
+								<div class="entrance-title">
+									<h3>{{entrance.title}}</h3>
+								</div>
+								{{#if screensize 'sm, md, lg'}}
+								<div class="entrance-nav-hint">
+									<p>
+										{{#each hint in entrance.navHints}}
+											{{>SVGicon name=hint}}
+										{{/each}}
+									</p>
+								</div>
+								{{/if}}
+							</a>
+						</div>
+					{{/each}}
+				</div>
+			</div>
+		{{/page}}
 	{{else}}
 		{{>errPage}}
 	{{/if}}
@@ -23,23 +50,22 @@
 <template name="backCover">
 {{#if readiness}}
 	{{#if cover}}
+	{{#page}}
 	<div class="background-container">
-		{{>Template.dynamic data=cover.image template=imagery}}	
+		<!-- {{log cover}} -->
+		{{>background cover.image}}
 	</div>
 	<div class="back-cover">
-		<div class="nav-container">
-			{{>navMenu icon="true"}}
-		</div>
 		<div class="gratitude">
 		<h1>Thank you!</h1>
-			<p>That's it, you've seen all projects. I hope it was a pleasant journey.</p>
+			<p>That's it, you've seen all projects. I hope it was a pleasant journey. <br>&lt;3</p>
 		</div>
 		<div class="exits">
 			<div class="keep-in-touch">
 				<div class="dialog-form">
 					<form id="keepInTouchForm">
 						<div class="sender-info">
-							{{>formField label_text="Shall I contact you?" name="email" placeholder="Please enter your email address" type="email" value=email isRequired=true inlineFormID="keepInTouchEmail"}}
+							{{>formField label_text="Shall I contact you?" name="email" placeholder="Please enter your email address" type="email" value=email isRequired=true inlineFormID="keepInTouchEmail" submitTitle="Yes, please"}}
 						</div>
 					</form>
 				</div>
@@ -57,6 +83,7 @@
 			<h6>{{>SVGicon name="c"}}<span>Content - a.nvlkv {{dateY dateOfIssue}}</span></h6>
 		</div>
 	</div>
+	{{/page}}
 	{{else}}
 		{{>errPage}}
 	{{/if}}
@@ -70,24 +97,8 @@
 
 
 <template name="aboutPortfolio">
-	{{#if screensize 'xs'}}
-		{{>navMenu icon="true" color=globalPallet.utility}}
-	{{/if}}
-	<div class="cover-title">
-		<h1>Portfolio</h1>
-		<hr>
-		<h2>a.nvlkv</h2>
-	</div>
-
 	<div class="issue-plate white-background" >
-		<div class="date-container">
-			<div class="date">
-				<h4>
-				{{>SVGicon name='timeStamp'}}
-				<span>{{dateMY dateOfIssue}}</span>
-				</h4>
-			</div>
-		</div>
+		{{>date date1=dateOfIssue}}
 		<nav class="relative-nav">
 			<a type="button" tabindex="1" href="#" class="js_next_by_time nav-plate cta-color" title="Follow the timeline of projects">
 				<h3>Projects in timeline</h3>
@@ -103,9 +114,9 @@
 </template>
 
 <template name="coverNav">
-	{{#if screensize 'sm, md, lg'}}
+<!-- 	{{#if screensize 'sm, md, lg'}}
 		{{>navMenu icon="true"}}
-	{{/if}}
+	{{/if}} -->
 	<!-- <div class="spacer">&nbsp;</div> -->
 	<div class="navigation-plate utility-background">
 		<nav class="relative-nav">

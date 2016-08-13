@@ -23,7 +23,10 @@ const site = FlowRouter.group({
 site.route('/', {
     name: 'home',
     action: function() {
-        BlazeLayout.render("mainLayout", {content: "landingPage"});
+        BlazeLayout.render('mainLayout', {
+            content: 'landingPage',
+            navigation: 'topLevelMenu'
+        });
     },
     triggersEnter:[function(){
         Session.set('current-category', null);
@@ -35,30 +38,65 @@ site.route('/', {
 // portfolio
 
 const portfolio = site.group({
-    prefix: "/portfolio",
+    prefix: '/portfolio',
 });
 
 // cover page
 portfolio.route('/', {
     name: 'portfolio',
     action: function() {
-        BlazeLayout.render("mainLayout", {
-        	content: "portfolio",
-        	pageType: 'coverPage',
-        	imagery: "background",
-        	textContent: "aboutPortfolio",
-			navContent: "coverNav",
+        BlazeLayout.render('mainLayout', {
+            content: 'portfolio',
+            navigation: 'topLevelMenu',
+            pageType: 'coverSlide',
         });
     },
 });
 
+// back cover
 portfolio.route('/thank-you',{
     name: 'portfolio.back-cover',
     action: function(){
-        BlazeLayout.render("mainLayout", {
-            content: "portfolio",
+        BlazeLayout.render('mainLayout', {
+            content: 'portfolio',
             pageType: 'backCover',
-            imagery: "background",
+            navigation: 'topLevelMenu'
+        });
+    }
+});
+
+
+// year cover page
+portfolio.route('/year/:year',{
+    name: 'portfolio.year',
+    action: function(){
+        BlazeLayout.render('mainLayout', {
+            content: 'portfolio',
+            pageType: 'yearSlide',
+            navigation: 'yearLevelMenu',
+        });
+    }
+});
+
+// project in timeline
+portfolio.route('/year/:year/:project',{
+    name: 'portfolio.date',
+    action: function(){
+        BlazeLayout.render('mainLayout', {
+            content: 'portfolio',
+            pageType: 'projectSlide',
+            navigation: 'dateLevelMenu',
+        });
+    }
+});
+// project page in timeline
+portfolio.route('/year/:year/:project/:page',{
+    name: 'portfolio.date.page',
+    action: function(){
+        BlazeLayout.render('mainLayout', {
+            content: 'portfolio',
+            pageType: 'projectSlide',
+            navigation: 'datePageLevelMenu',
         });
     }
 });
@@ -67,12 +105,10 @@ portfolio.route('/thank-you',{
 portfolio.route('/:category', {
     name: 'portfolio.category',
     action: function() {
-        BlazeLayout.render("mainLayout", {
-        	content: "portfolio",
-        	pageType: "categoryPage",
-        	imagery: "background",
-        	textContent: "categoryCoverText",
-			navContent: "categoryCoverMenu",
+        BlazeLayout.render('mainLayout', {
+        	content: 'portfolio',
+        	pageType: 'categorySlide',
+			navigation: 'categoryLevelMenu',
         });
     }
 });
@@ -81,12 +117,10 @@ portfolio.route('/:category', {
 portfolio.route('/:category/:project', {
     name: 'portfolio.project',
     action: function() {
-        BlazeLayout.render("mainLayout", {
-        	content: "portfolio",
-        	pageType: "projectPage",
-        	imagery: "background",
-			textContent: "projectCoverText",
-			navContent: "projectNav",
+        BlazeLayout.render('mainLayout', {
+        	content: 'portfolio',
+        	pageType: 'projectSlide',
+            navigation: 'projectLevelMenu'
         });
     },
 });
@@ -96,23 +130,14 @@ portfolio.route('/:category/:project', {
 portfolio.route('/:category/:project/:page', {
     name: 'portfolio.project.page',
         action: function() {
-            BlazeLayout.render("mainLayout", {
-            	content: "portfolio",
-            	pageType: "projectPage",
-            	imagery: "background",
-    			textContent: "projectText",
-    			navContent: "projectNav",
+            BlazeLayout.render('mainLayout', {
+                content: 'portfolio',
+                pageType: 'projectSlide',
+                navigation: 'projectPageLevelMenu'
             });
         }
 });
 
-// back-cover page
-// portfolio.route('/portfolio/back-cover', {
-//     name: 'portfolio.back-cover',
-//     action: function() {
-//         BlazeLayout.render("mainLayout", {content: "portfolio", pageType: "coverView"});
-//     }
-// });
 
 
 FlowRouter.notFound = {
@@ -122,6 +147,6 @@ FlowRouter.notFound = {
 
     },
     action: function() {
-    	BlazeLayout.render("mainLayout", {content: "errPage"});
+    	BlazeLayout.render('mainLayout', {content: 'errPage'});
     }
 };

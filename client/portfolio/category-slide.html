@@ -1,0 +1,92 @@
+<template name="categorySlide">
+{{#if readiness}}
+	{{#if category}}
+		{{#page}}
+			<div class="animate_page category-slide category-cover">
+				<div class="content">
+					{{>categoryCoverText category}}
+				</div>
+				<div class="gallery">
+					{{#galleryGrid}}
+						{{#each item in projects}}
+						<div class="item">
+							<a href="{{url item}}" title="{{item.title}}">
+								<h4>{{item.title}}</h4>
+								<img src="/cfs/files/images/{{responsiveImage item.image 'xs'}}" class="img-responsive" alt="">
+							</a>
+						</div>
+						{{/each}}
+						{{#each item in attachements}}
+						<div class="item">
+						{{#if typeIs item "File"}}
+							<a href="/cfs/files/files/{{item.file}}" class="file_download" title="{{item.title}}" download="{{filename item.file}}">
+								<h4>{{item.title}}</h4>
+								<img src="/cfs/files/images/{{item.image}}" class="img-responsive" alt="">
+								<div class="icon utility-background">
+									{{> SVGicon name="download"}}
+								</div>
+							</a>
+						{{else}}
+							<a href="{{item.url}}" title="{{item.title}}" target="_blank">
+								<h4>{{item.title}}</h4>
+								<img src="/cfs/files/images/{{item.image}}" class="img-responsive" alt="">
+								<div class="icon utility-background">
+									{{> SVGicon name="newWindow"}}
+								</div>
+							</a>
+						{{/if}}
+						</div>
+						{{/each}}
+					{{/galleryGrid}}
+				</div>
+			</div>
+			<div class="background-container" style="background:{{category.color}}">
+				{{>background category.image}}
+			</div>
+		{{/page}}
+	{{else}}
+		{{> errPage}}
+	{{/if}}
+{{else}}
+	{{>loadingState}}
+{{/if}}
+</template>
+
+<template name="categoryCoverText">
+	<div class="category-title">
+		<h2>{{title}}</h2>
+	</div>
+	<div class="content-plate">
+		<div class="text">
+			{{{description}}}
+		</div>
+	</div>
+	<div class="content-plate summary">
+		<div class="text">
+			{{{summary}}}
+		</div>
+	</div>
+	
+</template>
+
+<template name="categoryCoverMenu">
+	<nav class="category-level-navigation">
+		<ul class="item-list">
+			{{#each category in categories}}
+				<li class="item {{#if isCurrentCategory category._id}} active {{/if}}">
+					<a type="button" class="dynamic_color" href="{{url category}}" title="{{category.title}}" data-color="{{category.color}}">
+						<h6>{{category.title}}</h6>
+					</a>
+				</li>
+			{{/each}}
+		</ul>
+		{{>navMenu icon="true" color=globalPallet.utility}}
+	</nav>
+
+</template>
+
+<template name="galleryGrid">
+	<div class="grid">
+		{{> Template.contentBlock}}
+	</div>
+</template>

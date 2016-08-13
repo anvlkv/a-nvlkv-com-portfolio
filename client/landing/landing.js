@@ -65,6 +65,8 @@ const slides = [
 
 let activeSlide = new ReactiveVar(0);
 
+
+
 Template.landingPage.onCreated(function(){
 	this.autorun(()=>{
 		if (Session.get('replay-slides')) {
@@ -90,6 +92,10 @@ Template.landingPage.onRendered(function(){
 		backgrounds[index]=val.backgroundColor ? val.backgroundColor : '#f7f7f7';
 	});
 
+	this.slidePaddingTop =  function (){
+		let pt = $('.top-level-navigation').outerHeight();
+		return pt;
+	};
 	
 
 	this.autorun(()=>{
@@ -98,7 +104,10 @@ Template.landingPage.onRendered(function(){
 				slideSelector: '.fp-slide',
 				sectionSelector: '.fp-section',
 				anchors: anchors,
+				paddingTop: this.slidePaddingTop(),
+				// fixedElements: '.top-level-navigation',
 				sectionsColor: backgrounds,
+
 				afterLoad: function(anchorLink, index){
 					// let loadedSection = $(this);
 					activeSlide.set(index-1);
@@ -243,9 +252,9 @@ Template.landingPage.helpers({
 	currentSlide: function(slide){
 		const t = Template.instance();
 
-		if (FlowRouter.getQueryParam('sld')) {
-			activeSlide.set(FlowRouter.getQueryParam('sld'));
-		}
+		// if (FlowRouter.getQueryParam('sld')) {
+		// 	activeSlide.set(FlowRouter.getQueryParam('sld'));
+		// }
 		
 		if (!activeSlide.get()) {
 			activeSlide.set(0);

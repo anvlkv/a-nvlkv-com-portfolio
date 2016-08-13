@@ -1,0 +1,25 @@
+<template name="date">
+<!-- 	<div class="date-container">
+		<div class="date">
+			<h4>
+			{{>SVGicon name='timeStamp'}}
+			<span>{{dateMY date1}}</span>
+			</h4>
+		</div>
+	</div> -->
+
+	<div class="date-container">
+		<div class="date">
+			<h4>
+			{{>SVGicon name='timeStamp'}}
+
+			{{#if sameDateMY date1 date2}}
+			<span>{{dateMY date1}}</span>
+			{{else}}
+			<span>{{dateMY date1}} - {{dateMY date2}}</span>
+			{{/if}}
+			</h4>
+			
+		</div>
+	</div>
+</template>

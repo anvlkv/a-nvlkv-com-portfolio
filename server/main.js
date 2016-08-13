@@ -1,4 +1,6 @@
 import { Meteor } from 'meteor/meteor';
+// import { EJSON } from 'meteor/ejson';
+
 
 Meteor.startup(() => {
 	// code to run on server at startup

@@ -1,0 +1,46 @@
+.vc-color{
+	.cta-background{
+		background-color: $cta-background;
+	}
+
+	.cta-color{
+		@extend .cta-background;
+		
+		color: $white;
+		// @warn lightness($cta);
+		// @warn saturation($cta);
+
+		&:hover, &:active{
+
+			color: $cta;
+
+		}
+	}
+
+	.utility-background{
+		background-color: $utility;
+	}
+	.secondary-btn{
+		border: 1px solid $white;
+	}
+
+	.white-background{
+		background-color: $white;
+	}
+	.cover-title{
+		color: $white;
+	}
+	.learn-more-btn{
+		background-color: $black-copy;
+		letter-spacing: .1em;
+	}
+	a{
+		color: $white;
+		&:hover, &:active, &:focus{
+
+			color: $cta;
+			text-decoration: none;
+
+		}
+	}
+}

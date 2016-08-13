@@ -74,16 +74,19 @@ addToExperiencePath = function(name){
 };
 
 hideHint = function(){
-	if (Session.get('active-overlay') === 'hint') {
-		Session.set('active-overlay', false);
+	if (Session.get('active-overlay') === 'hintOverlay') {
+		FlowRouter.setQueryParams({hintOverlay:null});
 		GAnalytics.event(FlowRouter.current().path, 'hint-hidden');
+		Session.set('active-overlay', false);
+		// console.log('hiding hint');
 	}
 	// $('.hint-overlay').hide();
 };
 
 showHint = function(){
 	if (!Session.get('active-overlay')) {
-		Session.set('active-overlay', 'hint');
+		Session.set('active-overlay', 'hintOverlay');
+		// console.log('showing hint');
 	}
 };
 
@@ -123,13 +126,14 @@ Template.hintOverlay.helpers({
 			}
 		});
 
+		if (!hint) {
+			hideHint();
+		}
+
 		return hint;
 	},
 });
 
 
 Template.hintOverlay.events({
-	'click .js_close_hint': function () {
-		hideHint();
-	}
 });
