@@ -147,7 +147,8 @@ Template.projectPagination.helpers({
 				button.link = '?emailOverlay=true';
 			}
 		} else {
-			button.text = false;
+			button.text = 'Ask questions';
+			button.link = '?emailOverlay=true';
 		}
 
 		return button;
