@@ -85,12 +85,12 @@ Template.mainLayout.onRendered(function(){
 });
 
 Template.mainLayout.events({
-	// 'click .item': function (e) {
-	// 	let intended_target = $(e.target).children('a');
-	// 	if (intended_target.length === 1) {
-	// 		intended_target[0].click();
-	// 	}
-	// },
+	'click .item': function (e) {
+		let intended_target = $(e.target).children('a');
+		if (intended_target.length === 1) {
+			intended_target[0].click();
+		}
+	},
 	'click': function(e){
 		GAnalytics.event(FlowRouter.current().route.name, 'click', $(e.target).getSelector().toString());
 		return e;

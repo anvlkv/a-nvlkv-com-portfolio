@@ -35,6 +35,7 @@ Template.dropdown.onRendered(function(){
 
 
 		// console.log(this.$('.dropdown_item').not('.mobile-dropdown-content'));
+
 		this.$('.dropdown_item').not('.mobile-dropdown-content').css({
 			height: this.itemHeight,
 		});

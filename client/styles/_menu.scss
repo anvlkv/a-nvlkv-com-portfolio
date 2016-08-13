@@ -68,7 +68,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        z-index: 0;
+        z-index: 2;
         border-bottom: solid 3px transparent;
         transition-property: width, background-color, border-bottom-color;
         transition-duration: $duration/2;
