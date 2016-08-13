@@ -243,6 +243,15 @@ a{
 		&.right{
 			@include animation-name(slideInLeft);
 		}
+
+		.project-slide{
+			.content .content-plate{
+				@include slideInUp($duration:$duration);
+			}
+			.nav-container>*{
+				@include slideInRight($duration:$duration);
+			}
+		}
 	}
 	&.animate-out{
 		@include fadeOut($duration:$duration);
@@ -258,6 +267,17 @@ a{
 		}
 		&.right{
 			@include animation-name(slideOutLeft);
+		}
+
+		.project-slide{
+			.content .content-plate{
+				@include slideOutDown($duration:$duration);
+			}
+			.nav-container>*{
+				@include slideOutRight($duration:$duration);
+			}
+
+
 		}
 	}
 }

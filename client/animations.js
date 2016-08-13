@@ -99,7 +99,7 @@ Template.galleryGrid.animations({
 	}
 });
 
-// Template.projectNav.animations({
+// Template.projectSlide.animations({
 // 	'.nav-plate':{
 // 		container: '.relative-nav',
 // 		insert:{
