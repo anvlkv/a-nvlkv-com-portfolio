@@ -119,14 +119,14 @@ Template.landingPage.onRendered(function(){
 
 
 	this.autorun(()=>{
-		if (activeSlide.get()>=0) {
+		if (activeSlide.get()>=0 && !Session.get('active-overlay')) {
 			$.fn.fullpage.moveTo(activeSlide.get()+1);
 		}
 	});
 
 	this.autorun(()=>{
 		let active_sld = this.$('.fp-section.active');
-		if (activeSlide.get() >= 0 && activeSlide.get() < slides.length - 1) {
+		if (activeSlide.get() >= 0 && activeSlide.get() < slides.length - 1 && !Session.get('active-overlay')) {
 			let slideTimeOut = Number.parseInt(ABTest.start("Slide timeout", ['8000', '12000', '16000', '18000']));
 			// remove previous
 			if (this.$('.js_slide_link svg').length > 0) {
