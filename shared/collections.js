@@ -35,7 +35,6 @@ Schemas.Categories = new SimpleSchema({
 	description: {
 		type: String,
 		label: "Description",
-		max: 500,
 		autoform: {
 			afFieldInput: {
 				type: 'summernote',

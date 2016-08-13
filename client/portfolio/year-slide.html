@@ -1,0 +1,32 @@
+<template name="yearSlide">
+	{{#if readiness}}
+		{{#if year}}
+			{{#page}}
+				<div class="animate_page year-slide year-cover">
+					<div class="content">
+						<div class="year-title">
+							<h2>{{year.year}}</h2>
+						</div>
+					</div>
+					<div class="gallery">
+						{{#galleryGrid}}
+							{{#each item in projects}}
+							<div class="item">
+								<a href="{{url item.slug year.year}}" title="{{item.title}}">
+									<h4>{{item.title}}</h4>
+									<img src="/cfs/files/images/{{responsiveImage item.image 'xs'}}" class="img-responsive" alt="">
+								</a>
+							</div>
+							{{/each}}
+						{{/galleryGrid}}
+					</div>
+				</div>
+				<div class="background-container" style="background:{{year.color}}"></div>
+			{{/page}}
+		{{else}}
+			{{> errPage}}
+		{{/if}}
+	{{else}}
+		{{>loadingState}}
+	{{/if}}
+</template>

@@ -14,7 +14,7 @@ const slides = [
 		text:'with\n acknowledging\n a problem',
 		// layout: 'text-first',
 		button: {
-			text:'What\'s next?',
+			text:'How to solve one?',
 		},
 
 	},{
@@ -24,7 +24,7 @@ const slides = [
 		layout:'wide-image',
 		delay: 1500,
 		button: {
-			text:'When to stop?',
+			text:'When it\'s done?',
 		},
 	},{
 		graphics: 'graphics_iterativeImprovement',
@@ -65,6 +65,8 @@ const slides = [
 
 let activeSlide = new ReactiveVar(0);
 
+
+
 Template.landingPage.onCreated(function(){
 	this.autorun(()=>{
 		if (Session.get('replay-slides')) {
@@ -90,6 +92,10 @@ Template.landingPage.onRendered(function(){
 		backgrounds[index]=val.backgroundColor ? val.backgroundColor : '#f7f7f7';
 	});
 
+	this.slidePaddingTop =  function (){
+		let pt = $('.top-level-navigation').outerHeight();
+		return pt;
+	};
 	
 
 	this.autorun(()=>{
@@ -98,7 +104,10 @@ Template.landingPage.onRendered(function(){
 				slideSelector: '.fp-slide',
 				sectionSelector: '.fp-section',
 				anchors: anchors,
+				paddingTop: this.slidePaddingTop(),
+				// fixedElements: '.top-level-navigation',
 				sectionsColor: backgrounds,
+
 				afterLoad: function(anchorLink, index){
 					// let loadedSection = $(this);
 					activeSlide.set(index-1);
@@ -110,14 +119,14 @@ Template.landingPage.onRendered(function(){
 
 
 	this.autorun(()=>{
-		if (activeSlide.get()>=0) {
+		if (activeSlide.get()>=0 && !Session.get('active-overlay')) {
 			$.fn.fullpage.moveTo(activeSlide.get()+1);
 		}
 	});
 
 	this.autorun(()=>{
 		let active_sld = this.$('.fp-section.active');
-		if (activeSlide.get() >= 0 && activeSlide.get() < slides.length - 1) {
+		if (activeSlide.get() >= 0 && activeSlide.get() < slides.length - 1 && !Session.get('active-overlay')) {
 			let slideTimeOut = Number.parseInt(ABTest.start("Slide timeout", ['8000', '12000', '16000', '18000']));
 			// remove previous
 			if (this.$('.js_slide_link svg').length > 0) {
@@ -243,9 +252,9 @@ Template.landingPage.helpers({
 	currentSlide: function(slide){
 		const t = Template.instance();
 
-		if (FlowRouter.getQueryParam('sld')) {
-			activeSlide.set(FlowRouter.getQueryParam('sld'));
-		}
+		// if (FlowRouter.getQueryParam('sld')) {
+		// 	activeSlide.set(FlowRouter.getQueryParam('sld'));
+		// }
 		
 		if (!activeSlide.get()) {
 			activeSlide.set(0);

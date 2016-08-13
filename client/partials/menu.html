@@ -1,78 +1,278 @@
-<template name="navMenu">
-	<!-- make animated class -->
-	<div class="mini-nav {{#if showMetrics}}btns-3{{/if}}">
-		<a tabindex="4" type="button" href="#" title="email me" class="mini-nav-btn js_email_me cta-color">
-			{{>SVGicon name="email"}}
-		</a>
-		<a tabindex="5" type="button" href="#" class="mini-nav-btn js_toggle_menu {{#if icon}} utility-background {{else}} dynamic_color{{/if}}" title="Menu">
-			{{#if icon}}
-				{{>SVGicon name="menu"}}
-			{{else}}
-				<h3>{{letters}}</h3>
-			{{/if}}
-		</a>
-		
-	</div>
-</template>
-
-<template name="menuOverlay">
-	<div class="menu-overlay">
-		{{>topLevelMenu close="true"}}
-		<div class="current-level-navigation">
-			<ul class="item-list">
-				{{#each category in categories}}
-				<li class="item">
-					<h5>
-						<a class="category-link js_menu_link" href="{{url category}}" title="{{category.title}}">
-							<span class="category-initial dynamic_color" data-color="{{category.color}}">{{category.shortCut}}</span>
-							<span class="category-name">{{category.titleShort}}</span>
-						</a>
-					</h5>
-					<ul class="item-list">
-						{{#each project in projects category}}
-						<li class="item">
-							<a class="js_menu_link" href="{{url project category}}" title="{{project.title}}">
-								<h6>{{project.title}}</h6>
-							</a>
-						</li>
-						{{/each}}
-					</ul>
-				</li>
-				{{/each}}
-			</ul>
-		</div>
-	</div>
-</template>
-
 <template name="topLevelMenu">
-	<nav class="top-level-navigation utility-background dynamic_color" data-color={{color}}>
+{{#navigationWrap}}
+	<nav class="top-level-navigation navigation-bar utility-background">
 		<ul class="item-list">
 			<li class="item {{#if isCurrentPage 'home'}} active {{/if}}">
 				<a tabindex="1" class="js_main_nav_link js_menu_link menu-item-link" href="/" title="Home">
-					<h5>{{> SVGicon name="home"}}&nbsp;<span class="tab-name">Home</span></h5>
+					<h5>{{#if screensize 'md, sm, lg'}}{{> SVGicon name="home"}}&nbsp;{{/if}}<span class="tab-name">Home</span></h5>
 				</a>
 			</li>
 			<li class="item {{#if isCurrentPage 'portfolio'}} active {{/if}}">
 				<a tabindex="2" class="js_main_nav_link js_menu_link menu-item-link" href="/portfolio" title="Portfolio">
-					<h5>{{> SVGicon name="portfolio"}}&nbsp;<span class="tab-name">Portfolio</span></h5>
+					<h5>{{#if screensize 'md, sm, lg'}}{{> SVGicon name="portfolio"}}&nbsp;{{/if}}<span class="tab-name">Portfolio</span></h5>
 				</a>
 			</li>
 			<li class="item">
-				<a tabindex="3" class="js_email_me menu-item-link" href="?email=true" title="email me">
-					<h5>{{>SVGicon name="email"}}&nbsp;<span class="tab-name">Contact me</span></h5>
+				<a tabindex="3" class="js_email_me menu-item-link" href="?emailOverlay=true" title="email me">
+					<h5>{{#if screensize 'md, sm, lg'}}{{>SVGicon name="email"}}&nbsp;{{/if}}<span class="tab-name">Contact me</span></h5>
 
 				</a>
 			</li>
 			{{#if close}}
 			<li class="item align-end">
-				<a tabindex="4" href="#" class="js_close_menu" title="Close">
+				<a tabindex="4" href="#" class="js_close_overlay" title="Close">
 					<h5>{{> SVGicon name="cross"}}</h5>
 				</a>
 			</li>
 			{{/if}}
-			<!-- <li><a href="/about" title="About">About</a></li> -->
-			<!-- <li><a href="/blog" title="Blog">Blog</a></li> -->
 		</ul>
-		
+		{{>menuActions}}
 	</nav>
+{{/navigationWrap}}
+</template>
+
+<template name="categoryLevelMenu">
+{{#navigationWrap}}
+	<nav class="category-level-navigation navigation-bar utility-background">
+	{{#if readiness}}
+		{{#mobileDropdown triggerTitle=pagetitle}}
+			{{>topLevelDropdown}}
+			<span class="divider">/</span>
+
+			<ul class="item-list category-list">
+				{{#each category in categories}}
+				<li class="item {{#if isCurrentCategory category.slug}}active{{/if}}" style="background-color:{{category.color}};">
+					<a href="{{category.slug}}" class="menu-item-link" title="{{category.title}}">
+						<h5><span class="tab-name">{{category.title}}</span></h5>
+					</a>
+				</li>
+				{{/each}}
+			</ul>
+		{{/mobileDropdown}}
+		{{>menuActions}}
+	{{/if}}
+	</nav>
+{{/navigationWrap}}
+</template>
+
+<template name="yearLevelMenu">
+{{#navigationWrap}}
+	<nav class="year-level-navigation navigation-bar utility-background">
+	{{#if readiness}}
+		{{#mobileDropdown triggerTitle=pagetitle}}
+			{{>topLevelDropdown}}
+			<span class="divider">/</span>
+			<ul class="item-list year-list">
+				{{#each year in years}}
+				<li class="item year-item {{#if isCurrentYear year.year}}active{{/if}}" style="background-color:{{year.color}};">
+					<a href="{{year.year}}" class="menu-item-link" title="{{year.year}}">
+						<h5><span class="tab-name">{{year.year}}</span></h5>
+					</a>
+				</li>
+				{{/each}}
+			</ul>
+		{{/mobileDropdown}}
+			
+		{{>menuActions}}
+	{{/if}}
+	</nav>
+{{/navigationWrap}}
+</template>
+
+<template name="projectLevelMenu">
+{{#navigationWrap}}
+	<nav class="project-level-navigation navigation-bar dynamic_color" style="background-color:{{color}}">
+	{{#if readiness}}
+		{{#mobileDropdown triggerTitle=pagetitle}}
+			{{>topLevelDropdown}}
+			<span class="divider">/</span>
+			{{>categoryLevelDropdown}}
+			<span class="divider">/</span>
+			{{>projectLevelDropdown}}
+		{{/mobileDropdown}}
+		{{>menuActions}}
+	{{/if}}
+	</nav>
+{{/navigationWrap}}
+</template>
+
+<template name="dateLevelMenu"> 
+{{#navigationWrap}}
+	<nav class="date-level-navigation navigation-bar dynamic_color" style="background-color:{{color}}">
+	{{#if readiness}}
+		{{#mobileDropdown triggerTitle=pagetitle}}
+			{{>topLevelDropdown}}
+			<span class="divider">/</span>
+			{{>yearsLevelDropdown}}
+			<span class="divider">/</span>
+			{{>projectLevelDropdown}}
+		{{/mobileDropdown}}
+
+		{{>menuActions}}
+	{{/if}}
+	</nav>
+{{/navigationWrap}}
+</template>
+
+<template name="projectPageLevelMenu">
+{{#navigationWrap}}
+	<nav class="project-level-navigation navigation-bar dynamic_color" style="background-color:{{color}}">
+	{{#if readiness}}
+		{{#mobileDropdown triggerTitle=pagetitle}}
+			{{>topLevelDropdown}}
+			<span class="divider">/</span>
+			{{>categoryLevelDropdown}}
+			<span class="divider">/</span>
+			{{>projectLevelDropdown}}
+			<span class="divider">/</span>
+			{{>projectPageLevelDropdown}}
+		{{/mobileDropdown}}
+		{{>menuActions}}
+	{{/if}}
+	</nav>
+{{/navigationWrap}}
+</template>
+
+<template name="datePageLevelMenu">
+{{#navigationWrap}}
+	<nav class="date-level-navigation navigation-bar dynamic_color" style="background-color:{{color}}">
+	{{#if readiness}}
+		{{#mobileDropdown triggerTitle=pagetitle}}
+			{{>topLevelDropdown}}
+			<span class="divider">/</span>
+			{{>yearsLevelDropdown}}
+			<span class="divider">/</span>
+			{{>projectLevelDropdown}}
+			<span class="divider">/</span>
+			{{>projectPageLevelDropdown}}
+		{{/mobileDropdown}}
+
+		{{>menuActions}}
+	{{/if}}
+	</nav>
+{{/navigationWrap}}
+</template>
+
+<template name="topLevelDropdown">
+	{{#dropdown}}
+		{{#dropdownItem}}
+			<a class="js_main_nav_link js_menu_link menu-item-link" href="/" title="Home">
+				<h5>{{#if screensize 'md, lg'}}{{> SVGicon name="home"}}&nbsp;{{/if}}<span class="tab-name">Home</span></h5>
+			</a>
+		{{/dropdownItem}}
+
+		{{#dropdownTrigerItem}}
+			<a class="js_main_nav_link js_menu_link menu-item-link" href="/portfolio" title="Portfolio">
+				<h5>{{#if screensize 'md, lg'}}{{> SVGicon name="portfolio"}}&nbsp;{{/if}}<span class="tab-name">Portfolio</span></h5>
+			</a>
+		{{/dropdownTrigerItem}}
+
+		{{#dropdownItem}}
+			<a class="js_email_me menu-item-link" href="?emailOverlay=true" title="email me">
+				<h5>{{#if screensize 'md, lg'}}{{>SVGicon name="email"}}&nbsp;{{/if}}<span class="tab-name">Contact me</span></h5>
+
+			</a>
+		{{/dropdownItem}}
+	{{/dropdown}}
+</template>
+
+
+
+
+<template name="yearsLevelDropdown">
+	{{#dropdown}}
+		{{#each year in years}}
+			{{#if isCurrentYear year.year}}
+				{{#dropdownTrigerItem}}
+					<a class="menu-item-link" href="/portfolio/year/{{year.year}}" style="background-color:{{year.color}};" title="{{year.year}}">
+						<h5><span class="tab-name">{{year.year}}</span></h5>
+					</a>
+				{{/dropdownTrigerItem}}
+			{{else}}
+				{{#dropdownItem}}
+					<a class="menu-item-link" href="/portfolio/year/{{year.year}}" style="background-color:{{year.color}};" title="{{year.year}}">
+						<h5><span class="tab-name">{{year.year}}</span></h5>
+					</a>
+				{{/dropdownItem}}
+			{{/if}}
+		{{/each}}
+	{{/dropdown}}
+</template>
+
+<template name="categoryLevelDropdown">
+	{{#dropdown}}
+		{{#each category in categories}}
+			{{#if isCurrentCategory category.slug}}
+				{{#dropdownTrigerItem}}
+					<a class="menu-item-link" href="/portfolio/{{category.slug}}" style="background-color:{{category.color}};" title="{{category.title}}">
+						<h5><span class="tab-name">{{category.title}}</span></h5>
+					</a>
+				{{/dropdownTrigerItem}}
+			{{else}}
+				{{#dropdownItem}}
+					<a class="menu-item-link" href="/portfolio/{{category.slug}}" style="background-color:{{category.color}};" title="{{category.title}}">
+						<h5><span class="tab-name">{{category.title}}</span></h5>
+					</a>
+				{{/dropdownItem}}
+			{{/if}}
+		{{/each}}
+	{{/dropdown}}
+</template>
+
+<template name="projectLevelDropdown">
+	{{#dropdown}}
+		{{#each project in projects}}
+			{{#if isCurrentProject project.slug}}
+				{{#dropdownTrigerItem}}
+					<a class="menu-item-link" href="{{url project}}" title="{{project.title}}">
+						<h5><span class="tab-name">{{project.title}}</span></h5>
+					</a>
+				{{/dropdownTrigerItem}}
+			{{else}}
+				{{#dropdownItem}}
+					<a class="menu-item-link" href="{{url project}}" title="{{project.title}}">
+						<h5><span class="tab-name">{{project.title}}</span></h5>
+					</a>
+				{{/dropdownItem}}
+			{{/if}}
+		{{/each}}
+	{{/dropdown}}
+</template>
+
+<template name="projectPageLevelDropdown">
+	{{#dropdown}}
+		{{#each page in pages}}
+			{{#if isCurrentPage page.slug}}
+				{{#dropdownTrigerItem}}
+					<a class="menu-item-link" href="{{url page}}" title="{{page.slug}}">
+						<h5><span class="tab-name">{{page.slug}}</span></h5>
+					</a>
+				{{/dropdownTrigerItem}}
+			{{else}}
+				{{#dropdownItem}}
+					<a class="menu-item-link" href="{{url page}}" title="{{page.slug}}">
+						<h5><span class="tab-name">{{page.slug}}</span></h5>
+					</a>
+				{{/dropdownItem}}
+			{{/if}}
+		{{/each}}
+	{{/dropdown}}
+</template>
+
+<template name="menuActions">
+	<div class="actions">
+		<ul class="item-list action-list">
+			<li class="item action-item">
+				<a class="js_search menu-item-link" href="?searchOverlay=true" title="Find projects">
+					<h5>{{>SVGicon name="search"}}</h5>
+				</a>
+			</li>
+		</ul>
+	</div>
+</template>
+
+<template name="navigationWrap">
+	<div class="navigation-wrap">
+		{{>Template.contentBlock}}
+	</div>
 </template>

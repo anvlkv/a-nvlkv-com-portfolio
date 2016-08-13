@@ -1,0 +1,45 @@
+<template name="dropdown">
+	<div class="dropdown">
+		<ul class="dropdown-content dropdown_content collapsed item-list">
+		{{>Template.contentBlock}}
+		</ul>
+	</div>
+</template>
+
+<template name="dropdownItem">
+	<li class="dropdown-item dropdown_item item {{class}}">
+		{{>Template.contentBlock}}
+	</li>
+</template>
+
+<template name="dropdownTrigerItem">
+	{{#dropdownItem class='active dropdown_trigger'}}
+		{{>Template.contentBlock}}
+	{{/dropdownItem}}
+</template>
+
+<template name="mobileDropdownMenu">
+	<li class="dropdown-item dropdown_item {{class}} mobile-dropdown-content">
+		{{>Template.contentBlock}}
+	</li>
+</template>
+
+
+<template name="mobileDropdown">
+	{{#if screensize 'xs'}}
+		<div class="mobile_dropdown mobile-dropdown">
+		{{#dropdown}}
+
+			{{#dropdownTrigerItem}}
+				<a href="#" class="menu-item-link" title="{{triggerTitle}}"><h5>{{>SVGicon name='menu'}}&nbsp;<span class="tab-name">{{triggerTitle}}</span></h5></a>
+			{{/dropdownTrigerItem}}
+
+			{{#mobileDropdownMenu}}
+				{{>Template.contentBlock}}
+			{{/mobileDropdownMenu}}
+		{{/dropdown}}
+		</div>
+	{{else}}
+		{{>Template.contentBlock}}
+	{{/if}}
+</template>

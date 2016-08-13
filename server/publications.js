@@ -41,6 +41,7 @@ Meteor.publish('CategoriesList',function() {
 			order:1,
 			color:1,
 			shortCut:1,
+			image: 1,
 		}
 	});
 });
@@ -87,33 +88,6 @@ Meteor.publish('AttachementsWithinCategory',function(catId) {
 	return [att, files];
 });
 
-// Meteor.publish('ProjectsTimeLine',(catId)=>{
-// 	if (catId) {
-// 		return Projects.find({$or:[{primaryCategory: catId},
-// 		{secondaryCategory: catId},]},{
-// 			sort:{
-// 				endDate:-1
-// 			},
-// 			fields:{
-// 				slug:1,
-// 				primaryCategory:1,
-// 				endDate:1,
-// 			}
-// 		});
-// 	} else {
-// 		return Projects.find({},{
-// 			sort:{
-// 				endDate:-1
-// 			},
-// 			fields:{
-// 				slug:1,
-// 				primaryCategory:1,
-// 				endDate:1,
-// 			}
-// 		});
-// 	}
-// });
-
 Meteor.publish('ProjectsFeed',function() {
 	return Projects.find({},{
 		fields:{
@@ -123,8 +97,9 @@ Meteor.publish('ProjectsFeed',function() {
 			secondaryCategory:1,
 			slug:1,
 			endDate:1,
+			image:1,
 			'pages.slug':1,
-			'pages.order':1
+			'pages.order':1,
 		}
 	});
 });

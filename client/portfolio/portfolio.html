@@ -1,13 +1,13 @@
 <template name="portfolio">
 	<!-- page wrapper -->
-	<div class="page">
+	<!-- <div class="page"> -->
+	<div class="controll_wrap">
 	{{#if readiness}}
-
 		{{>Template.dynamic template=pageType}}
-
 	{{else}}
 		{{>loadingState}}
 	{{/if}}
 	</div>
+	<!-- </div> -->
 	
 </template>

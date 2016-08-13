@@ -1,19 +1,19 @@
 let hasPages = function(){
 	let prj = Projects.findOne({_id:Session.get('current-project')});
-	return prj.pages ? true : false;
+	return prj && prj.pages;
 }
 
 const hints = [
 	{
 		name:'swipeVertical',
-		text:'Swipe up or down to navigate projects timeline',
+		text:'Swipe up or down to explore projects by order',
 		devices: ['phone', 'tablet'],
-		routes: ['portfolio.project', 'portfolio']
+		routes: ['portfolio.project']
 	},{
 		name:'swipeHorizontal',
-		text:'Swipe left or right to explore projects by order',
+		text:'Swipe left or right to navigate projects timeline',
 		devices: ['phone', 'tablet'],
-		routes: ['portfolio.project','portfolio.category', 'portfolio']
+		routes: ['portfolio.project','portfolio.category']
 	},{
 		name: 'doubleTap',
 		text: 'Tap twice to learn more',
@@ -22,14 +22,14 @@ const hints = [
 		requirement: hasPages,
 	},{
 		name:'keysHorizontal',
-		text:'Use left or right arrow keys to explore projects by order',
+		text:'Use left or right arrow keys to navigate projects timeline',
 		devices: ['desktop', 'tv'],
-		routes: ['portfolio.project','portfolio.category', 'portfolio']
+		routes: ['portfolio.project','portfolio.category']
 	},{
 		name:'keysVertical',
-		text:'Use up or down arrow keys to navigate the timeline',
+		text:'Use up or down arrow keys to explore projects by order',
 		devices: ['desktop', 'tv'],
-		routes: ['portfolio.project', 'portfolio']
+		routes: ['portfolio.project']
 	},{
 		name:'keyEnter',
 		text:'Hit enter to learn more',
@@ -74,16 +74,19 @@ addToExperiencePath = function(name){
 };
 
 hideHint = function(){
-	if (Session.get('active-overlay') === 'hint') {
-		Session.set('active-overlay', false);
+	if (Session.get('active-overlay') === 'hintOverlay') {
+		FlowRouter.setQueryParams({hintOverlay:null});
 		GAnalytics.event(FlowRouter.current().path, 'hint-hidden');
+		Session.set('active-overlay', false);
+		// console.log('hiding hint');
 	}
 	// $('.hint-overlay').hide();
 };
 
 showHint = function(){
 	if (!Session.get('active-overlay')) {
-		Session.set('active-overlay', 'hint');
+		Session.set('active-overlay', 'hintOverlay');
+		// console.log('showing hint');
 	}
 };
 
@@ -123,13 +126,14 @@ Template.hintOverlay.helpers({
 			}
 		});
 
+		if (!hint) {
+			hideHint();
+		}
+
 		return hint;
 	},
 });
 
 
 Template.hintOverlay.events({
-	'click .js_close_hint': function () {
-		hideHint();
-	}
 });

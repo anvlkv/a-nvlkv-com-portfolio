@@ -1,0 +1,278 @@
+.project-slide{
+	@extend .fg-row;
+	min-height: 100%;
+	@media screen and (max-width: $fg-sm - 1) {
+		flex-direction: column;
+		justify-content:space-between;
+		overflow-y: auto;
+		height: auto;
+		flex-basis:0;
+		&+.background-container{
+			height: calc(100% - 59px * 2);
+			top: 59px*2;
+		}
+	}
+	// main content container
+	.content{
+		@extend .fg-col-xs;
+		justify-content:space-between;
+		@media screen and (max-width: $fg-sm - 1) {
+			order: 2;
+			flex-basis:100%;
+			flex-grow:4;
+		}
+		.content-plate{
+
+			min-width: 100%;
+			align-self: flex-start;
+			justify-content:space-between;
+
+			&.full-height{
+
+				@extend .fg-col-xs;
+				@media screen and (max-width: $fg-sm - 1) {
+					flex-basis: auto;
+				}
+
+				&::after{
+
+					content: ' ';
+					display: block;
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					top:0;
+					bottom: 0;
+					left: -$space/2;
+					z-index: -1;
+
+				}
+
+				.text{
+					// @extend .fg-col-xs;
+					// justify-content: center;
+					// align-items:
+				}
+
+				.more{
+
+					flex-shrink:1;
+					align-items: flex-end;
+
+				}
+			}
+
+			.image-container{
+
+				position: relative;
+
+				.date{
+
+					position: absolute;
+					top:0;
+					left: 0;
+					max-width: 100%;
+
+				}
+			}
+
+			.more{
+				// @extend .fg-row;
+				@extend .fg-col-xs-12;
+				flex-direction:row;
+				justify-content: flex-end;
+				.pgn-list{
+					flex-grow:1;
+					align-items:center;
+					line-height: 2.31;
+				}
+				.learn-more-btn{
+					align-self:flex-end;
+					min-width: 10em;
+					font-weight: 300;
+					font-family: $headings-font-family;
+					line-height: 2.31;
+				}
+			}
+		}
+	}
+
+	// navigation content container
+
+	.nav-container{
+		@extend .fg-col-xs;
+		@extend .fg-col-xs-12;
+		@extend .fg-col-sm-6;
+		justify-content: space-between;
+		align-items: stretch;
+		@media screen and (max-width: $fg-sm - 1) {
+			order:1;
+			flex-direction:row;
+			flex-wrap:wrap;
+			flex-basis:auto;
+			justify-content:space-around;
+			flex-grow:0;
+		}
+
+		@media only screen and (min-width: $fg-sm){
+			.title-plate{
+				margin-bottom: $space;
+			}
+			.nav-plate{
+				margin-bottom: $space;
+			}
+		};
+		.title-plate, .nav-plate{
+			padding-top: $space;
+			padding-bottom: $space;
+
+		}
+
+
+		.mini-nav{
+			@media screen and (max-width: $fg-sm - 1) {
+				order:1;
+				align-self:flex-start;
+				flex-basis:100%;
+			}
+		}
+		.relative-nav{
+			// align-self:flex-end;
+			@media screen and (min-width: $fg-sm) {
+				margin: auto 0 0 0;
+			}
+			@media screen and (max-width: $fg-sm - 1) {
+				display: flex;
+				flex-direction:row;
+				order:3;
+				flex-basis: 100%;
+			}
+			.nav-plate{
+				@extend .fg-col-xs-6;
+				@extend .fg-col-sm-2;
+				@extend .fg-off-sm-10;
+
+				@media screen and (max-width: $fg-sm - 1) {
+					text-align: center;
+				}
+			}
+
+
+		}
+		.title-container{
+			@media screen and (max-width: $fg-sm - 1) {
+				order:2;
+				flex-grow:2;
+				align-self: flex-end;
+
+			}
+			@media screen and (min-width: $fg-sm) {
+				display: flex;
+				align-items:flex-end;
+			}
+
+			.title-plate{
+				@extend .fg-col-xs-12;
+				@extend .fg-col-sm-8;
+				@extend .fg-off-sm-4;
+
+
+			}
+		}
+	}
+
+	&.project-page{
+		&+.background-container{
+			.background{
+					background-size: 50% auto;
+					background-position: right center;
+			}
+		}
+	}
+}
+
+.project-slide{
+
+	.learn-more-btn{
+
+		margin-bottom: $space/2;
+		margin-right: -$space/4;
+
+	}
+	.more{
+
+		@media screen and(min-width: $fg-sm) {
+			margin-bottom: $space/2;
+			padding-bottom: .1em
+		}
+
+		@media screen and(max-width: $fg-sm - 1) {
+		    margin-bottom: 2rem;
+		}
+
+		
+
+	}
+	.content-plate.full-height{
+		.more{
+
+			margin-left: -$space/4;
+			margin-right: -$space/4;
+
+			.pgn-list{
+			
+				padding-bottom: $space;
+				margin-bottom: $space;
+
+			}
+		}
+	}
+	.pgn-list{
+
+		padding-bottom: $space/3;
+		padding-right: $space;
+
+	}
+
+	.nav-container{
+		.title-container{
+			.title-plate{
+				@media screen and (min-width: $fg-sm) {
+					padding-left: $space;
+				}
+			}
+		}
+		
+		.relative-nav{
+			.nav-plate{
+				@media screen and (min-width: $fg-sm) {
+					padding-left: $space;
+				}
+			}
+		}
+	}
+}
+
+.project-page{
+
+	.content-plate.full-height{
+	
+		&::after{
+	
+			background-color: $white;
+
+		}
+
+		.pgn-list {
+
+			&, *{
+
+				&, &::after, &::before{
+
+					color: $black-copy;
+
+				}
+			}
+		}
+	}
+}

@@ -248,9 +248,9 @@ Template.graphics_betterWorld.onRendered(function(){
 							transform: 'translate(140.067114, 157.500000) scale(1, -1) rotate(-360.000000) translate(-140.067114, -157.500000)'
 						},tu*4, mina.easeout, function(){
 						bwe.animate({opacity:1}, tu*2, mina.easeout);
-						rng.animate({opacity:0}, tu*2, mina.easeout, function(){
-							fwf.animate({opacity:1}, tu, mina.easein);
-						});
+					});
+					rng.animate({opacity:0}, tu*4, mina.easeout, function(){
+						fwf.animate({opacity:1}, tu, mina.easein);
 					});
 					glb.animate({opacity: 0}, tu, mina.easein);
 				}
@@ -300,7 +300,6 @@ Template.graphics_goAhead.onRendered(function(){
 
 Template.graphics_goAhead.events({
 	'click #replay_button': function (e, t) {
-		// FlowRouter.setQueryParams({sld:0});
 		Session.set('replay-slides', true);
 	}
 });

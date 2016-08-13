@@ -1,5 +1,5 @@
 <template name="formField">
-	<label class="{{type}}-input-group {{#if inlineFormID}}inline-form{{/if}}">
+	<label class="{{type}}-input-group {{#if inlineFormID}}inline-form{{/if}} {{#if value}}in-use{{/if}}">
 		<span class="label-text">
 			{{label_text}}
 		</span>
@@ -10,8 +10,8 @@
 		{{#if inlineFormID}}
 			<div class="inline-group">
 				{{>Template.dynamic template=inputType}}
-				<a type="submit" class="field-submit" href="#" id="{{inlineFormID}}" title="Submit">
-					<h6><span>Submit</span></h6>
+				<a type="submit" class="field-submit" href="#" id="{{inlineFormID}}" title="{{submitTitle}}">
+					<h6><span>{{submitTitle}}</span></h6>
 				</a>
 			</div>
 		{{else}}

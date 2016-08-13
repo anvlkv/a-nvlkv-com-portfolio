@@ -1,11 +1,8 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Session } from 'meteor/session';
-// import { jQery } from 'meteor/jquery';
+import { jQery } from 'meteor/jquery';
 import 'jquery-selectorator';
-
-// import { EJSON } from 'meteor/ejson';
-
 
 import './main.html';
 
@@ -27,6 +24,10 @@ Template.registerHelper('session',(varName, val)=>{
 	} else {
 		return Session.get(varName) === val;
 	}
+});
+
+Template.registerHelper('pagetitle',function(){
+	return Session.get('current-page-title');
 });
 
 Template.registerHelper('readiness',()=>{

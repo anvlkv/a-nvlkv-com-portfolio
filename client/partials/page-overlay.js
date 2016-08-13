@@ -1,40 +1,57 @@
+Template.pageOverlay.onCreated(function(){
+	this.overlayHotKeys = new Hotkeys({
+		autoLoad:false
+	});
+
+	this.overlayHotKeys.add({
+		combo:'esc',
+		callback : function(){
+			if (Session.get('active-overlay')) {
+				GAnalytics.event(Session.get('active-overlay'), 'key-press', 'esc');
+				let params = {};
+				params[Session.get('active-overlay')] = null;
+				FlowRouter.setQueryParams(params);
+				Session.set('active-overlay', false);
+			}			
+	    }
+	});
+});
+
+Template.pageOverlay.onRendered(function(){
+	this.autorun(()=>{
+		this.overlayHotKeys.load();
+	});
+});
+
+Template.pageOverlay.onDestroyed(function(){
+	this.overlayHotKeys.unload();
+});
+
 Template.pageOverlay.helpers({
 	overlay: function () {
-		let route = FlowRouter.current();
-		let overlay = Session.get('active-overlay');
-		// reset if both params
-		if (route.queryParams.menu && route.queryParams.email) {
-			FlowRouter.go(route.route.name, route.params);
+		FlowRouter.watchPathChange();
+
+		let overlay;
+		let queryParams = FlowRouter.current().queryParams;
+
+		if (Object.keys(queryParams).length > 0){
+			overlay = Object.keys(queryParams)[0];
+			Session.set('active-overlay', overlay);
+		} else {
+			overlay = null;
+			Session.set('active-overlay', false);
 		}
-		// manage overlays
-		if (route.queryParams.menu || overlay==='menu') {
-			if (route.route.name == 'home') {
-				FlowRouter.setQueryParams({menu:null});
-			} else {
-				if (overlay!='menu') {
-					Session.set('active-overlay', 'menu');
-				}
-				if (!route.queryParams.menu) {
-					FlowRouter.go(route.route.name, route.params, {menu:true});
-				}	
 
-				return 'menuOverlay';
-			}
-			
-		} else if (route.queryParams.email || overlay==='email'){
-			if (overlay != 'email') {
-				Session.set('active-overlay', 'email');
-			}
-			if (!route.queryParams.menu) {
-				FlowRouter.go(route.route.name, route.params, {email:true});
-			}	
+		return overlay;
+	}
+});
 
-			return 'emailOverlay';
-
-		} else if (overlay==='hint'){
-			
-			return 'hintOverlay';
-		}
+Template.pageOverlay.events({
+	'click .js_close_overlay': function () {
+		let params = {};
+		params[Session.get('active-overlay')] = null;
+		FlowRouter.setQueryParams(params);
+		Session.set('active-overlay', false);
 	}
 });
 

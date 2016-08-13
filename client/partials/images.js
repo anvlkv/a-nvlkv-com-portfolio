@@ -6,6 +6,7 @@ Template.background.onRendered(function(){
 			// console.log(Template.currentData());
 			let background_id;
 			$.each(Template.currentData(), function(index, val) {
+				// console.log(Template.currentData()[index], Session.get('screensize'))
 				 if (val.targetSize == Session.get('screensize')) {
 				 	background_id = val.file;
 				 }
@@ -32,4 +33,41 @@ Template.background.onRendered(function(){
 		}
 	});
 });
+
+Template.picture.helpers({
+	src: function(size){
+		let src;
+		$.each(this.set, function(index, val) {
+			if (size && val.targetSize == size) {
+				src = '/cfs/files/images/' + val.file;
+			} else if (!size && val.targetSize == Session.get('screensize')){
+				src = '/cfs/files/images/' + val.file;
+			}
+		});
+
+		if (!src) {
+			$.each(this.set, function(index, val) {
+				if (val.targetSize=='any') {
+					src = '/cfs/files/images/' + val.file;
+				}
+			});
+		}
+
+		return src;
+	},
+});
+
+// Template.pattern.onRendered(function(){
+// 	let pattern = Snap(this.$('#template-pattern')[0]);
+
+// 	pattern.text(0, 0).attr({
+// 		'text': this.data.text,
+// 		'color': this.data.color
+// 	});
+// });
+
+
+
+
+
 

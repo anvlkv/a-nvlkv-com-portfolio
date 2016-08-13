@@ -7,19 +7,45 @@ Template.landingPage.animations({
 	}
 });
 
-Template.navMenu.animations({
-	'.mini-nav':{
+// Template.navMenu.animations({
+// 	'.mini-nav':{
+// 		insert:{
+// 			class: 'animate-in'
+// 		},
+// 		remove:{
+// 			class: 'animate-out'	
+// 		},
+// 		animateInitial: true,
+// 	},
+// });
+
+Template.portfolio.animations({
+	'.page':{
+		container:'.controll_wrap',
 		insert:{
-			class: 'animate-in'
+			class: function(e,t){
+				// console.log(navigationPath.visualDirection);
+				return navigationPath.visualDirection ? navigationPath.visualDirection + ' animate-in' : 'animate-in';
+			},
+			delay:250,
+			before: function(attrs, element, template) {
+				element.removeClass('animate-in inserted');
+			},
 		},
 		remove:{
-			class: 'animate-out'	
+			class: function(e, t){
+				// console.log(navigationPath.visualDirection);
+				return navigationPath.visualDirection ? navigationPath.visualDirection + ' animate-out' : 'animate-out';
+			},
+			before: function(attrs, element, template) {
+				element.removeClass('animate-out removed');
+			},
 		},
-		animateInitial: true,
-	},
+		animateInitial: true, 
+	}
 });
 
-Template.coverPage.animations({
+Template.coverSlide.animations({
 	'.svg-icon':{
 		container: '.nav-hint',
 		insert:{
@@ -47,7 +73,7 @@ Template.categoryCoverMenu.animations({
 		},
 		animateInitial: true,
 		animateInitialStep: 200,
-		animateInitialDelay: 450,
+		animateInitialDelay: 550,
 	}
 });
 
@@ -73,40 +99,40 @@ Template.galleryGrid.animations({
 	}
 });
 
-Template.projectNav.animations({
-	'.nav-plate':{
-		container: '.relative-nav',
-		insert:{
-			class: 'animate-in'
-		},
-		animateInitial: true,
-		animateInitialStep: 200,
-	}
-});
+// Template.projectSlide.animations({
+// 	'.nav-plate':{
+// 		container: '.relative-nav',
+// 		insert:{
+// 			class: 'animate-in'
+// 		},
+// 		animateInitial: true,
+// 		animateInitialStep: 200,
+// 	}
+// });
 
-Template.projectText.animations({
-	'.content-plate':{
-		insert:{
-			class: 'animate-in'
-		},
-		remove:{
-			class: 'animate-out'	
-		},
-		animateInitial: true,
-	}
-});
+// Template.projectText.animations({
+// 	'.content-plate':{
+// 		insert:{
+// 			class: 'animate-in'
+// 		},
+// 		remove:{
+// 			class: 'animate-out'	
+// 		},
+// 		animateInitial: true,
+// 	}
+// });
 
-Template.projectCoverText.animations({
-	'.content-plate':{
-		insert:{
-			class: 'animate-in'
-		},
-		remove:{
-			class: 'animate-out'	
-		},
-		animateInitial: true,
-	}
-});
+// Template.projectCoverText.animations({
+// 	'.content-plate':{
+// 		insert:{
+// 			class: 'animate-in'
+// 		},
+// 		remove:{
+// 			class: 'animate-out'	
+// 		},
+// 		animateInitial: true,
+// 	}
+// });
 
 Template.emailOverlay.animations({
 	'.email-overlay':{
@@ -120,26 +146,27 @@ Template.emailOverlay.animations({
 	}
 });
 
-Template.menuOverlay.animations({
-	'.menu-overlay':{
+// Template.menuOverlay.animations({
+// 	'.menu-overlay':{
+// 		insert:{
+// 			class: 'animate-in'
+// 		},
+// 		remove:{
+// 			class: 'animate-out'	
+// 		},
+// 		animateInitial: true,
+// 	}
+// });
+
+
+Template.mainLayout.animations({
+	'.navigation-wrap':{
 		insert:{
 			class: 'animate-in'
 		},
 		remove:{
-			class: 'animate-out'	
-		},
-		animateInitial: true,
-	}
-});
-
-
-Template.topLevelMenu.animations({
-	'.top-level-navigation':{
-		insert:{
-			class: 'animate-in'
-		},
-		remove:{
-			class: 'animate-out'	
+			class: 'animate-out',
+			delay: 200
 		},
 		animateInitial: true,
 	}
