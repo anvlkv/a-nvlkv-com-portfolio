@@ -99,28 +99,36 @@ Template.dropdown.events({
 	},
 	'mouseleave .dropdown': function(e,t){
 
-		Template.instance().collapsDropdown();
+		// Template.instance().collapsDropdown();
 
 	},
 	'click .dropdown_trigger': function(e,t){
 
-		if (t.$('.dropdown_content').hasClass('collapsed')) {
-			
+		if (Meteor.Device.isPhone() || Meteor.Device.isTablet()) {
+			if (t.$('.dropdown_content').hasClass('collapsed')) {
+				
 
-			Template.instance().openDropdown();
+				Template.instance().openDropdown();
+				return false;
 
-		} else {
-			
+			} else {
+				
 
-			Template.instance().collapsDropdown();
+				Template.instance().collapsDropdown();
 
-			if ($(e.target).attr('href')) {
-				FlowRouter.go($(e.target).attr('href'));
+				let intendedTarget = $(e.target).find('[href]');
+
+				if (intendedTarget.length > 0) {
+
+					FlowRouter.go(intendedTarget.attr('href'));
+				}
+				
+				// console.log($(e.target).children('a'));
+
+				return e;
 			}
-			// console.log(e);
-			return e;
 		}
-		return false;
+		
 	},
 	'click .dropdown_item:not(.dropdown_trigger)':  function(e, t){
 		Template.instance().collapsDropdown();
