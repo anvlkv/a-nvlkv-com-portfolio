@@ -99,7 +99,7 @@ Template.dropdown.events({
 	},
 	'mouseleave .dropdown': function(e,t){
 
-		// Template.instance().collapsDropdown();
+		Template.instance().collapsDropdown();
 
 	},
 	'click .dropdown_trigger': function(e,t){
