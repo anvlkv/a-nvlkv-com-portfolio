@@ -5,6 +5,8 @@
     "start": "meteor run"
   },
   "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "bcrypt": "^1.0.3",
     "fullpage.js": "^2.8.2",
     "jquery": "~1.11.3",
     "jquery-selectorator": "^0.1.6",

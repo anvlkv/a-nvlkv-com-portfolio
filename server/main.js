@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 
 Meteor.startup(() => {
 	// code to run on server at startup
-	process.env.MAIL_URL = Meteor.settings.admin.mailUrl;
+	// process.env.MAIL_URL = Meteor.settings.admin.mailUrl;
 
 	// remove for production
 	if (Meteor.users.find().count()<1) {

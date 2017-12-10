@@ -1,0 +1,20 @@
+{
+  "lockfileVersion": 1,
+  "dependencies": {
+    "length-stream": {
+      "version": "0.1.1",
+      "resolved": "https://registry.npmjs.org/length-stream/-/length-stream-0.1.1.tgz",
+      "integrity": "sha1-5ySxvi46lh1MQxNDfkllaRD65tY="
+    },
+    "pass-stream": {
+      "version": "0.1.5",
+      "resolved": "https://registry.npmjs.org/pass-stream/-/pass-stream-0.1.5.tgz",
+      "integrity": "sha1-njr6TVglzdE3YHW9tW3jbfszZJ8="
+    },
+    "readable-stream": {
+      "version": "1.0.2",
+      "resolved": "https://github.com/jeffbski/readable-stream/archive/v1.0.2-object-transform2-ret-self.tar.gz",
+      "integrity": "sha1-Ep5VOncxhmMui1iTnFjm9gdUK2M="
+    }
+  }
+}
